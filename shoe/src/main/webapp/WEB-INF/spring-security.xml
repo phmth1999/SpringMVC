@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/security
+      http://www.springframework.org/schema/security/spring-security-4.2.xsd
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+	<http auto-config="true">
+		<csrf disabled="true" />
+		<intercept-url pattern="/quan-tri/*" access="hasRole('ADMIN')" requires-channel="https"/>
+		<intercept-url pattern="/**" requires-channel="https"/>
+
+		<access-denied-handler error-page="/accessDenied" />
+
+		<form-login login-page="/dang-nhap" login-processing-url="/j_spring_security_check"
+			username-parameter="username" password-parameter="password"
+			authentication-success-handler-ref="customSuccesHandler"
+			authentication-failure-url="/dang-nhap?incorrectAccount" />
+		<session-management invalid-session-url="/dang-nhap?sessionTimeout" />
+
+		<logout delete-cookies="JSESSIONID" />
+
+	</http>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userDetailsServiceImpl">
+			<password-encoder ref="encoder"></password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="userDetailsServiceImpl"
+		class="com.springmvc.Service.User.Security.UserDetailsServiceImpl"></beans:bean>
+	<beans:bean id="customSuccesHandler" class="com.springmvc.Security.CustomSuccesHandler"></beans:bean>
+	<beans:bean id="encoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+	</beans:bean>
+</beans:beans>

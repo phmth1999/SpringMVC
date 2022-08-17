@@ -1,0 +1,104 @@
+.row table {
+	font-size: 16px;
+}
+.row table .count{
+	width: 10px;
+	max-width: 10px;
+	overflow: auto;
+	white-space: nowrap;
+}
+.row table .user{
+	width: 220px;
+	max-width: 220px;
+	overflow: auto;
+	white-space: nowrap;
+}
+.row table .phone{
+	width: 110px;
+	max-width: 110px;
+	overflow: auto;
+	white-space: nowrap;
+}
+.row table .fullname{
+	width: 150px;
+	max-width: 150px;
+	overflow: auto;
+	white-space: nowrap;
+}
+.container .row table .address{
+	width: 200px;
+	max-width: 200px;
+	overflow: auto;
+	white-space: nowrap;
+}
+.row table .total{
+	width: 10px;
+	max-width: 10px;
+	overflow: auto;
+	white-space: nowrap;
+}
+.row table .quanty{
+	width: 10px;
+	max-width: 10px;
+	overflow: auto;
+	white-space: nowrap;
+}
+.row table .quanty a{
+	color: black;
+	text-decoration: underline;
+}
+.row table .quanty a:hover{
+	color: blue;
+}
+.row table .role{
+	width: 150px;
+	max-width: 150px;
+	overflow: auto;
+	white-space: nowrap;
+}
+.row table .enabled{
+	width: 10px;
+	max-width: 10px;
+	overflow: auto;
+	white-space: nowrap;
+}
+.row table .sign{
+	width: 150px;
+	max-width: 150px;
+	overflow: auto;
+	white-space: nowrap;
+}
+.row table .data{
+	width: 150px;
+	max-width: 150px;
+	overflow: auto;
+	white-space: nowrap;
+}
+.row table .note{
+	width: 120px;
+	max-width: 120px;
+	overflow: auto;
+	white-space: nowrap;
+}
+.row table .edit{
+	width: 60px;
+	max-width: 60px;
+	overflow: auto;
+	white-space: nowrap;
+}
+.row table .img img{
+	width: 100px;
+	height: 100px
+}
+.row table .img{
+	width: 100px;
+}
+.linkGoBack{
+	text-align: center;
+}
+.linkGoBack a{
+	color: black;
+}
+.linkGoBack a:hover{
+	color: blue;
+}
