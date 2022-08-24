@@ -172,8 +172,6 @@ public class UserController {
 	public ModelAndView profile(@ModelAttribute("user") User user) throws Exception {
 		ModelAndView mav = null;
 		try {
-//			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//			if (!auth.getName().equals("anonymousUser")) {
 			if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
 				mav = new ModelAndView("user/account/profile");
 				mav.addObject("user", userService.getDataUserById(CustomSuccesHandler.getPrincipal().getId()));
@@ -194,8 +192,6 @@ public class UserController {
 			pageNum = Integer.parseInt(request.getParameter("page").toString());
 			}
 			Pageable pageable = new PageRequest((pageNum - 1), 6);
-//			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//			if (!auth.getName().equals("anonymousUser")) {
 			if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
 				mav = new ModelAndView("user/account/history");
 				Page<Bill> page = billService.getBillByIdUserLogin(CustomSuccesHandler.getPrincipal().getId(), pageable);
@@ -220,8 +216,6 @@ public class UserController {
 		ModelAndView mav = null;
 		try {
 			int idBill = Integer.parseInt(request.getParameter("idBill").toString());
-//			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//			if (!auth.getName().equals("anonymousUser")) {
 				if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
 				request.setAttribute("page", Integer.parseInt(session.getAttribute("page").toString()));
 				session.removeAttribute("page");

@@ -57,18 +57,25 @@ public class BillController {
 	NumberFormat numf = NumberFormat.getCurrencyInstance(lc);
 
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
-	public ModelAndView CheckOut() throws Exception {
+	public ModelAndView CheckOut(HttpSession session) throws Exception {
 		ModelAndView mav = null;
 		try {
 			if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
-				mav = new ModelAndView("user/bill/checkout");
-				Bill b = new Bill();
-				b.setUser(CustomSuccesHandler.getPrincipal().getEmail());
-				b.setFullname(CustomSuccesHandler.getPrincipal().getFullName());
-				mav.addObject("bill", b);
-				return mav;
+				if(session.getAttribute("Cart")!=null){
+					if(!session.getAttribute("Cart").toString().equals("{}")){
+						mav = new ModelAndView("user/bill/checkout");
+						Bill b = new Bill();
+						b.setUser(CustomSuccesHandler.getPrincipal().getEmail());
+						b.setFullname(CustomSuccesHandler.getPrincipal().getFullName());
+						mav.addObject("bill", b);
+					}else{
+						mav = new ModelAndView("redirect:/shop");
+					}
+				}else{
+					mav = new ModelAndView("redirect:/shop");
+				}
 			} else {
-				mav = new ModelAndView("user/account/login");
+				mav = new ModelAndView("redirect:/dang-nhap");
 				mav.addObject("user", new User());
 			}
 		} catch (Exception e) {
@@ -167,7 +174,8 @@ public class BillController {
 			session.setAttribute("hashHD", hashHD);
 			String content ="- Code hash md5 file HoaDon.pdf: " + hashHD +"\n"+"\n"+"- Link download Sign: " +"https://drive.google.com/drive/u/1/folders/18ECHJCudAoWvNIrO4Mh0NzKaUCoEs8zL";
 			SendEmail.Send(bill.getUser(), "Bills", content, hoadon);
-			mav = "redirect:sign";
+			
+			mav = "redirect:/sign";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -178,8 +186,24 @@ public class BillController {
 	public String sign(HttpSession session) throws Exception{
 		String mav = "";
 		try {
-			session.setAttribute("sign", "sign");
-			mav = "user/bill/checksign";
+			if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails){
+			if(session.getAttribute("Cart")!=null){
+				if(!session.getAttribute("Cart").toString().equals("{}")){
+					if(session.getAttribute("hoadon")!=null){
+						session.setAttribute("sign", "sign");
+						mav = "user/bill/checksign";
+					}else{
+					mav = "redirect:/checkout";
+					}
+				}else{
+				mav = "redirect:/shop";
+				}
+			}else{
+				mav = "redirect:/shop";
+			}
+			}else{
+				mav = "redirect:/dang-nhap";
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -215,7 +239,7 @@ public class BillController {
 				session.removeAttribute("hashHD");
 				session.removeAttribute("hd");
 				session.removeAttribute("fileDir");
-				mav = "redirect:history";
+				mav = "redirect:/history";
 			} else {
 				model.addAttribute("erro", "Chữ ký sai");
 				mav = "user/bill/checksign";
@@ -230,7 +254,11 @@ public class BillController {
 	public String updatePublickey()throws Exception {
 		String mav = "";
 		try {
+			if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails){
 			mav = "user/account/updatepublickey";
+			}else{
+				mav = "redirect:/dang-nhap";
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

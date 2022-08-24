@@ -19,6 +19,9 @@ public class Product {
 	
     @Column(name = "id_category")
     private int id_category;
+    
+    @Column(name = "id_brand")
+    private int id_brand;
 	
 	@Column(name="name")
 	private String name;
@@ -39,6 +42,14 @@ public class Product {
 	 * Product
 	 **/
 	public Product() {
+	}
+
+	public int getId_brand() {
+		return id_brand;
+	}
+
+	public void setId_brand(int id_brand) {
+		this.id_brand = id_brand;
 	}
 
 	/**

@@ -6,6 +6,7 @@
 		<class>com.springmvc.Entity.Bill</class>
 		<class>com.springmvc.Entity.BillDetail</class>
 		<class>com.springmvc.Entity.Category</class>
+		<class>com.springmvc.Entity.Brand</class>
 		<class>com.springmvc.Entity.Product</class>
 		<class>com.springmvc.Entity.Slide</class>
 		<class>com.springmvc.Entity.User</class>

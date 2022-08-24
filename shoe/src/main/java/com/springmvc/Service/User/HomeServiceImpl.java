@@ -7,9 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.springmvc.Dao.BrandRepository;
 import com.springmvc.Dao.CategoryRepository;
 import com.springmvc.Dao.ProductRepository;
 import com.springmvc.Dao.SlideRepository;
+import com.springmvc.Entity.Brand;
 import com.springmvc.Entity.Category;
 import com.springmvc.Entity.Product;
 import com.springmvc.Entity.Slide;
@@ -24,6 +26,9 @@ public class HomeServiceImpl {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private BrandRepository brandRepository;
 
 	@Autowired
 	private ProductRepository productRepository;
@@ -83,6 +88,26 @@ public class HomeServiceImpl {
 		Page<Product> listProduct = null;
 		try {
 			listProduct = productRepository.getPageProductByIdCategory(id, pageable);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listProduct;
+	}
+
+	public List<Brand> getAllDataBrand() throws Exception{
+		List<Brand> listBrand = null;
+		try {
+			listBrand = brandRepository.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listBrand;
+	}
+
+	public Page<Product> getPageProductByIdBrand(int id, Pageable pageable) throws Exception{
+		Page<Product> listProduct = null;
+		try {
+			listProduct = productRepository.getPageProductByIdBrand(id, pageable);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

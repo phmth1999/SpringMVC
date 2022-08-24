@@ -24,5 +24,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	
 	@Query("SELECT new com.springmvc.Dto.ProductJoinCategoryDto(p.id,p.name,p.price,p.img,p.quantity,c.name) FROM Product p,Category c WHERE p.id_category=c.id ORDER BY p.id DESC")
 	Page<ProductJoinCategoryDto> findAllProductJoinCategorySortDESC(Pageable pageable);
+
+	@Query("SELECT p FROM Product p where p.id_brand=?1 ORDER BY p.id DESC")
+	Page<Product> getPageProductByIdBrand(int id, Pageable pageable);
 	
 }

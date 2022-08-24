@@ -30,7 +30,7 @@ public class ShopController {
 			if(request.getParameter("page")!=null){
 			pageNum = Integer.parseInt(request.getParameter("page").toString());
 			}
-			Pageable pageable = new PageRequest((pageNum - 1), 6);
+			Pageable pageable = new PageRequest((pageNum - 1), 12);
 			Page<Product> page = homeService.getAllDataProduct(pageable);
 			List<Product> listPageProducts = page.getContent();
 			mav = new ModelAndView("user/product/shop");
@@ -41,6 +41,7 @@ public class ShopController {
 		    mav.addObject("totalItems", page.getTotalElements());
 		    mav.addObject("listPageProducts", listPageProducts);
 			mav.addObject("listAllCategory", homeService.getAllDataCategory());
+			mav.addObject("listAllBrand", homeService.getAllDataBrand());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,18 +56,48 @@ public class ShopController {
 			if(request.getParameter("page")!=null){
 			pageNum = Integer.parseInt(request.getParameter("page").toString());
 			}
-			Pageable pageable = new PageRequest((pageNum - 1), 2);
+			Pageable pageable = new PageRequest((pageNum - 1), 12);
 			Page<Product> page = homeService.getPageProductByIdCategory(i, pageable);
 			List<Product> listProductByCategory = page.getContent();
-			mav = new ModelAndView("user/product/category");
+			mav = new ModelAndView("user/product/shop");
 			mav.addObject("currentPage", pageNum);
 			mav.addObject("previous", pageNum-1);
 			mav.addObject("next", pageNum+1);
 			mav.addObject("totalPages", page.getTotalPages());
 		    mav.addObject("totalItems", page.getTotalElements());
-			mav.addObject("listProductByCategory", listProductByCategory);
+			mav.addObject("listPageProducts", listProductByCategory);
+			mav.addObject("categoryORbrand", "category");
 			mav.addObject("id", i);
 			mav.addObject("listAllCategory", homeService.getAllDataCategory());
+			mav.addObject("listAllBrand", homeService.getAllDataBrand());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+	@RequestMapping(value = "/brand/{id}", method = RequestMethod.GET)
+	public ModelAndView brand(HttpServletRequest request, @PathVariable String id) throws Exception {
+		ModelAndView mav = null;
+		try {
+			int i=Integer.parseInt(id);
+			int pageNum = 1;
+			if(request.getParameter("page")!=null){
+				pageNum = Integer.parseInt(request.getParameter("page").toString());
+			}
+			Pageable pageable = new PageRequest((pageNum - 1), 12);
+			Page<Product> page = homeService.getPageProductByIdBrand(i, pageable);
+			List<Product> listProductByBrand = page.getContent();
+			mav = new ModelAndView("user/product/shop");
+			mav.addObject("currentPage", pageNum);
+			mav.addObject("previous", pageNum-1);
+			mav.addObject("next", pageNum+1);
+			mav.addObject("totalPages", page.getTotalPages());
+			mav.addObject("totalItems", page.getTotalElements());
+			mav.addObject("listPageProducts", listProductByBrand);
+			mav.addObject("categoryORbrand", "brand");
+			mav.addObject("id", i);
+			mav.addObject("listAllCategory", homeService.getAllDataCategory());
+			mav.addObject("listAllBrand", homeService.getAllDataBrand());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
