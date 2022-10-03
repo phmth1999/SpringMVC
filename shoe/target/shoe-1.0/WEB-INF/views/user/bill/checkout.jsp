@@ -10,7 +10,7 @@
 <body>
 	<section class="checkout-section spad">
 		<div class="container">
-			<form:form onSubmit="return checkSubmit()" action="checkout"
+			<form:form id="form"  action="checkout"
 				method="post" modelAttribute="bill" class="checkout-form">
 				<div class="row">
 					<div class="col-lg-6">
@@ -21,31 +21,31 @@
 							<div class="col-lg-12">
 								<label><spring:message code="fullname" /></label>
 								<form:input id="fullname" path="fullname" readonly="true"/>
+								<div id="fullname" class="form-message" style="color: red"></div>
 							</div>
 							<div class="col-lg-12">
 								<label><spring:message code="addressdelivery" /><span>*</span></label>
-								<form:input onkeyup="return checkAddress()" id="address" path="address" />
-								<span id="msgAddress" class="form-message" style="color: red"></span>
+								<form:input  id="address" path="address" />
+								<div id="msgAddress" class="form-message" style="color: red"></div>
 							</div>
-							<div class="col-lg-6">
+							<div class="col-lg-12">
 								<label><spring:message code="email" /></label>
 								<form:input id="email" type="email" path="user" readonly="true"/>
-								<span id="msgEmail" class="form-message" style="color: red"></span>
+								<div id="msgEmail" class="form-message" style="color: red"></div>
 							</div>
-							<div class="col-lg-6">
+							<div class="col-lg-12">
 								<label><spring:message code="phone" /><span>*</span></label>
-								<form:input onkeyup="return checkPhone()" id="phone" path="phone" />
-								<span id="msgPhone" class="form-message" style="color: red"></span>
+								<form:input  id="phone" path="phone" />
+								<div id="msgPhone" class="form-message" style="color: red"></div>
 							</div>
 							<div class="col-lg-12">
 								<label><spring:message code="note" /><span>*</span></label>
-								<br>
-								<form:select id="note" onkeyup="return checkNote()" path="note">
+								<form:select id="note"  path="note">
   									<form:option id="op" value="" hidden="true"></form:option>
   									<form:option id="op" value="Direct payment"></form:option>
   									<form:option id="op" value="Online payment"></form:option>
 								</form:select>
-								<span id="msgNote" class="form-message" style="color: red"></span>
+								<div id="msgNote" class="form-message" style="color: red"></div>
 							</div>
 							
 							<div class="col-lg-12">
@@ -96,68 +96,28 @@
 	</section>
 
 	<script>
-		function checkFullName() {
-			var ok = false;
-			var fullname = document.getElementById("fullname").value;
-			if (fullname == "") {
-				document.getElementById("msgFullName").innerHTML = "Bạn không thể để trống dữ liệu này";
-			} else {
-				document.getElementById("msgFullName").innerHTML = "";
-				ok = true;
-			}
-			return ok;
-		}
-		function checkAddress() {
-			var ok = false;
-			var address = document.getElementById("address").value;
-			if (address == "") {
-				document.getElementById("msgAddress").innerHTML = "Bạn không thể để trống dữ liệu này";
-			} else {
-				document.getElementById("msgAddress").innerHTML = "";
-				ok = true;
-			}
-			return ok;
-		}
-		function checkEmail() {
-			var ok = false;
-			var email = document.getElementById("email").value;
-			var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-			if (email == "") {
-				document.getElementById("msgEmail").innerHTML = "Bạn không thể để trống dữ liệu này";
-			} else if (!regex.test(email)) {
-				document.getElementById("msgEmail").innerHTML = "Trường này phải là email";
-			} else {
-				document.getElementById("msgEmail").innerHTML = "";
-				ok = true;
-			}
-			return ok;
-		}
-		function checkPhone() {
-			var ok = false;
-			var phone = document.getElementById("phone").value;
-			if (phone == "") {
-				document.getElementById("msgPhone").innerHTML = "Bạn không thể để trống dữ liệu này";
-			} else {
-				document.getElementById("msgPhone").innerHTML = "";
-				ok = true;
-			}
-			return ok;
-		}
-		function checkNote() {
-			var ok = false;
-			var note = document.getElementById("note").value;
-			if (note == "") {
-				document.getElementById("msgNote").innerHTML = "Bạn không thể để trống dữ liệu này";
-			} else {
-				document.getElementById("msgNote").innerHTML = "";
-				ok = true;
-			}
-			return ok;
-		}
-		function checkSubmit() {
-			return checkFullName() && checkAddress() && checkEmail()
-					&& checkPhone() && checkNote();
-		}
+		document
+		.addEventListener(
+				'DOMContentLoaded',
+				function() {
+					// Mong muốn của chúng ta
+					Validator({
+						form : '#form',
+						formGroupSelector : '.col-lg-12',
+						errorSelector : '.form-message',
+						rules : [
+								Validator
+										.isRequired('#address',
+												'Vui lòng nhập địa chỉ mà bạn nhận hàng'),
+								Validator
+										.isRequired('#note',
+												'Vui lòng chọn phương thức thanh toán'),
+								Validator
+										.isRequired('#phone',
+												'Vui lòng cung cấp đúng số điện thoại để việc giao hàng thuận tiện hơn')],
+					});
+
+				});
 	</script>
 </body>
 </html>

@@ -43,11 +43,25 @@ public class Product {
 	 **/
 	public Product() {
 	}
+	/**
+	 * setId
+	 * @param int id
+	 **/
+	public void setId(int id) {
+		this.id = id;
+	}
 
+	/**
+	 * getId_brand
+	 * @return int id_brand
+	 **/
 	public int getId_brand() {
 		return id_brand;
 	}
-
+	/**
+	 * setId_brand
+	 * @param int id_brand
+	 **/
 	public void setId_brand(int id_brand) {
 		this.id_brand = id_brand;
 	}
@@ -63,7 +77,6 @@ public class Product {
 	/**
 	 * setId_category
 	 * @param int id_category
-	 * @return void
 	 **/
 	public void setId_category(int id_category) {
 		this.id_category = id_category;
@@ -80,7 +93,6 @@ public class Product {
 	/**
 	 * setQuantity
 	 * @param int quantity
-	 * @return void
 	 **/
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
@@ -137,7 +149,6 @@ public class Product {
 	/**
 	 * setPrice
 	 * @param double price
-	 * @return void
 	 **/
 	public void setPrice(double price) {
 		this.price = price;
@@ -154,7 +165,6 @@ public class Product {
 	/**
 	 * setImg
 	 * @param String img
-	 * @return void
 	 **/
 	public void setImg(String img) {
 		this.img = img;

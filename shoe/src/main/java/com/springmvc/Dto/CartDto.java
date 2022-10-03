@@ -39,7 +39,6 @@ public class CartDto {
 	/**
 	 * setQuanty
 	 * @param int quanty
-	 * @return void
 	 **/
 	public void setQuanty(int quanty) {
 		this.quanty = quanty;
@@ -56,7 +55,6 @@ public class CartDto {
 	/**
 	 * setTotalPrice
 	 * @param double totalPrice
-	 * @return void
 	 **/
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
@@ -73,9 +71,9 @@ public class CartDto {
 	/**
 	 * setProduct
 	 * @param Product product
-	 * @return void
 	 **/
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+	
 }

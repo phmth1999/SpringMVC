@@ -40,6 +40,10 @@
 	<%@include file="/WEB-INF/views/layouts/user/header.jsp"%>
 
 	<decorator:body />
+	
+	<div class="backtop">
+    	<i class='glyphicon glyphicon-chevron-up'></i>
+	</div>
 
 	<%@include file="/WEB-INF/views/layouts/user/footer.jsp"%>
 
@@ -58,7 +62,6 @@
 	<script src="<c:url value="/template/user/js/main.js"/>"></script>
 	<script src="<c:url value="/template/validator/Validator.js"/>"></script>
 
-	<decorator:getProperty property="page.script"></decorator:getProperty> 
 
 </body>
 </html>

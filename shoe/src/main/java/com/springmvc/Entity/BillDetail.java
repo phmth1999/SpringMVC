@@ -46,7 +46,6 @@ public class BillDetail {
 	/**
 	 * setId_bill
 	 * @param int id_bill
-	 * @return void
 	 **/
 	public void setId_bill(int id_bill) {
 		this.id_bill = id_bill;
@@ -71,7 +70,6 @@ public class BillDetail {
 	/**
 	 * setId_product
 	 * @param int id_product
-	 * @return void
 	 **/
 	public void setId_product(int id_product) {
 		this.id_product = id_product;
@@ -88,7 +86,6 @@ public class BillDetail {
 	/**
 	 * setQuanty
 	 * @param int quanty
-	 * @return void
 	 **/
 	public void setQuanty(int quanty) {
 		this.quanty = quanty;
@@ -105,9 +102,16 @@ public class BillDetail {
 	/**
 	 * setTotal
 	 * @param double total
-	 * @return void
 	 **/
 	public void setTotal(double total) {
 		this.total = total;
 	}
+	/**
+	 * setId
+	 * @param int id
+	 **/
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 }

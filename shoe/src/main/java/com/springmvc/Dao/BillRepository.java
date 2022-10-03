@@ -13,9 +13,7 @@ import com.springmvc.Entity.Bill;
  **/
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Integer> {
-	@Query("SELECT b FROM Bill b ORDER BY b.id DESC")
-	Page<Bill>findAllDataBillSortDESC(Pageable pageable);
 	
-	@Query("SELECT b FROM Bill b WHERE b.id_user=?1 ORDER BY b.id DESC")
-	Page<Bill> findAllByIdUserLogin(int id, Pageable pageable);
+	@Query("SELECT b FROM Bill b WHERE b.id_user=?1")
+	Page<Bill> findAllBillByIdUserLogin(int id, Pageable pageable);
 }

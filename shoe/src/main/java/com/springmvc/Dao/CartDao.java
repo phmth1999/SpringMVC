@@ -24,18 +24,24 @@ public class CartDao {
 	 * @return HashMap<Integer, CartDto> cart
 	 * @throws Exception
 	 **/
-	public HashMap<Integer, CartDto> AddCart(int id, HashMap<Integer, CartDto> cart)throws Exception {
+	public HashMap<Integer, CartDto> AddCart(int id, HashMap<Integer, CartDto> cart, int quanty)throws Exception {
 		CartDto itemCart = new CartDto();
 		try {
 			Product product = productRepository.findOne(id);
 			if (product != null && cart.containsKey(id)) {
 				itemCart = cart.get(id);
-				itemCart.setQuanty(itemCart.getQuanty() + 1);
+				itemCart.setQuanty(itemCart.getQuanty() + quanty);
 				itemCart.setTotalPrice(itemCart.getQuanty() * itemCart.getProduct().getPrice());
 			} else {
-				itemCart.setProduct(product);
-				itemCart.setQuanty(1);
-				itemCart.setTotalPrice(product.getPrice());
+				if(quanty>1){
+					itemCart.setProduct(product);
+					itemCart.setQuanty(quanty);
+					itemCart.setTotalPrice(itemCart.getQuanty() * itemCart.getProduct().getPrice());
+				}else{
+					itemCart.setProduct(product);
+					itemCart.setQuanty(1);
+					itemCart.setTotalPrice(product.getPrice());
+				}
 			}
 			cart.put(id, itemCart);
 		} catch (Exception e) {

@@ -52,7 +52,6 @@ public class User {
 	/**
 	 * setPublickey
 	 * @param String publickey
-	 * @return void
 	 **/
 	public void setPublickey(String publickey) {
 		this.publickey = publickey;
@@ -61,7 +60,6 @@ public class User {
 	/**
 	 * setFullname
 	 * @param String fullname
-	 * @return void
 	 **/
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
@@ -84,7 +82,6 @@ public class User {
 	/**
 	 * setPhone
 	 * @param String phone
-	 * @return void
 	 **/
 	public void setPhone(String phone) {
 		this.phone = phone;
@@ -101,7 +98,6 @@ public class User {
 	/**
 	 * setRole
 	 * @param String role
-	 * @return void
 	 **/
 	public void setRole(String role) {
 		this.role = role;
@@ -118,7 +114,6 @@ public class User {
 	/**
 	 * setEnabled
 	 * @param int enabled
-	 * @return void
 	 **/
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
@@ -143,7 +138,6 @@ public class User {
 	/**
 	 * setUsername
 	 * @param String username
-	 * @return void
 	 **/
 	public void setUsername(String username) {
 		this.username = username;
@@ -160,7 +154,6 @@ public class User {
 	/**
 	 * setPassword
 	 * @param String password
-	 * @return void
 	 **/
 	public void setPassword(String password) {
 		this.password = password;
@@ -185,9 +178,16 @@ public class User {
 	/**
 	 * setAddress
 	 * @param String address
-	 * @return void
 	 **/
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	/**
+	 * setId
+	 * @param int id
+	 **/
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 }

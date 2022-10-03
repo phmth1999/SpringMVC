@@ -34,9 +34,9 @@
 				<li><a href="<c:url value='/quan-tri/product'/>"> DS sản phẩm </a></li>
 			</ul></li>
 	</ul>
-	<div class="sidebar-toggle sidebar-collapse">
+	<!-- <div class="sidebar-toggle sidebar-collapse">
 		<i class="	glyphicon glyphicon-th-list"
 			data-icon1="ace-icon fa fa-angle-double-left"
 			data-icon2="ace-icon fa fa-angle-double-right"></i>
-	</div>
+	</div> -->
 </div>

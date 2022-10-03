@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
  * @since 2022
  **/
 public class CustomSuccesHandler extends SimpleUrlAuthenticationSuccessHandler {
+	final static Logger logger = Logger.getLogger(CustomSuccesHandler.class);
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	
 	/**
@@ -40,6 +42,7 @@ public class CustomSuccesHandler extends SimpleUrlAuthenticationSuccessHandler {
 			super.handle(request, response, authentication);
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 
@@ -71,6 +74,7 @@ public class CustomSuccesHandler extends SimpleUrlAuthenticationSuccessHandler {
 			myUser = (MyUser) (SecurityContextHolder.getContext()).getAuthentication().getPrincipal();
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return myUser;
 	}
@@ -91,6 +95,7 @@ public class CustomSuccesHandler extends SimpleUrlAuthenticationSuccessHandler {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return results;
 	}
@@ -112,6 +117,7 @@ public class CustomSuccesHandler extends SimpleUrlAuthenticationSuccessHandler {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return url;
 	}
@@ -129,6 +135,7 @@ public class CustomSuccesHandler extends SimpleUrlAuthenticationSuccessHandler {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return false;
 	}
@@ -146,6 +153,7 @@ public class CustomSuccesHandler extends SimpleUrlAuthenticationSuccessHandler {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return false;
 	}

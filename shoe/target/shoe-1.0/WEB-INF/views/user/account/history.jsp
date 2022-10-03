@@ -56,9 +56,31 @@
 							<a href='<c:url value="/history?page=${currentPage } "/>'>&laquo;</a>
 							<%} %>
 							<!-- index -->
-  							<%for (int i = 1; i <= Integer.parseInt(request.getAttribute("totalPages").toString()); i++) {%>
-							<a <%if(current==i){ %>class="active"<%} %>
-							 href="./history?page=<%=i%>"><%=i %></a><%} %>
+							<%if(current == 1 && totalPage == 1){ %>
+								<a class="active" href="./history?page=1">1</a>
+							<%}else if(current == 1 && totalPage == 2){ %>
+								<%for (int i = 1; i <=2; i++) {%>
+								<a <%if(current==i){ %>class="active"<%} %>
+							 	href="./history?page=<%=i%>"><%=i %></a>
+							 	<%} %>
+							<%}else if(current<=totalPage-2 && totalPage!=0){ %>
+								<%if(current<=2 && totalPage!=0){ %>
+									<%for (int i = 1; i <=3; i++) {%>
+									<a <%if(current==i){ %>class="active"<%} %>
+							 		href="./history?page=<%=i%>"><%=i %></a>
+							 		<%} %>
+								<%}else if(current>2 && totalPage!=0){ %>
+  									<%for (int i = current-2; i <=current+2; i++) {%>
+									<a <%if(current==i){ %>class="active"<%} %>
+							 		href="./history?page=<%=i%>"><%=i %></a>
+							 		<%} %>
+							 	<%} %>
+							 <%}else if(current>totalPage-2 && totalPage!=0){ %>
+							 	<%for (int i = totalPage-4; i <=totalPage; i++) {%>
+								<a <%if(current==i){ %>class="active"<%} %>
+							 	href="./history?page=<%=i%>"><%=i %></a>
+							 	<%} %>
+							 <%} %>
   							<!-- next -->
 							 <%if(current<totalPage){ %>
   							<a href='<c:url value="/history?page=${next }"/>'>&raquo;</a>

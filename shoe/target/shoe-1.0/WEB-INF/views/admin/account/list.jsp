@@ -35,7 +35,7 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="table-responsive">
-									<table class="table table-bordered">
+									<table id="table" class="table table-bordered">
 										<thead>
 											<tr>
 												<th>STT</th>
@@ -50,7 +50,7 @@
 										</thead>
 										<tbody>
 											<c:forEach var="item" items="${listPageUsers }" varStatus = "index">
-												<tr>
+												<tr onload="">
 													<td class="count">${index.count + ((currentPage-1)*6)}</td>
 													<td class="user">${item.username}</td>
 													<td class="fullname">${item.fullname}</td>
@@ -58,10 +58,19 @@
 													<td class="phone">${item.phone}</td>
 													<td class="role">${item.role}</td>
 													<td class="enabled">${item.enabled}</td>
-													<td class="edit"><a class="btn btn-sm btn-primary btn-edit"
-														data-toggle="tooltip" title="Khóa tài khoản" href="#"><i
+													<c:if test="${item.role == 'ROLE_ADMIN'}">
+													<td class="edit"><a id="block" class="btn btn-sm btn-primary btn-edit"
+														data-toggle="tooltip" title="Khóa tài khoản" href='<c:url value="/quan-tri/user/lock?idUser=${item.id }" />'><i
 															class="glyphicon glyphicon-lock" aria-hidden="true"></i>
 													</a></td>
+													</c:if>
+													<c:if test="${item.role == 'ROLE_USER'}">
+													<td class="edit"><a class="btn btn-sm btn-primary btn-edit"
+														data-toggle="tooltip" title="Khóa tài khoản" href='<c:url value="/quan-tri/user/lock?idUser=${item.id }" />'><i
+															class="glyphicon glyphicon-lock" aria-hidden="true"></i>
+													</a></td>
+													</c:if>
+													
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -80,9 +89,31 @@
 								<a href='<c:url value="/quan-tri/user?page=${currentPage } "/>'>&laquo;</a>
 								<%} %>
 								<!-- index -->
-  								<%for (int i = 1; i <= Integer.parseInt(request.getAttribute("totalPages").toString()); i++) {%>
-								<a <%if(current==i){ %>class="active"<%} %>
-								href="./user?page=<%=i%>"><%=i %></a><%} %>
+								<%if(current == 1 && totalPage == 1){ %>
+									<a class="active" href="./user?page=1">1</a>
+								<%}else if(current == 1 && totalPage == 2){ %>
+									<%for (int i = 1; i <=2; i++) {%>
+										<a <%if(current==i){ %>class="active"<%} %>
+							 			href="./user?page=<%=i%>"><%=i %></a>
+							 		<%} %>
+								<%}else if(current<=totalPage-2 && totalPage!=0){ %>
+									<%if(current<=2 && totalPage!=0){ %>
+										<%for (int i = 1; i <=3; i++) {%>
+										<a <%if(current==i){ %>class="active"<%} %>
+							 			href="./user?page=<%=i%>"><%=i %></a>
+							 			<%} %>
+									<%}else if(current>2 && totalPage!=0){ %>
+  										<%for (int i = current-2; i <=current+2; i++) {%>
+										<a <%if(current==i){ %>class="active"<%} %>
+							 			href="./user?page=<%=i%>"><%=i %></a>
+							 			<%} %>
+							 		<%} %>
+							 	<%}else if(current>totalPage-2 && totalPage!=0){ %>
+							 		<%for (int i = totalPage-4; i <=totalPage; i++) {%>
+									<a <%if(current==i){ %>class="active"<%} %>
+							 		href="./user?page=<%=i%>"><%=i %></a>
+							 		<%} %>
+							 	<%} %>
   								<!-- next -->
 							 	<%if(current<totalPage){ %>
   								<a href='<c:url value="/quan-tri/user?page=${next }"/>'>&raquo;</a>
@@ -98,7 +129,7 @@
 	</div>
 	<!-- /.main-content -->
 	<script type="text/javascript">
-		
+	$("#block").attr("disabled", "disabled");
 	</script>
 </body>
 </html>

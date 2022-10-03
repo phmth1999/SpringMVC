@@ -14,27 +14,30 @@
 				<div class="col-lg-6 offset-lg-3">
 					<div class="register-form">
 						<h2>Profile</h2>
-						<form:form id="form" method="get" modelAttribute="user">
+						<form:form id="form" action="profile" method="post" modelAttribute="user">
 							<div class="group-input">
 								<label><spring:message code="email" /></label>
 								<form:input id="username" path="username" readonly="true"/>
 							</div>
 							<div class="group-input">
 								<label><spring:message code="fullname" /></label>
-								<form:input id="fullname" path="fullname" readonly="true"/>
+								<form:input id="fullname" path="fullname"/>
 							</div>
 							<div class="group-input">
 								<label><spring:message code="address" /></label>
-								<form:input id="address" path="address" readonly="true"/>
+								<form:input id="address" path="address"/>
 							</div>
 							<div class="group-input">
 								<label><spring:message code="phone" /></label>
-								<form:input id="phone" path="phone" readonly="true"/>
+								<form:input id="phone" path="phone"/>
 							</div>
 							<div class="group-input">
 								<label>Publickey</label>
-								<form:textarea  id="publickey" rows="5" path="publickey" readonly="true"/>
+								<form:textarea  id="publickey" rows="5" path="publickey"/>
 							</div>
+							<button type="submit" class="site-btn register-btn">
+								Edit
+							</button> 
 						</form:form>
 					</div>
 				</div>

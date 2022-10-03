@@ -51,7 +51,6 @@ public class Slide {
 	/**
 	 * setImg
 	 * @param String img
-	 * @return void
 	 **/
 	public void setImg(String img) {
 		this.img = img;
@@ -68,7 +67,6 @@ public class Slide {
 	/**
 	 * setCaption
 	 * @param String caption
-	 * @return void
 	 **/
 	public void setCaption(String caption) {
 		this.caption = caption;
@@ -85,9 +83,16 @@ public class Slide {
 	/**
 	 * setContent
 	 * @param String content
-	 * @return void
 	 **/
 	public void setContent(String content) {
 		this.content = content;
 	}
+	/**
+	 * setId
+	 * @param int id
+	 **/
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 }

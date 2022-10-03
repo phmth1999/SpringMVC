@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,12 +30,13 @@ import com.springmvc.Entity.Bill;
 import com.springmvc.Entity.BillDetail;
 import com.springmvc.Entity.User;
 import com.springmvc.Security.CustomSuccesHandler;
-import com.springmvc.Service.User.BillServiceImpl;
-import com.springmvc.Service.User.UserServiceImpl;
+import com.springmvc.Service.Impl.BillServiceImpl;
+import com.springmvc.Service.Impl.UserServiceImpl;
 import com.springmvc.Utils.SendEmail;
 
 @Controller
 public class UserController {
+	final static Logger logger = Logger.getLogger(UserController.class);
 	@SuppressWarnings("unused")
 	private static final Logger Log = Logger.getLogger(UserController.class);
 	
@@ -52,6 +54,7 @@ public class UserController {
 			mav.addObject("user", new User());
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -67,6 +70,7 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -78,6 +82,7 @@ public class UserController {
 			mav = new ModelAndView("redirect:/dang-nhap?accessDenied");
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -90,6 +95,7 @@ public class UserController {
 			mav.addObject("user", new User());
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -106,6 +112,7 @@ public class UserController {
 			session.setAttribute("tk", user);
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -117,6 +124,7 @@ public class UserController {
 			mav = "user/account/xacnhan";
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -137,6 +145,7 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return page;
 	}
@@ -154,19 +163,21 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return sb.toString();
 	}
 
 	@RequestMapping(value = "/checkUsername", method = RequestMethod.POST)
-	public @ResponseBody String checkUsername(HttpServletRequest req, @ModelAttribute("user") User user) throws Exception {
-		String userName = "";
+	public @ResponseBody boolean checkUsername(HttpServletRequest req, @ModelAttribute("user") User user) throws Exception {
+		boolean valid = false;
 		try {
-			userName = userService.findOneByUsername(user.getUsername());
+			valid = userService.checkUserName(user.getUsername());
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
-		return userName;
+		return valid;
 	}
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public ModelAndView profile(@ModelAttribute("user") User user) throws Exception {
@@ -174,12 +185,25 @@ public class UserController {
 		try {
 			if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
 				mav = new ModelAndView("user/account/profile");
-				mav.addObject("user", userService.getDataUserById(CustomSuccesHandler.getPrincipal().getId()));
+				mav.addObject("user", userService.getAccountById(CustomSuccesHandler.getPrincipal().getId()));
 			}else{
 				mav = new ModelAndView("redirect:/dang-nhap");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
+		}
+		return mav;
+	}
+	@RequestMapping(value = "/profile", method = RequestMethod.POST)
+	public ModelAndView editProfile(@ModelAttribute("user") User user) throws Exception {
+		ModelAndView mav = null;
+		try {
+			userService.editProfile(user, CustomSuccesHandler.getPrincipal().getId());
+			mav = new ModelAndView("redirect:/profile");
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -191,10 +215,11 @@ public class UserController {
 			if(request.getParameter("page")!=null){
 			pageNum = Integer.parseInt(request.getParameter("page").toString());
 			}
-			Pageable pageable = new PageRequest((pageNum - 1), 6);
+			Sort sort =  new Sort(Sort.Direction.DESC, "id");
+			Pageable pageable = new PageRequest((pageNum - 1), 6, sort);
 			if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
 				mav = new ModelAndView("user/account/history");
-				Page<Bill> page = billService.getBillByIdUserLogin(CustomSuccesHandler.getPrincipal().getId(), pageable);
+				Page<Bill> page = billService.getAllBillByIdUserLogin(CustomSuccesHandler.getPrincipal().getId(), pageable);
 				List<Bill> listPageBills = page.getContent();
 				session.setAttribute("page", pageNum);
 				mav.addObject("currentPage", pageNum);
@@ -208,6 +233,7 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -226,6 +252,7 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}

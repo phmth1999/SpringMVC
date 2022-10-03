@@ -2,16 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/layouts/taglib.jsp"%>
 
-<div class="backtop">
+<!-- <div class="backtop">
     	<i class='glyphicon glyphicon-chevron-up'></i>
-</div>
+</div> -->
 <footer class="footer-section">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="footer-left">
 					<div class="footer-logo">
-						<a href="#"><img src="template/user/img/footer-logo.png"
+						<a href="#"><img src='<c:url value="/template/user/img/footer-logo.png" />'
 							alt=""></a>
 					</div>
 					<ul>
@@ -21,7 +21,7 @@
 					</ul>
 					<br>
 					<div class="payment-pic">
-						<img src="template/user/img/payment-method.png" alt="">
+						<img src='<c:url value="/template/user/img/payment-method.png" />' alt="">
 					</div>
 				</div>
 			</div>

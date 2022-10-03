@@ -45,9 +45,16 @@ public class Category {
 	/**
 	 * setName
 	 * @param String name
-	 * @return void
 	 **/
 	public void setName(String name) {
 		this.name = name;
 	}
+	/**
+	 * setId
+	 * @param int id
+	 **/
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 }

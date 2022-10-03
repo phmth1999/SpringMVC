@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.Dto.CartDto;
-import com.springmvc.Service.User.CartServiceImpl;
+import com.springmvc.Service.Impl.CartServiceImpl;
 
 @Controller
 public class CartController {
+	final static Logger logger = Logger.getLogger(CartController.class);
 	@Autowired
 	private CartServiceImpl cartService;
 
@@ -27,6 +29,7 @@ public class CartController {
 			mav = new ModelAndView("user/cart/list_cart");
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -41,12 +44,19 @@ public class CartController {
 			if (cart == null) {
 				cart = new HashMap<Integer, CartDto>();
 			}
-			cart = cartService.AddCart(id, cart);
+			if(request.getParameter("quanty")!=null){
+				int quanty = Integer.parseInt(request.getParameter("quanty").toString());
+				cart = cartService.AddCart(id, cart, quanty);
+				session.setAttribute("quanty", quanty);
+			}else{
+				cart = cartService.AddCart(id, cart, 1);
+			}
 			session.setAttribute("Cart", cart);
 			session.setAttribute("TotalQuantyCart", cartService.TotalQuanty(cart));
 			session.setAttribute("TotalPriceCart", cartService.TotalPrice(cart));
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -68,6 +78,7 @@ public class CartController {
 			session.setAttribute("TotalPriceCart", cartService.TotalPrice(cart));
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -88,6 +99,7 @@ public class CartController {
 			session.setAttribute("TotalPriceCart", cartService.TotalPrice(cart));
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}

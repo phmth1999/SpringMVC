@@ -30,13 +30,13 @@
 								<label for="username"><spring:message code="email" /> *</label>
 								<form:input id="email" type="email"
 									placeholder="Mời bạn nhập email" path="username" />
-								<span class="form-message" style="color: red"></span>
+								<div class="form-message" style="color: red"></div>
 							</div>
 							<div class="group-input">
 								<label for="password"><spring:message code="pass" /> *</label>
 								<form:input id="password" type="password"
 									placeholder="Mời bạn nhập mật khẩu" path="password" />
-								<span class="form-message" style="color: red"></span>
+								<div class="form-message" style="color: red"></div>
 							</div>
 							<button type="submit" class="site-btn login-btn">
 								<spring:message code="login" />
@@ -52,7 +52,28 @@
 		</div>
 	</div>
 	<!-- Register Form Section End -->
+<script>
+document
+.addEventListener(
+		'DOMContentLoaded',
+		function() {
+			// Mong muốn của chúng ta
+			Validator({
+				form : '#form-login',
+				formGroupSelector : '.group-input',
+				errorSelector : '.form-message',
+				rules : [
+						Validator
+								.isRequired('#email',
+										'Vui lòng nhập đầy đủ'),
+						Validator
+								.isRequired('#password',
+										'Vui lòng nhập đầy đủ')],
+			});
 
+		});
+
+</script>
 
 </body>
 </html>

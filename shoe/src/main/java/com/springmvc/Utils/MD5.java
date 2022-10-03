@@ -4,7 +4,19 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.security.MessageDigest;
 
+import org.apache.log4j.Logger;
+/**
+ * @author PhamMinhThien
+ * @since 2022
+ **/
 public class MD5 {
+	final static Logger logger = Logger.getLogger(MD5.class);
+	/**
+	 * getMD5File
+	 * @param File file
+	 * @return byte[] byteData
+	 * @throws Exception
+	 **/
 	public static String getMD5File(File file) {
 		MessageDigest md;
 		try {
@@ -20,13 +32,25 @@ public class MD5 {
 			return convertByteToHex(byteData);
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			throw new RuntimeException(e);
 		}
 	}
-	public static String convertByteToHex(byte[] data) {
+	/**
+	 * convertByteToHex
+	 * @param byte[] data
+	 * @return StringBuilder sb.toString()
+	 * @throws Exception
+	 **/
+	public static String convertByteToHex(byte[] data)  throws Exception{
 		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < data.length; i++) {
-			sb.append(Integer.toString((data[i] & 0xff) + 0x100, 16).substring(1));
+		try {
+			for (int i = 0; i < data.length; i++) {
+				sb.append(Integer.toString((data[i] & 0xff) + 0x100, 16).substring(1));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
 		}
 		return sb.toString();
 	}

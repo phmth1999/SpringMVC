@@ -14,6 +14,6 @@ import com.springmvc.Entity.BillDetail;
 @Repository
 public interface BillDetailRepository extends JpaRepository<BillDetail, Integer> {
 	@Query("SELECT new com.springmvc.Dto.BillDetailJoinProductDto(b.id_bill,p.img,p.name,p.price,b.quanty,b.total) FROM BillDetail b,Product p WHERE b.id_product=p.id and b.id_bill=?1 ORDER BY p.id DESC")
-	List<BillDetail> findAllByIdUserLogin(int id);
+	List<BillDetail> findAllBillDetailByIdUserLogin(int id);
 
 }

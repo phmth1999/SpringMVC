@@ -9,20 +9,6 @@
 <title>chi tiet san pham</title>
 </head>
 <body>
-	<!-- Breadcrumb Section Begin -->
-	<div class="breacrumb-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="breadcrumb-text product-more">
-						<a href='<c:url value="/trang-chu" />'><i class="fa fa-home"></i>
-							Home</a> <a href='<c:url value="/shop" />'>Shop</a> <span>Detail</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Breadcrumb Section Begin -->
 
 	<!-- Product Shop Section Begin -->
 	<section class="product-shop spad page-details">
@@ -31,7 +17,7 @@
 				<div class="col-lg-3">
 					<div class="filter-widget">
 						<h4 class="fw-title">Categories</h4>
-						<c:forEach var="item" items="${category }">
+						<c:forEach var="item" items="${listAllCategory }">
 							<ul class="filter-catagories">
 								<li><a href='<c:url value="/category/${item.id }" />'>${item.name }</a></li>
 							</ul>
@@ -39,30 +25,13 @@
 					</div>
 					<div class="filter-widget">
 						<h4 class="fw-title">Brand</h4>
-						<div class="fw-brand-check">
-							<div class="bc-item">
-								<label for="bc-calvin"> Calvin Klein <input
-									type="checkbox" id="bc-calvin"> <span class="checkmark"></span>
-								</label>
-							</div>
-							<div class="bc-item">
-								<label for="bc-diesel"> Diesel <input type="checkbox"
-									id="bc-diesel"> <span class="checkmark"></span>
-								</label>
-							</div>
-							<div class="bc-item">
-								<label for="bc-polo"> Polo <input type="checkbox"
-									id="bc-polo"> <span class="checkmark"></span>
-								</label>
-							</div>
-							<div class="bc-item">
-								<label for="bc-tommy"> Tommy Hilfiger <input
-									type="checkbox" id="bc-tommy"> <span class="checkmark"></span>
-								</label>
-							</div>
-						</div>
+						<c:forEach var="item" items="${listAllBrand }">
+							<ul class="filter-catagories">
+								<li><a href='<c:url value="/brand/${item.id }"/>'>${item.name }</a></li>
+							</ul>
+						</c:forEach>
 					</div>
-					<div class="filter-widget">
+					<!-- <div class="filter-widget">
 						<h4 class="fw-title">Price</h4>
 						<div class="filter-range-wrap">
 							<div class="range-slider">
@@ -82,8 +51,8 @@
 							</div>
 						</div>
 						<a href="#" class="filter-btn">Filter</a>
-					</div>
-					<div class="filter-widget">
+					</div> -->
+					<!-- <div class="filter-widget">
 						<h4 class="fw-title">Color</h4>
 						<div class="fw-color-choose">
 							<div class="cs-item">
@@ -111,8 +80,8 @@
 									class="cs-green" for="cs-green">Green</label>
 							</div>
 						</div>
-					</div>
-					<div class="filter-widget">
+					</div> -->
+					<!-- <div class="filter-widget">
 						<h4 class="fw-title">Size</h4>
 						<div class="fw-size-choose">
 							<div class="sc-item">
@@ -128,22 +97,22 @@
 								<input type="radio" id="xs-size"> <label for="xs-size">xs</label>
 							</div>
 						</div>
-					</div>
-					<div class="filter-widget">
+					</div> -->
+					<!-- <div class="filter-widget">
 						<h4 class="fw-title">Tags</h4>
 						<div class="fw-tags">
 							<a href="#">Towel</a> <a href="#">Shoes</a> <a href="#">Coat</a>
 							<a href="#">Dresses</a> <a href="#">Trousers</a> <a href="#">Men's
 								hats</a> <a href="#">Backpack</a>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<div class="col-lg-9">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="product-pic-zoom">
 								<img class="product-big-img"
-									src='<c:url value="/template/user/img/product-single/${product.img }" />'
+									src='<c:url value="/template/user/img/products/${product.img }" />'
 									 alt="">
 								<div class="zoom-icon">
 									<i class="fa fa-search-plus"></i>
@@ -152,27 +121,27 @@
 							<div class="product-thumbs">
 								<div class="product-thumbs-track ps-slider owl-carousel">
 									<div class="pt active"
-										data-imgbigurl="template/user/img/product-single/product-1.jpg">
+										data-imgbigurl="">
 										<img
-											src='<c:url value="/template/user/img/product-single/product-1.jpg"/>'
+											src='<c:url value="/template/user/img/products/${product.img }" />'
 											alt="">
 									</div>
 									<div class="pt"
-										data-imgbigurl="template/user/img/product-single/product-2.jpg">
+										data-imgbigurl="">
 										<img
-											src='<c:url value="/template/user/img/product-single/product-2.jpg"/>'
+											src='<c:url value="/template/user/img/products/${product.img }" />'
 											alt="">
 									</div>
 									<div class="pt"
-										data-imgbigurl="template/user/img/product-single/product-3.jpg">
+										data-imgbigurl="">
 										<img
-											src='<c:url value="/template/user/img/product-single/product-3.jpg"/>'
+											src='<c:url value="/template/user/img/products/${product.img }" />'
 											alt="">
 									</div>
 									<div class="pt"
-										data-imgbigurl="template/user/img/product-single/product-3.jpg">
+										data-imgbigurl="">
 										<img
-											src='<c:url value="/template/user/img/product-single/product-3.jpg"/>'
+											src='<c:url value="/template/user/img/products/${product.img }" />'
 											alt="">
 									</div>
 								</div>
@@ -181,24 +150,22 @@
 						<div class="col-lg-6">
 							<div class="product-details">
 								<div class="pd-title">
-									<span>oranges</span>
 									<h3>${product.name }</h3>
-									<a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
 								</div>
 								<div class="pd-rating">
 									<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 										class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star-o"></i> <span>(5)</span>
+										class="fa fa-star-o"></i>
 								</div>
 								<div class="pd-desc">
 									<p>Lorem ipsum dolor sit amet, consectetur ing elit, sed do
 										eiusmod tempor sum dolor sit amet, consectetur adipisicing
 										elit, sed do mod tempor</p>
 									<h4>
-										${product.price }$ <span>629.99</span>
+										<fmt:formatNumber pattern="#,##0 vnđ" value="${product.price }" />
 									</h4>
 								</div>
-								<div class="pd-color">
+								<!-- <div class="pd-color">
 									<h6>Color</h6>
 									<div class="pd-color-choose">
 										<div class="cc-item">
@@ -214,8 +181,8 @@
 												for="cc-violet" class="cc-violet"></label>
 										</div>
 									</div>
-								</div>
-								<div class="pd-size-choose">
+								</div> -->
+								<!-- <div class="pd-size-choose">
 									<div class="sc-item">
 										<input type="radio" id="sm-size"> <label for="sm-size">s</label>
 									</div>
@@ -228,26 +195,29 @@
 									<div class="sc-item">
 										<input type="radio" id="xl-size"> <label for="xl-size">xs</label>
 									</div>
-								</div>
+								</div> -->
 								<div class="quantity">
-									<div class="pro-qty">
-										<input type="text" value="1">
+								<form action='<c:url value="/addcart/${product.id }" />' method="get">
+									<div class="pro-qty-">
+										<span class="dec qtybtn ">-</span>
+										<input name="quanty" type="text" value="${quanty }">
+										<span class="inc qtybtn ">+</span>
 									</div>
-									<a href='<c:url value="/addcart/${product.id_product }" />'
-										class="primary-btn pd-cart">Add To Cart</a>
+									<button class="primary-btn pd-cart" type="submit">Add To Cart</button>
+								</form>
 								</div>
 								<ul class="pd-tags">
 									<li><span>CATEGORIES</span>: More Accessories, Wallets and Cases</li>
 									<li><span>TAGS</span>: Clothing, T-shirt, Woman</li>
 								</ul>
-								<div class="pd-share">
+								<!-- <div class="pd-share">
 									<div class="p-code">Sku : 00012</div>
 									<div class="pd-social">
 										<a href="#"><i class="ti-facebook"></i></a> <a href="#"><i
 											class="ti-twitter-alt"></i></a> <a href="#"><i
 											class="ti-linkedin"></i></a>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
@@ -283,7 +253,7 @@
 													consequat. Duis aute irure dolor in</p>
 											</div>
 											<div class="col-lg-5">
-												<img src="template/user/img/product-single/tab-desc.jpg"
+												<img src='<c:url value="/template/user/img/product-single/tab-desc.jpg" />'
 													alt="">
 											</div>
 										</div>
@@ -351,7 +321,7 @@
 										<div class="comment-option">
 											<div class="co-item">
 												<div class="avatar-pic">
-													<img src="template/user/img/product-single/avatar-1.png"
+													<img src='<c:url value="/template/user/img/product-single/avatar-1.png" />'
 														alt="">
 												</div>
 												<div class="avatar-text">
@@ -368,7 +338,7 @@
 											</div>
 											<div class="co-item">
 												<div class="avatar-pic">
-													<img src="template/user/img/product-single/avatar-2.png"
+													<img src='<c:url value="/template/user/img/product-single/avatar-2.png" />'
 														alt="">
 												</div>
 												<div class="avatar-text">
@@ -433,9 +403,9 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-3 col-sm-6">
-					<div class="product-item">
+					<!-- <div class="product-item">
 						<div class="pi-pic">
-							<img src="template/user/img/products/women-1.jpg" alt="">
+							<img src="" alt="">
 							<div class="sale">Sale</div>
 							<div class="icon">
 								<i class="icon_heart_alt"></i>
@@ -456,114 +426,12 @@
 								$14.00 <span>$35.00</span>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6">
-					<div class="product-item">
-						<div class="pi-pic">
-							<img src="template/user/img/products/women-2.jpg" alt="">
-							<div class="icon">
-								<i class="icon_heart_alt"></i>
-							</div>
-							<ul>
-								<li class="w-icon active"><a href="#"><i
-										class="icon_bag_alt"></i></a></li>
-								<li class="quick-view"><a href="#">+ Quick View</a></li>
-								<li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-							</ul>
-						</div>
-						<div class="pi-text">
-							<div class="catagory-name">Shoes</div>
-							<a href="#">
-								Guangzhou sweater
-							</a>
-							<div class="product-price">$13.00</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6">
-					<div class="product-item">
-						<div class="pi-pic">
-							<img src="template/user/img/products/women-3.jpg" alt="">
-							<div class="icon">
-								<i class="icon_heart_alt"></i>
-							</div>
-							<ul>
-								<li class="w-icon active"><a href="#"><i
-										class="icon_bag_alt"></i></a></li>
-								<li class="quick-view"><a href="#">+ Quick View</a></li>
-								<li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-							</ul>
-						</div>
-						<div class="pi-text">
-							<div class="catagory-name">Towel</div>
-							<a href="#">
-								Pure Pineapple
-							</a>
-							<div class="product-price">$34.00</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6">
-					<div class="product-item">
-						<div class="pi-pic">
-							<img src="template/user/img/products/women-4.jpg" alt="">
-							<div class="icon">
-								<i class="icon_heart_alt"></i>
-							</div>
-							<ul>
-								<li class="w-icon active"><a href="#"><i
-										class="icon_bag_alt"></i></a></li>
-								<li class="quick-view"><a href="#">+ Quick View</a></li>
-								<li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-							</ul>
-						</div>
-						<div class="pi-text">
-							<div class="catagory-name">Towel</div>
-							<a href="#">
-								Converse Shoes
-							</a>
-							<div class="product-price">$34.00</div>
-						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- Related Products Section End -->
 
-	<!-- Partner Logo Section Begin -->
-	<div class="partner-logo">
-		<div class="container">
-			<div class="logo-carousel owl-carousel">
-				<div class="logo-item">
-					<div class="tablecell-inner">
-						<img src="template/user/img/logo-carousel/logo-1.png" alt="">
-					</div>
-				</div>
-				<div class="logo-item">
-					<div class="tablecell-inner">
-						<img src="template/user/img/logo-carousel/logo-2.png" alt="">
-					</div>
-				</div>
-				<div class="logo-item">
-					<div class="tablecell-inner">
-						<img src="template/user/img/logo-carousel/logo-3.png" alt="">
-					</div>
-				</div>
-				<div class="logo-item">
-					<div class="tablecell-inner">
-						<img src="template/user/img/logo-carousel/logo-4.png" alt="">
-					</div>
-				</div>
-				<div class="logo-item">
-					<div class="tablecell-inner">
-						<img src="template/user/img/logo-carousel/logo-5.png" alt="">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Partner Logo Section End -->
 </body>
 </html>

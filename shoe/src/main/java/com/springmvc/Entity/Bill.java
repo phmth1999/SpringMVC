@@ -67,7 +67,6 @@ public class Bill {
 	/**
 	 * setData
 	 * @param String data
-	 * @return void
 	 **/
 	public void setData(String data) {
 		this.data = data;
@@ -84,7 +83,6 @@ public class Bill {
 	/**
 	 * setSign
 	 * @param String sign
-	 * @return void
 	 **/
 	public void setSign(String sign) {
 		this.sign = sign;
@@ -101,7 +99,6 @@ public class Bill {
 	/**
 	 * setFile
 	 * @param String file
-	 * @return void
 	 **/
 	public void setFile(String file) {
 		this.file = file;
@@ -126,7 +123,6 @@ public class Bill {
 	/**
 	 * setId_user
 	 * @param int id_user
-	 * @return void
 	 **/
 	public void setId_user(int id_user) {
 		this.id_user = id_user;
@@ -143,7 +139,6 @@ public class Bill {
 	/**
 	 * setUser
 	 * @param String user
-	 * @return void
 	 **/
 	public void setUser(String user) {
 		this.user = user;
@@ -160,7 +155,6 @@ public class Bill {
 	/**
 	 * setPhone
 	 * @param String phone
-	 * @return void
 	 **/
 	public void setPhone(String phone) {
 		this.phone = phone;
@@ -177,7 +171,6 @@ public class Bill {
 	/**
 	 * setFullname
 	 * @param String fullname
-	 * @return void
 	 **/
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
@@ -194,7 +187,6 @@ public class Bill {
 	/**
 	 * setAddress
 	 * @param String address
-	 * @return void
 	 **/
 	public void setAddress(String address) {
 		this.address = address;
@@ -211,7 +203,6 @@ public class Bill {
 	/**
 	 * setTotal
 	 * @param double total
-	 * @return void
 	 **/
 	public void setTotal(double total) {
 		this.total = total;
@@ -228,7 +219,6 @@ public class Bill {
 	/**
 	 * setQuanty
 	 * @param int quanty
-	 * @return void
 	 **/
 	public void setQuanty(int quanty) {
 		this.quanty = quanty;
@@ -245,9 +235,16 @@ public class Bill {
 	/**
 	 * setNote
 	 * @param String note
-	 * @return void
 	 **/
 	public void setNote(String note) {
 		this.note = note;
 	}
+	/**
+	 * setId
+	 * @param int id
+	 **/
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 }

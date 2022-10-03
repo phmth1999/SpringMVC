@@ -8,8 +8,37 @@
 ---------------------------------------------------------  */
 
 'use strict';
-
 (function ($) {
+	/*Active click category and brand*/
+	var path = window.location.href;
+	   $('.filter-catagories li a').each(function() {
+	      if (this.href === path) {
+	         $(this).addClass('active');
+	      }
+	   });
+	 
+	/*Search auto*/
+	 const firstPath = location.pathname.split('/')[1];
+	 $("#inputSearch").autocomplete({
+		    source: '/'+firstPath+'/'+'search',
+		    create: function() {
+		      $(this).data('ui-autocomplete')._renderItem = function(ul, item) {
+		    	
+		    	  console.log(firstPath);
+		    		  return $('<li>')
+		    		  .append('<a href="/'+firstPath+'/product/' + item.id + '" style="display:flex;justify-content: left;align-items: center;">'
+		        		  +'<div>'
+		        		  +'<img style="height: 100px;width: 100px;" class="icon" src="/'+firstPath+'/template/user/img/products/' + item.img + '" />'
+		        		  +'</div>'
+		        		  +'<div style="margin-left: 20px;font-size: 16px;">'
+		        		  + item.name
+		        		  +'</div>'
+		        		  +'</a>'
+		        		  )
+		        	  .appendTo(ul);
+		      };
+		    }
+	});
 	/* Backtop button event */
 	   $('.backtop').click(function(){
 	      $('html , body').animate({scrollTop:0},500);
@@ -217,10 +246,6 @@
         $(this).addClass('active');
     });
     
-    /*-------------------
-		Nice Select
-    --------------------- */
-    $('.sorting, .p-show').niceSelect();
 
     /*------------------
 		Single Product
@@ -241,23 +266,52 @@
     /*-------------------
 		Quantity change
 	--------------------- */
-    var proQty = $('.pro-qty');
-	proQty.prepend('<span class="dec qtybtn">-</span>');
-	proQty.append('<span class="inc qtybtn">+</span>');
-	proQty.on('click', '.qtybtn', function () {
+	$('.pro-qty').on('click', '.qtybtn', function () {
 		var $button = $(this);
 		var oldValue = $button.parent().find('input').val();
+		var newVal;
 		if ($button.hasClass('inc')) {
-			var newVal = parseFloat(oldValue) + 1;
+			newVal = parseFloat(oldValue) + 1;
 		} else {
 			// Don't allow decrementing below zero
-			if (oldValue > 0) {
-				var newVal = parseFloat(oldValue) - 1;
+			if (oldValue > 1) {
+				newVal = parseFloat(oldValue) - 1;
 			} else {
-				newVal = 0;
+				newVal = 1;
+			}
+		}
+		$button.parent().find('input').val(newVal);
+		
+		var id = $(this).data("id");
+		window.location = "editcart/" + id + "/" + newVal;
+	});
+	$('.pro-qty-').on('click', '.qtybtn', function () {
+		var $button = $(this);
+		var oldValue = $button.parent().find('input').val();
+		var newVal;
+		if ($button.hasClass('inc')) {
+			newVal = parseFloat(oldValue) + 1;
+		} else {
+			// Don't allow decrementing below zero
+			if (oldValue > 1) {
+				newVal = parseFloat(oldValue) - 1;
+			} else {
+				newVal = 1;
 			}
 		}
 		$button.parent().find('input').val(newVal);
 	});
-
+		/*-------------------------*/
+		 var id = $('.sorting').data("id");
+		 var sort = $('.sorting').val();
+		 if(sort!=null){
+			 let result = sort.substring(0, (sort.length)-(sort.split("=").pop().length))+id;
+		
+		 function selectElement(id, valueToSelect) {    
+			    let element = document.getElementById(id);
+			    element.value = valueToSelect;
+			}
+		 selectElement('sorting', result);
+		 }
+		 
 })(jQuery);

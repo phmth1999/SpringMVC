@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,9 +33,9 @@ import com.springmvc.Dto.CartDto;
 import com.springmvc.Entity.Bill;
 import com.springmvc.Entity.User;
 import com.springmvc.Security.CustomSuccesHandler;
-import com.springmvc.Service.User.BillServiceImpl;
-import com.springmvc.Service.User.CartServiceImpl;
-import com.springmvc.Service.User.UserServiceImpl;
+import com.springmvc.Service.Impl.BillServiceImpl;
+import com.springmvc.Service.Impl.CartServiceImpl;
+import com.springmvc.Service.Impl.UserServiceImpl;
 import com.springmvc.Utils.MD5;
 import com.springmvc.Utils.RandomChars;
 import com.springmvc.Utils.SendEmail;
@@ -44,6 +45,7 @@ import com.springmvc.Utils.coppyAndDelete;
 
 @Controller
 public class BillController {
+	final static Logger logger = Logger.getLogger(BillController.class);
 	CustomSuccesHandler email;
 	@Autowired
 	private BillServiceImpl billServiceImpl;
@@ -80,6 +82,7 @@ public class BillController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -178,6 +181,7 @@ public class BillController {
 			mav = "redirect:/sign";
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -206,6 +210,7 @@ public class BillController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -223,7 +228,7 @@ public class BillController {
 			String hd = (String) session.getAttribute("hd");
 			String fileDir = (String) session.getAttribute("fileDir");
 			String hashHD = (String) session.getAttribute("hashHD");
-			String key = userServiceImpl.getDataUserById(CustomSuccesHandler.getPrincipal().getId()).getPublickey();
+			String key = userServiceImpl.getAccountById(CustomSuccesHandler.getPrincipal().getId()).getPublickey();
 			if (VerSign.VerSignByHash(sign, hashHD, key) == true || VerSign.VerSignByFile(sign, hd, key) == true) {
 				b.setSign(sign);
 				b.setData(hashHD);
@@ -246,6 +251,7 @@ public class BillController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 		
@@ -261,6 +267,7 @@ public class BillController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 	}
@@ -269,7 +276,7 @@ public class BillController {
 			HttpSession session) throws Exception {
 		String mav = "";
 		try {
-			User user = userServiceImpl.getDataUserById(CustomSuccesHandler.getPrincipal().getId());
+			User user = userServiceImpl.getAccountById(CustomSuccesHandler.getPrincipal().getId());
 					String maxn = RandomChars.generateRandomChars();
 					session.setAttribute("maxn", maxn);
 					session.setAttribute("key", key);
@@ -278,6 +285,7 @@ public class BillController {
 					mav = "redirect:/xacnhan-publickey";
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return mav;
 		
@@ -290,6 +298,7 @@ public class BillController {
 				mav = "user/bill/xacnhan";
 			} catch (Exception e) {
 				e.printStackTrace();
+				logger.error(e);
 			}
 			return mav;
 		}
@@ -315,6 +324,7 @@ public class BillController {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				logger.error(e);
 			}
 			return page;
 		}

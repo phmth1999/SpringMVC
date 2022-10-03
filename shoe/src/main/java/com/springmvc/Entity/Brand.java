@@ -49,4 +49,12 @@ public class Brand {
 	public void setName(String name) {
 		this.name = name;
 	}
+	/**
+	 * setId
+	 * @param int id
+	 **/
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 }

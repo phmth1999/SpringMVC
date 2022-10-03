@@ -27,7 +27,6 @@ public class PaginateDto {
 	/**
 	 * setCurrentPage
 	 * @param int currentPage
-	 * @return void
 	 **/
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
@@ -44,7 +43,6 @@ public class PaginateDto {
 	/**
 	 * setLimit
 	 * @param int limit
-	 * @return void
 	 **/
 	public void setLimit(int limit) {
 		this.limit = limit;
@@ -61,7 +59,6 @@ public class PaginateDto {
 	/**
 	 * setStart
 	 * @param int start
-	 * @return void
 	 **/
 	public void setStart(int start) {
 		this.start = start;
@@ -78,7 +75,6 @@ public class PaginateDto {
 	/**
 	 * setEnd
 	 * @param int end
-	 * @return void
 	 **/
 	public void setEnd(int end) {
 		this.end = end;
@@ -95,7 +91,6 @@ public class PaginateDto {
 	/**
 	 * setTotalPage
 	 * @param int totalPage
-	 * @return void
 	 **/
 	public void setTotalPage(int totalPage) {
 		this.totalPage = totalPage;

@@ -11,6 +11,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+<%-- <link href="<c:url value="/template/user/css/style.css"/>"
+	rel="stylesheet"> --%>
 <link rel="stylesheet"
 	href="<c:url value='/template/admin/assets/css/bootstrap.min.css' />" />
 <link rel="stylesheet"
@@ -44,20 +46,32 @@
 	<%@include file="/WEB-INF/views/layouts/admin/header.jsp"%>
 
 	<div class="main-container" id="main-container">
-		<script type="text/javascript">
+		<!-- <script type="text/javascript">
 				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-		</script>
+		</script> -->
 		<%@include file="/WEB-INF/views/layouts/admin/menu.jsp"%>
 
 		<decorator:body />
-
+		
 		<%@include file="/WEB-INF/views/layouts/admin/footer.jsp"%>
-
-		<a href="#" id="btn-scroll-up"
-			class="btn-scroll-up btn btn-sm btn-inverse display"> <i
-			class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-		</a>
+		
 	</div>
+	<script>
+	/* Backtop button event */
+	   $('.backtop').click(function(){
+	      $('html , body').animate({scrollTop:0},500);
+	   });
+	   
+	   $('.backtop').hide();
+	   
+	   $(window).scroll(function(){
+	     if($(this).scrollTop()){
+	        $('.backtop').fadeIn();
+	     }else{
+	        $('.backtop').fadeOut();
+	     }
+	   });
+	</script>
 
 	<script
 		src="<c:url value='/template/admin/paging/jquery.twbsPagination.js' />"></script>

@@ -22,38 +22,38 @@
 								<label for=username><spring:message code="email" /> *</label>
 								<form:input id="username" onblur="checkUsernameExsist()"  type="text" placeholder="VD: a@gmail.com"
 									path="username" />
-								<span id="nameMsg" class="form-message" style="color: red"></span>
+								<div id="nameMsg" class="form-message" style="color: red"></div>
 							</div>
 							<div class="group-input">
 								<label for="password"><spring:message code="pass" /> *</label>
 								<form:input id="password" type="password"
 									placeholder="VD: 123456" path="password" />
-								<span class="form-message" style="color: red"></span>
+								<div class="form-message" style="color: red"></div>
 							</div>
 							<div class="group-input">
 								<label for="password_confirmation"><spring:message code="repass" />
 									*</label> <input id="password_confirmation" type="password"
-									placeholder="Mời bạn nhập lại mật khẩu" /> <span
-									class="form-message" style="color: red"></span>
+									placeholder="Mời bạn nhập lại mật khẩu" /> <div
+									class="form-message" style="color: red"></div>
 							</div>
 
 							<div class="group-input">
 								<label for="fullname"><spring:message code="fullname" /> *</label>
 								<form:input id="fullname" type="text"
 									placeholder="VD: Phạm Minh Thiện" path="fullname" />
-								<span class="form-message" style="color: red"></span>
+								<div class="form-message" style="color: red"></div>
 							</div>
 							<div class="group-input">
 								<label for="address"><spring:message code="address" /> *</label>
 								<form:input id="address" type="text"
 									placeholder="VD: Cai Lậy, Tiền Giang, Tp.HCM" path="address" />
-								<span class="form-message" style="color: red"></span>
+								<div class="form-message" style="color: red"></div>
 							</div>
 							<div class="group-input">
 								<label for="phone"><spring:message code="phone" /> *</label>
 								<form:input id="phone" type="text" placeholder="VD: 0378348419"
 									path="phone" />
-								<span class="form-message" style="color: red"></span>
+								<div class="form-message" style="color: red"></div>
 							</div>
 							<button type="submit" class="site-btn register-btn">
 								<spring:message code="register" />
@@ -85,7 +85,7 @@
 						$("#nameMsg").html("Vui lòng nhập email");
 					}else if(!regex.test(name)){
 						$("#nameMsg").html("Trường này phải là email");
-				    }else if(result=='Duplicate'){
+				    }else if(result==true){
 						$("#nameMsg").html("Email đã tồn tại");
 					}else{
 						$("#nameMsg").html("");

@@ -22,13 +22,16 @@
 									<th>Price</th>
 									<th>Quantity</th>
 									<th>Total</th>
-									<th>Edit</th>
 									<th><i class="ti-close"></i></th>
 								</tr>
 							</thead>
 							<tbody>
+							<%int count=0; %>
 								<c:forEach var="item" items="${Cart }">
-									<tr>
+								<%count++; %>
+								<%if(count%2==0){ %>
+									<tr class="tr">
+									<%} %>
 										<td class="cart-pic first-row"><img
 											src='<c:url value="/template/user/img/products/${item.value.product.img }" />'
 											alt=""></td>
@@ -40,20 +43,23 @@
 										<td class="qua-col first-row">
 											<div class="quantity">
 												<div class="pro-qty">
-													<input id="quanty-cart-${item.key }" type="text"
-														value="${item.value.quanty }">
+													<span data-id="${item.key }" class="dec qtybtn">-</span>
+													<%if(count%2==0){ %>
+													<input class="quantityInput" type="text" value="${item.value.quanty }">
+													<%}else{ %>
+													<input type="text" value="${item.value.quanty }">
+													<%} %>
+													<span data-id="${item.key }" class="inc qtybtn">+</span>
 												</div>
 											</div>
 										</td>
 										<td class="total-price first-row"><fmt:formatNumber pattern="#,##0 vnđ" value="${item.value.totalPrice}" />
 											</td>
-										<td class="close-td first-row"><button
-												data-id="${item.key }" class="primary-btn up-cart edit-cart"
-												type="button">edit</button></td>
 										<td class="close-td first-row"><a
 											href='<c:url value="/deletecart/${item.key }" />'><i
 												class="ti-close"></i></a></td>
 									</tr>
+									
 								</c:forEach>
 							</tbody>
 						</table>
@@ -78,14 +84,5 @@
 			</div>
 		</div>
 	</section>
-
-	 <content tag="script"> <script>
-		$(".edit-cart").on("click", function() {
-			var id = $(this).data("id");
-			var quanty = $("#quanty-cart-" + id).val();
-			window.location = "editcart/" + id + "/" + quanty;
-		});
-	</script></content>
-
 </body>
 </html>

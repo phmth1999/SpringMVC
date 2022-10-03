@@ -28,7 +28,7 @@
 										<a
 											class="btn btn-sm btn-primary btn-edit"
 											data-toggle="tooltip" title='Thêm sản phẩm'
-											href="<c:url value='/dang-ky'/>"><i class="glyphicon glyphicon-plus"></i> Thêm sản phẩm  </a>
+											href="<c:url value='/quan-tri/product/add'/>"><i class="glyphicon glyphicon-plus"></i> Thêm sản phẩm  </a>
 									</div>
 								</div>
 							</div>
@@ -42,6 +42,7 @@
 											<tr>
 												<th>STT</th>
 												<th>Category</th>
+												<th>Brand</th>
 												<th>Name</th>
 												<th>Image</th>
 												<th>Price</th>
@@ -60,19 +61,20 @@
 													<td class="count">${index.count}</td>
 													<%} %>
 													<td>${item.nameCategory}</td>
+													<td>${item.nameBrand}</td>
 													<td>${item.name}</td>
 													<td>${item.img}</td>
 													<td>${item.price}</td>
 													<td>${item.quantity}</td>
 													<td class="edit">
 													<a class="btn btn-sm btn-primary btn-edit"
-														data-toggle="tooltip" title="Sửa sản phẩm" href="#">
+														data-toggle="tooltip" title="Sửa sản phẩm" href='<c:url value="/quan-tri/product/edit?idProduct=${item.id }" />' >
 														<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
 													</a>
 													</td>
 													<td class="edit">
 													<a class="btn btn-sm btn-primary btn-edit"
-														data-toggle="tooltip" title="Hủy sản phẩm" href="#">
+														data-toggle="tooltip" title="Hủy sản phẩm" href='<c:url value="/quan-tri/product/delete?idProduct=${item.id }" />'>
 														<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
 													</a>
 													</td>
@@ -94,9 +96,31 @@
 								<a href='<c:url value="/quan-tri/product?page=${currentPage } "/>'>&laquo;</a>
 								<%} %>
 								<!-- index -->
-  								<%for (int i = 1; i <= Integer.parseInt(request.getAttribute("totalPages").toString()); i++) {%>
-								<a <%if(current==i){ %>class="active"<%} %>
-								 href="./product?page=<%=i%>"><%=i %></a><%} %>
+								<%if(current == 1 && totalPage == 1){ %>
+									<a class="active" href="./product?page=1">1</a>
+								<%}else if(current == 1 && totalPage == 2){ %>
+									<%for (int i = 1; i <=2; i++) {%>
+										<a <%if(current==i){ %>class="active"<%} %>
+							 			href="./product?page=<%=i%>"><%=i %></a>
+							 		<%} %>
+								<%}else if(current<=totalPage-2 && totalPage!=0){ %>
+									<%if(current<=2 && totalPage!=0){ %>
+										<%for (int i = 1; i <=3; i++) {%>
+										<a <%if(current==i){ %>class="active"<%} %>
+							 			href="./product?page=<%=i%>"><%=i %></a>
+							 			<%} %>
+									<%}else if(current>2 && totalPage!=0){ %>
+  										<%for (int i = current-2; i <=current+2; i++) {%>
+										<a <%if(current==i){ %>class="active"<%} %>
+							 			href="./product?page=<%=i%>"><%=i %></a>
+							 			<%} %>
+							 		<%} %>
+							 	<%}else if(current>totalPage-2 && totalPage!=0){ %>
+							 		<%for (int i = totalPage-4; i <=totalPage; i++) {%>
+									<a <%if(current==i){ %>class="active"<%} %>
+							 		href="./product?page=<%=i%>"><%=i %></a>
+							 		<%} %>
+							 	<%} %>
   								<!-- next -->
 							 	<%if(current<totalPage){ %>
   								<a href='<c:url value="/quan-tri/product?page=${next }"/>'>&raquo;</a>

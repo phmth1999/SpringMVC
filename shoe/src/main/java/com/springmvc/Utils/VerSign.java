@@ -9,48 +9,93 @@ import java.security.Signature;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
+import org.apache.log4j.Logger;
+/**
+ * @author PhamMinhThien
+ * @since 2022
+ **/
 public class VerSign {
+	final static Logger logger = Logger.getLogger(VerSign.class);
+	/**
+	 * readPublicKey
+	 * @param String key
+	 * @return PublicKey pubKey
+	 * @throws Exception
+	 **/
 	private static PublicKey readPublicKey(String key) throws Exception {
-		byte[] b = Base64.getDecoder().decode(key);
+		PublicKey pubKey = null;
+		try {
+			byte[] b = Base64.getDecoder().decode(key);
 
-		X509EncodedKeySpec spec = new X509EncodedKeySpec(b);
-		KeyFactory factory = KeyFactory.getInstance("RSA");
-		PublicKey pubKey = factory.generatePublic(spec);
+			X509EncodedKeySpec spec = new X509EncodedKeySpec(b);
+			KeyFactory factory = KeyFactory.getInstance("RSA");
+			pubKey = factory.generatePublic(spec);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+		}
 		return pubKey;
 	}
-
+	/**
+	 * VerSignByHash
+	 * @param String sign
+	 * @param String data
+	 * @param String PublicKey
+	 * @return boolean verfile
+	 * @throws Exception
+	 **/
 	public static boolean VerSignByHash(String sign, String data, String PublicKey) throws Exception {
-		PublicKey pubKey = readPublicKey(PublicKey);
+		boolean verfile = false;
+		try {
+			PublicKey pubKey = readPublicKey(PublicKey);
 
-		byte[] signToVer = Base64.getDecoder().decode(sign);
+			byte[] signToVer = Base64.getDecoder().decode(sign);
 
-		Signature rsa = Signature.getInstance("SHA256withRSA");
-		rsa.initVerify(pubKey);
+			Signature rsa = Signature.getInstance("SHA256withRSA");
+			rsa.initVerify(pubKey);
 
-		byte[] input = data.getBytes();
-			rsa.update(input);
+			byte[] input = data.getBytes();
+				rsa.update(input);
 
-		boolean verfile = rsa.verify(signToVer);
+			verfile = rsa.verify(signToVer);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+		}
 		return verfile;
 	}
+	/**
+	 * VerSignByFile
+	 * @param String sign
+	 * @param String data
+	 * @param String PublicKey
+	 * @return boolean verfile
+	 * @throws Exception
+	 **/
 	public static boolean VerSignByFile(String sign, String data, String PublicKey) throws Exception {
-		PublicKey pubKey = readPublicKey(PublicKey);
-		
-		byte[] signToVer = Base64.getDecoder().decode(sign);
-		
-		Signature rsa = Signature.getInstance("SHA256withRSA");
-		rsa.initVerify(pubKey);
-		
-		FileInputStream datafis = new FileInputStream(new File(data));
-		BufferedInputStream bis = new BufferedInputStream(datafis);
-		byte[] input = new byte[1024];
-		int len;
-		while ((len = bis.read(input)) != -1) {
-			rsa.update(input, 0, len);
-		};
-		bis.close();
-		
-		boolean verfile = rsa.verify(signToVer);
+		boolean verfile = false;
+		try {
+			PublicKey pubKey = readPublicKey(PublicKey);
+			
+			byte[] signToVer = Base64.getDecoder().decode(sign);
+			
+			Signature rsa = Signature.getInstance("SHA256withRSA");
+			rsa.initVerify(pubKey);
+			
+			FileInputStream datafis = new FileInputStream(new File(data));
+			BufferedInputStream bis = new BufferedInputStream(datafis);
+			byte[] input = new byte[1024];
+			int len;
+			while ((len = bis.read(input)) != -1) {
+				rsa.update(input, 0, len);
+			};
+			bis.close();
+			
+			verfile = rsa.verify(signToVer);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+		}
 		return verfile;
 	}
 }

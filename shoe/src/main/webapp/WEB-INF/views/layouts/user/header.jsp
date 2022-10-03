@@ -4,7 +4,6 @@
 <%@ page import="com.springmvc.Security.CustomSuccesHandler"%>
 <c:set var="lang" value="${pageContext.response.locale}" />
 
-
 <header class="header-section">
 	<div class="header-top">
 		<div class="container">
@@ -65,18 +64,16 @@
 			<div class="row">
 				<div class="col-lg-2 col-md-2">
 					<div class="logo">
-						<a href="./*"> <img src="template/user/img/logo.png" alt="">
+						<a href="./*"> <img src='<c:url value="/template/user/img/logo.png" />' alt="">
 						</a>
 					</div>
 				</div>
 				<div class="col-lg-7 col-md-7">
 					<div class="advanced-search">
-						<button type="button" class="category-btn">All Categories</button>
+						<!-- <button type="button" class="category-btn">All Categories</button> -->
 						<div class="input-group">
-							<input type="text" placeholder="What do you need?">
-							<button type="button">
-								<i class="ti-search"></i>
-							</button>
+								<input id="inputSearch" name="inputSearch" type="text" placeholder="What do you need?">
+								<button type="button"><i class="ti-search"></i></button>
 						</div>
 					</div>
 				</div>
@@ -96,9 +93,10 @@
 													<img src='<c:url value="/template/user/img/products/${item.value.product.img }" />' alt=""></td>
 													<td class="si-text">
 														<div class="product-selected">
-															${item.value.product.name } &emsp;&emsp; x${item.value.quanty }
-															&emsp;&emsp; <fmt:formatNumber pattern="#,##0 vnđ"
-																value="${item.value.totalPrice }" />
+															<div>${item.value.product.name }</div>
+															<div>x${item.value.quanty }</div>
+															<div><fmt:formatNumber pattern="#,##0 vnđ"
+																value="${item.value.totalPrice }" /></div>
 														</div>
 													</td>
 													<td class="si-close"><a

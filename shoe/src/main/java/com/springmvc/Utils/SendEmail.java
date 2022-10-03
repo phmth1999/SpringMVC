@@ -3,6 +3,8 @@ package com.springmvc.Utils;
 import java.io.File;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 import jakarta.mail.Authenticator;
 import jakarta.mail.BodyPart;
 import jakarta.mail.Message;
@@ -19,6 +21,7 @@ import jakarta.mail.internet.MimeMultipart;
  * @since 2022
  **/
 public class SendEmail {
+	final static Logger logger = Logger.getLogger(SendEmail.class);
 	/**
 	 * Send
 	 * @param String emailTo
@@ -70,6 +73,7 @@ public class SendEmail {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 }
