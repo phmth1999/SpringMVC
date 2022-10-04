@@ -83,7 +83,7 @@
 									</div>
 								</div> -->
 								<div class="order-btn">
-									<button id="submit" type="submit" class="site-btn place-btn">
+									<button type="submit" class="site-btn place-btn">
 										<spring:message code="checkout" />
 									</button>
 								</div>

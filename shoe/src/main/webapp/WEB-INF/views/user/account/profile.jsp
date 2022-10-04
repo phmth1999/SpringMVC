@@ -33,7 +33,7 @@
 							</div>
 							<div class="group-input">
 								<label>Publickey</label>
-								<form:textarea  id="publickey" rows="5" path="publickey"/>
+								<form:textarea  id="publickey" rows="5" path="publickey" readonly="true"/>
 							</div>
 							<button type="submit" class="site-btn register-btn">
 								Edit

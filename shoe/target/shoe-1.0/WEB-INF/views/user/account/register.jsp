@@ -106,6 +106,9 @@
 								errorSelector : '.form-message',
 								rules : [
 										Validator
+												.isRequired('#username',
+														'Vui lòng nhập đầy đủ'),
+										Validator
 												.isRequired('#fullname',
 														'Vui lòng nhập tên đầy đủ của bạn'),
 										Validator
