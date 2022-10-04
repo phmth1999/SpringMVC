@@ -137,8 +137,8 @@ ul.filter-catagories li a.active{
 	white-space: nowrap;
 }
 .container .row table .total{
-	width: 10px;
-	max-width: 10px;
+	width: 150px;
+	max-width: 150px;
 	overflow: auto;
 	white-space: nowrap;
 }

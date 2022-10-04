@@ -29,8 +29,8 @@
 							<td class="count">${index.count}</td>
 							<td class="img"><img src='<c:url value="/template/user/img/products/${item.img }" />' alt=""></td>
 							<td class="name">${item.name}</td>
-							<td class="price">${item.price}</td>
-							<td class="total">${item.total}</td>
+							<td class="price"><span><fmt:formatNumber pattern="#,##0 vnđ" value="${item.price}" /></span></td>
+							<td class="total"><span><fmt:formatNumber pattern="#,##0 vnđ" value="${item.total}" /></span></td>
 							<td class="quanty">${item.quanty}</td>
 						</tr>
 					</c:forEach>

@@ -35,7 +35,7 @@
 							<td class="phone">${item.phone}</td>
 							<td class="fullname">${item.fullname}</td>
 							<td class="address">${item.address}</td>
-							<td class="total">${item.total}</td>
+							<td class="total"><span><fmt:formatNumber pattern="#,##0 vnđ" value="${item.total}" /></span></td>
 							<td class="quanty"><a href='<c:url value="/history-detail?idBill=${item.id }" />'>${item.quanty}</a></td>
 							<td class="sign">${item.sign}</td>
 							<td class="data">${item.data}</td>
