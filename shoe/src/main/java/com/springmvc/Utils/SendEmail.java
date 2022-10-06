@@ -32,8 +32,8 @@ public class SendEmail {
 	 * @throws Exception
 	 **/
 	public static void Send(String emailTo, String subject, String content, String fileHoaDon) throws Exception {
-		final String username = "phmth1999@gmail.com";
-		final String password = "bosdgbarojbcjyuk";
+		final String username = "tranthien4649@gmail.com";
+		final String password = "ixjylfcxekuvykua";
 		
 		try {
 			Properties prop = new Properties();
@@ -49,7 +49,7 @@ public class SendEmail {
 			});
 
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("phmth1999@gmail.com"));
+			message.setFrom(new InternetAddress("tranthien4649@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
 			message.setSubject(subject);
 			

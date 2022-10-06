@@ -8,6 +8,7 @@
 <title>Đăng ký</title>
 </head>
 <body>
+
 	<div class="register-login-section spad">
 		<div class="container">
 			<div class="row">
@@ -16,44 +17,44 @@
 						<h2>
 							<spring:message code="register" />
 						</h2>
-						<form:form id="form" action="dang-ky" method="post"
+						<form:form id="form" onSubmit="return checkSubmit()" action="dang-ky" method="post"
 							modelAttribute="user">
 							<div class="group-input">
 								<label for=username><spring:message code="email" /> *</label>
-								<form:input id="username" onblur="checkUsernameExsist()"  type="text" placeholder="VD: a@gmail.com"
+								<form:input id="username" onkeyup="return checkUsernameExsist()"  type="text" placeholder="VD: a@gmail.com"
 									path="username" />
-								<div id="nameMsg" class="form-message" style="color: red"></div>
+								<span id="nameMsg" class="form-message" style="color: red"></span>
 							</div>
 							<div class="group-input">
 								<label for="password"><spring:message code="pass" /> *</label>
 								<form:input id="password" type="password"
 									placeholder="VD: 123456" path="password" />
-								<div class="form-message" style="color: red"></div>
+								<span class="form-message" style="color: red"></span>
 							</div>
 							<div class="group-input">
 								<label for="password_confirmation"><spring:message code="repass" />
 									*</label> <input id="password_confirmation" type="password"
-									placeholder="Mời bạn nhập lại mật khẩu" /> <div
-									class="form-message" style="color: red"></div>
+									placeholder="Mời bạn nhập lại mật khẩu" /> <span
+									class="form-message" style="color: red"></span>
 							</div>
 
 							<div class="group-input">
 								<label for="fullname"><spring:message code="fullname" /> *</label>
 								<form:input id="fullname" type="text"
 									placeholder="VD: Phạm Minh Thiện" path="fullname" />
-								<div class="form-message" style="color: red"></div>
+								<span class="form-message" style="color: red"></span>
 							</div>
 							<div class="group-input">
 								<label for="address"><spring:message code="address" /> *</label>
 								<form:input id="address" type="text"
 									placeholder="VD: Cai Lậy, Tiền Giang, Tp.HCM" path="address" />
-								<div class="form-message" style="color: red"></div>
+								<span class="form-message" style="color: red"></span>
 							</div>
 							<div class="group-input">
 								<label for="phone"><spring:message code="phone" /> *</label>
 								<form:input id="phone" type="text" placeholder="VD: 0378348419"
 									path="phone" />
-								<div class="form-message" style="color: red"></div>
+								<span class="form-message" style="color: red"></span>
 							</div>
 							<button type="submit" class="site-btn register-btn">
 								<spring:message code="register" />
@@ -72,7 +73,8 @@
 
 	<script>
 	 function checkUsernameExsist() {
-		$("#username").blur(function(){
+		/* $("#username").blur(function(){ */
+			var ok = false;
 			var name=$("#username").val();
 			var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 			$.ajax({
@@ -83,18 +85,25 @@
 				success:function(result){
 					if(name==""){
 						$("#nameMsg").html("Vui lòng nhập email");
+						ok = false;
 					}else if(!regex.test(name)){
 						$("#nameMsg").html("Trường này phải là email");
-				    }else if(result==true){
+						ok = false;
+				    }else if(result=='Duplicate'){
 						$("#nameMsg").html("Email đã tồn tại");
-					}else{
+						ok = false;
+					}else if(result=='Unique'){
 						$("#nameMsg").html("");
+						ok = true;
 					}
 				}
 			});
-		});
+		/* }); */
+		return ok;
 		} 
-
+	 function checkSubmit(){
+		 return checkUsernameExsist();
+	 }
 		document
 				.addEventListener(
 						'DOMContentLoaded',
@@ -105,9 +114,6 @@
 								formGroupSelector : '.group-input',
 								errorSelector : '.form-message',
 								rules : [
-										Validator
-												.isRequired('#username',
-														'Vui lòng nhập đầy đủ'),
 										Validator
 												.isRequired('#fullname',
 														'Vui lòng nhập tên đầy đủ của bạn'),

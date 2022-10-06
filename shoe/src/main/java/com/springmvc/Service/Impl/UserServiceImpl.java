@@ -76,17 +76,15 @@ public class UserServiceImpl implements UserService{
 	 * @return boolean
 	 * @throws Exception
 	 **/
-	public boolean checkUserName(String userName) throws Exception {
-		boolean valid = false;
+	public String checkUserName(String userName) throws Exception {
+		User entity = null;
 		try {
-			if(userRepository.findOneByUsername(userName) != null){
-				valid = true;
-			}
+			entity = userRepository.findOneByUsername(userName);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
 		}
-		return valid;
+		return (entity == null) ? "Unique" : "Duplicate";
 	}
 	
 	/**

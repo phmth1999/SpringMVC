@@ -169,15 +169,15 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/checkUsername", method = RequestMethod.POST)
-	public @ResponseBody boolean checkUsername(HttpServletRequest req, @ModelAttribute("user") User user) throws Exception {
-		boolean valid = false;
+	public @ResponseBody String checkUsername(HttpServletRequest req, @ModelAttribute("user") User user) throws Exception {
+		String res = "";
 		try {
-			valid = userService.checkUserName(user.getUsername());
+			 res = userService.checkUserName(user.getUsername());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
 		}
-		return valid;
+		return res;
 	}
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public ModelAndView profile(@ModelAttribute("user") User user) throws Exception {
