@@ -17,11 +17,11 @@
 						<h2>
 							<spring:message code="register" />
 						</h2>
-						<form:form id="form" onSubmit="return checkSubmit()" action="dang-ky" method="post"
+						<form:form id="form"  action="dang-ky" method="post"
 							modelAttribute="user">
 							<div class="group-input">
 								<label for=username><spring:message code="email" /> *</label>
-								<form:input id="username" onkeyup="return checkUsernameExsist()"  type="text" placeholder="VD: a@gmail.com"
+								<form:input id="username"   type="text" placeholder="VD: a@gmail.com"
 									path="username" />
 								<span id="nameMsg" class="form-message" style="color: red"></span>
 							</div>
@@ -72,38 +72,6 @@
 
 
 	<script>
-	 function checkUsernameExsist() {
-		/* $("#username").blur(function(){ */
-			var ok = false;
-			var name=$("#username").val();
-			var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-			$.ajax({
-				url: "${pageContext.request.contextPath}/checkUsername",
-				type: "post",
-				data:"username="+name,
-				dataType: "text",
-				success:function(result){
-					if(name==""){
-						$("#nameMsg").html("Vui lòng nhập email");
-						ok = false;
-					}else if(!regex.test(name)){
-						$("#nameMsg").html("Trường này phải là email");
-						ok = false;
-				    }else if(result=='Duplicate'){
-						$("#nameMsg").html("Email đã tồn tại");
-						ok = false;
-					}else if(result=='Unique'){
-						$("#nameMsg").html("");
-						ok = true;
-					}
-				}
-			});
-		/* }); */
-		return ok;
-		} 
-	 function checkSubmit(){
-		 return checkUsernameExsist();
-	 }
 		document
 				.addEventListener(
 						'DOMContentLoaded',
@@ -114,21 +82,15 @@
 								formGroupSelector : '.group-input',
 								errorSelector : '.form-message',
 								rules : [
-										Validator
-												.isRequired('#fullname',
-														'Vui lòng nhập tên đầy đủ của bạn'),
-										Validator
-												.isRequired('#address',
-														'Vui lòng nhập địa chỉ đầy đủ của bạn'),
-										Validator
-												.isRequired('#phone',
-														'Vui lòng nhập số điện thoại của bạn'),
+										Validator.isRequired('#username'),
+										Validator.isEmail('#username'),
+										Validator.isCheckEmail('#username'),
+										Validator.isRequired('#fullname','Vui lòng nhập tên đầy đủ của bạn'),
+										Validator.isRequired('#address','Vui lòng nhập địa chỉ đầy đủ của bạn'),
+										Validator.isRequired('#phone','Vui lòng nhập số điện thoại của bạn'),
 										Validator.minLength('#password', 3),
-										Validator
-												.isRequired('#password_confirmation'),
-										Validator
-												.isConfirmed(
-														'#password_confirmation',
+										Validator.isRequired('#password_confirmation'),
+										Validator.isConfirmed('#password_confirmation',
 														function() {
 															return document
 																	.querySelector('#form #password').value;

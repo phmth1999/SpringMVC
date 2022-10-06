@@ -178,6 +178,29 @@ Validator.isEmail = function(selector, message) {
 		}
 	};
 }
+Validator.isCheckEmail = function(selector, message) {
+	return {
+		selector : selector,
+		test : function(value) {
+			let ok = "";
+			$.ajax({
+				url: "/shoe/checkUsername",
+				async: false,  
+				type: "post",
+				data: $(selector).serialize(),
+				success:function(result){
+				  if(result=='Duplicate'){
+					ok = result;
+				  }else
+				  if(result=='Unique'){
+					ok = result;
+				  }
+				}
+			});
+			return ok!="Duplicate" ? undefined : 'Email đã tồn tại';
+		}
+	};
+}
 
 Validator.minLength = function(selector, min, message) {
 	return {
