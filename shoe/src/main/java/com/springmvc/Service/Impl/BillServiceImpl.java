@@ -19,10 +19,6 @@ import com.springmvc.Entity.BillDetail;
 import com.springmvc.Entity.Product;
 import com.springmvc.Security.CustomSuccesHandler;
 import com.springmvc.Service.BillService;
-/**
- * @author PhamMinhThien
- * @since 2022
- **/
 @Service
 public class BillServiceImpl implements BillService{
 	final static Logger logger = Logger.getLogger(BillServiceImpl.class);
@@ -35,11 +31,6 @@ public class BillServiceImpl implements BillService{
 	@Autowired
 	private BillDetailRepository billDetailRepository;
 
-	/**
-	 * getAllBill
-	 * @return List<Bill> listBill
-	 * @throws Exception
-	 **/
 	public Page<Bill> getAllBill(Pageable pageable) throws Exception {
 		Page<Bill> listBill = null;
 		try {
@@ -51,14 +42,6 @@ public class BillServiceImpl implements BillService{
 		return listBill;
 	}
 
-	/**
-	 * addBill
-	 * @param Bill bill
-	 * @param int quanty
-	 * @param double total
-	 * @return void
-	 * @throws Exception
-	 **/
 	public void addBill(Bill bill, int quanty, double total) throws Exception {
 		try {
 			int id_user = CustomSuccesHandler.getPrincipal().getId();
@@ -73,13 +56,6 @@ public class BillServiceImpl implements BillService{
 		
 	}
 
-	/**
-	 * addBillDetail
-	 * @param int idBill
-	 * @param HashMap<Integer, CartDto> cart
-	 * @return void
-	 * @throws Exception
-	 **/
 	public void addBillDetail(int idBill, HashMap<Integer, CartDto> cart) throws Exception {
 		try {
 			for (Map.Entry<Integer, CartDto> itemCart : cart.entrySet()) {

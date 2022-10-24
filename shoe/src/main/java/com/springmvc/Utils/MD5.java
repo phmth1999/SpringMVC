@@ -5,18 +5,8 @@ import java.io.FileInputStream;
 import java.security.MessageDigest;
 
 import org.apache.log4j.Logger;
-/**
- * @author PhamMinhThien
- * @since 2022
- **/
 public class MD5 {
 	final static Logger logger = Logger.getLogger(MD5.class);
-	/**
-	 * getMD5File
-	 * @param File file
-	 * @return byte[] byteData
-	 * @throws Exception
-	 **/
 	public static String getMD5File(File file) {
 		MessageDigest md;
 		try {
@@ -36,12 +26,6 @@ public class MD5 {
 			throw new RuntimeException(e);
 		}
 	}
-	/**
-	 * convertByteToHex
-	 * @param byte[] data
-	 * @return StringBuilder sb.toString()
-	 * @throws Exception
-	 **/
 	public static String convertByteToHex(byte[] data)  throws Exception{
 		StringBuffer sb = new StringBuffer();
 		try {

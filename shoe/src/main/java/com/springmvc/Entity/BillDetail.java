@@ -2,20 +2,10 @@ package com.springmvc.Entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
-/**
- * @author PhamMinhThien
- * @since 2022
- **/
 @Entity
 @Table(name = "billdetail")
-public class BillDetail {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+public class BillDetail extends BaseEntity{
 	
 	@Column(name="id_product")
 	private int id_product;
@@ -29,89 +19,38 @@ public class BillDetail {
 	@Column(name="total")
 	private double total;
 
-	/**
-	 * BillDetail
-	 **/
-	public BillDetail() {
-	}
-	
-	/**
-	 * getId_bill
-	 * @return int id_bill
-	 **/
-	public int getId_bill() {
-		return id_bill;
-	}
-
-	/**
-	 * setId_bill
-	 * @param int id_bill
-	 **/
-	public void setId_bill(int id_bill) {
-		this.id_bill = id_bill;
-	}
-
-	/**
-	 * getId
-	 * @return int id
-	 **/
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * getId_product
-	 * @return int id_product
-	 **/
 	public int getId_product() {
 		return id_product;
 	}
 
-	/**
-	 * setId_product
-	 * @param int id_product
-	 **/
 	public void setId_product(int id_product) {
 		this.id_product = id_product;
 	}
 
-	/**
-	 * getQuanty
-	 * @return int quanty
-	 **/
+	public int getId_bill() {
+		return id_bill;
+	}
+
+	public void setId_bill(int id_bill) {
+		this.id_bill = id_bill;
+	}
+
 	public int getQuanty() {
 		return quanty;
 	}
 
-	/**
-	 * setQuanty
-	 * @param int quanty
-	 **/
 	public void setQuanty(int quanty) {
 		this.quanty = quanty;
 	}
 
-	/**
-	 * getTotal
-	 * @return double total
-	 **/
 	public double getTotal() {
 		return total;
 	}
 
-	/**
-	 * setTotal
-	 * @param double total
-	 **/
 	public void setTotal(double total) {
 		this.total = total;
 	}
-	/**
-	 * setId
-	 * @param int id
-	 **/
-	public void setId(int id) {
-		this.id = id;
-	}
+
+	
 	
 }

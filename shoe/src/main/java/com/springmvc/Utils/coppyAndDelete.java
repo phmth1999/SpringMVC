@@ -7,18 +7,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.apache.log4j.Logger;
-/**
- * @author PhamMinhThien
- * @since 2022
- **/
 public class coppyAndDelete {
 	final static Logger logger = Logger.getLogger(coppyAndDelete.class);
-	/**
-	 * coppyAndDeleteFile
-	 * @param String from
-	 * @return String to
-	 * @throws Exception
-	 **/
 	public static void coppyAndDeleteFile(String from, String to) throws Exception{
 		InputStream inStream = null;
 		OutputStream outStream = null;

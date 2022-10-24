@@ -8,7 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AdminHomeController {
+	
 	final static Logger logger = Logger.getLogger(AdminHomeController.class);
+	
 	@RequestMapping(value = { "/quan-tri/", "/quan-tri/trang-chu" }, method = RequestMethod.GET)
 	public ModelAndView Index() throws Exception{
 		ModelAndView mav = new ModelAndView();

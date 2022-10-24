@@ -6,10 +6,11 @@ import org.springframework.data.domain.Pageable;
 import com.springmvc.Entity.User;
 
 public interface UserService {
-	public void addAccount(User user) throws Exception;
-	public Page<User> getAllAccount(Pageable pageable) throws Exception;
-	public User getAccountById(int id) throws Exception;
-	public String checkUserName(String userName) throws Exception;
-	public void addPublicKey(String key, int id) throws Exception;
-	public void blockUser(int id) throws Exception;
+	void addAccount(User user) throws Exception;
+	Page<User> getAllAccount(Pageable pageable) throws Exception;
+	User getAccountById(int id) throws Exception;
+	String checkUserName(String userName) throws Exception;
+	void addPublicKey(String key, int id) throws Exception;
+	void blockUser(int id) throws Exception;
+	void editProfile(User user, int id) throws Exception;
 }

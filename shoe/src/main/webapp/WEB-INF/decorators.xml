@@ -1,6 +1,6 @@
 <!DOCTYPE xml>
 <decorators defaultdir="/WEB-INF/views/layouts">
-	<decorator name="user" page="user.jsp">
+	<decorator name="web" page="web.jsp">
 		<pattern>/*</pattern>
 	</decorator>
 	<decorator name="admin" page="admin.jsp">

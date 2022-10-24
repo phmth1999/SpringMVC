@@ -16,30 +16,41 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.Entity.User;
-import com.springmvc.Service.Impl.UserServiceImpl;
+import com.springmvc.Service.UserService;
 
 @Controller
 public class AdminUserController {
+	
 	final static Logger logger = Logger.getLogger(AdminUserController.class);
+	
 	@Autowired
-	private UserServiceImpl userServiceImpl; 
+	private UserService userService; 
+	
+	private int checkPage(HttpServletRequest request, int pageNum) throws Exception{
+		try {
+			if (request.getParameter("page") != null) {
+				pageNum = Integer.parseInt(request.getParameter("page").toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+		}
+		return pageNum;
+	}
 	
 	@RequestMapping(value = "/quan-tri/user", method = RequestMethod.GET)
 	public ModelAndView ListUser(HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		try {
 			int pageNum = 1;
-			if(request.getParameter("page")!=null){
-			pageNum = Integer.parseInt(request.getParameter("page").toString());
-			}
 			Sort sort =  new Sort(Sort.Direction.ASC, "id");;
-			Pageable pageable = new PageRequest((pageNum - 1), 6, sort);
-			Page<User> page = userServiceImpl.getAllAccount(pageable);
+			Pageable pageable = new PageRequest((checkPage(request, pageNum) - 1), 6, sort);
+			Page<User> page = userService.getAllAccount(pageable);
 			List<User> listPageUsers = page.getContent();
 			mav = new ModelAndView("admin/account/list");
-			mav.addObject("currentPage", pageNum);
-			mav.addObject("previous", pageNum-1);
-			mav.addObject("next", pageNum+1);
+			mav.addObject("currentPage", checkPage(request, pageNum));
+			mav.addObject("previous", checkPage(request, pageNum)-1);
+			mav.addObject("next", checkPage(request, pageNum)+1);
 			mav.addObject("totalPages", page.getTotalPages());
 		    mav.addObject("totalItems", page.getTotalElements());
 		    mav.addObject("listPageUsers", listPageUsers);
@@ -54,19 +65,16 @@ public class AdminUserController {
 		ModelAndView mav = new ModelAndView();
 		try {
 			int id = Integer.parseInt(request.getParameter("idUser").toString());
-			userServiceImpl.blockUser(id);
+			userService.blockUser(id);
 			int pageNum = 1;
-			if(request.getParameter("page")!=null){
-			pageNum = Integer.parseInt(request.getParameter("page").toString());
-			}
 			Sort sort =  new Sort(Sort.Direction.ASC, "id");;
-			Pageable pageable = new PageRequest((pageNum - 1), 6, sort);
-			Page<User> page = userServiceImpl.getAllAccount(pageable);
+			Pageable pageable = new PageRequest((checkPage(request, pageNum) - 1), 6, sort);
+			Page<User> page = userService.getAllAccount(pageable);
 			List<User> listPageUsers = page.getContent();
 			mav = new ModelAndView("redirect:" + request.getHeader("Referer"));
-			mav.addObject("currentPage", pageNum);
-			mav.addObject("previous", pageNum-1);
-			mav.addObject("next", pageNum+1);
+			mav.addObject("currentPage", checkPage(request, pageNum));
+			mav.addObject("previous", checkPage(request, pageNum)-1);
+			mav.addObject("next", checkPage(request, pageNum)+1);
 			mav.addObject("totalPages", page.getTotalPages());
 		    mav.addObject("totalItems", page.getTotalElements());
 		    mav.addObject("listPageUsers", listPageUsers);

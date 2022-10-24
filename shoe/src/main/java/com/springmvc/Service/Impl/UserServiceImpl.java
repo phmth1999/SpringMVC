@@ -10,21 +10,12 @@ import org.springframework.stereotype.Service;
 import com.springmvc.Dao.UserRepository;
 import com.springmvc.Entity.User;
 import com.springmvc.Service.UserService;
-/**
- * @author PhamMinhThien
- * @since 2022
- **/
 @Service
 public class UserServiceImpl implements UserService{
 	final static Logger logger = Logger.getLogger(UserServiceImpl.class);
 	@Autowired
 	private UserRepository userRepository;
 	
-	/**
-	 * addAccount
-	 * @param User user
-	 * @throws Exception
-	 **/
 	public void addAccount(User user) throws Exception {
 		try {
 			user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
@@ -37,11 +28,6 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 
-	/**
-	 * getAllDataUserSortDESC
-	 * @return List<User> listUser
-	 * @throws Exception
-	 **/
 	public Page<User> getAllAccount(Pageable pageable) throws Exception {
 		Page<User> listUser = null;
 		try {
@@ -53,12 +39,6 @@ public class UserServiceImpl implements UserService{
 		return listUser;
 	}
 	
-	/**
-	 * getDataUserById
-	 * @param int id
-	 * @return User user
-	 * @throws Exception
-	 **/
 	public User getAccountById(int id) throws Exception {
 		User user = null;
 		try {
@@ -70,12 +50,6 @@ public class UserServiceImpl implements UserService{
 		return user;
 	}
 	
-	/**
-	 * checkUserName
-	 * @param String userName
-	 * @return boolean
-	 * @throws Exception
-	 **/
 	public String checkUserName(String userName) throws Exception {
 		User entity = null;
 		try {
@@ -87,12 +61,6 @@ public class UserServiceImpl implements UserService{
 		return (entity == null) ? "Unique" : "Duplicate";
 	}
 	
-	/**
-	 * addPublicKey
-	 * @param String key
-	 * @param int id
-	 * @throws Exception
-	 **/
 	public void addPublicKey(String key, int id) throws Exception {
 		User user = null;
 		try {
@@ -104,11 +72,6 @@ public class UserServiceImpl implements UserService{
 			logger.error(e);
 		}
 	}
-	/**
-	 * blockUser
-	 * @param int id
-	 * @throws Exception
-	 **/
 	public void blockUser(int id) throws Exception{
 		User user = null;
 		try {
@@ -124,12 +87,6 @@ public class UserServiceImpl implements UserService{
 			logger.error(e);
 		}
 	}
-	/**
-	 * editProfile
-	 * @param User user
-	 * @param int id
-	 * @throws Exception
-	 **/
 	public void editProfile(User user, int id) throws Exception{
 		try {
 			User userLogin = userRepository.findOne(id);

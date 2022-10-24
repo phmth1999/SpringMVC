@@ -2,18 +2,8 @@ package com.springmvc.Utils;
 
 import org.apache.log4j.Logger;
 
-/**
- * @author PhamMinhThien
- * @since 2022
- **/
 public class Convert {
 	final static Logger logger = Logger.getLogger(Convert.class);
-	/**
-	 * convertCategoryToInt
-	 * @param String name
-	 * @return int res
-	 * @throws Exception
-	 **/
 	public static int convertCategoryToInt(String name) throws Exception{
 		int res = 0;
 		try {
@@ -30,12 +20,6 @@ public class Convert {
 		}
 		return res;
 	}
-	/**
-	 * convertBrandToInt
-	 * @param String name
-	 * @return int res
-	 * @throws Exception
-	 **/
 	public static int convertBrandToInt(String name) throws Exception{
 		int res = 0;
 		try {

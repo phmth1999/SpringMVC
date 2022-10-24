@@ -17,33 +17,42 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.Entity.Bill;
-import com.springmvc.Service.Impl.BillServiceImpl;
+import com.springmvc.Service.BillService;
 
 @Controller
 public class AdminBillController {
+	
 	final static Logger logger = Logger.getLogger(AdminBillController.class);
 	
 	@Autowired
-	private BillServiceImpl billServiceImpl;
+	private BillService billService;
 	
+	private int checkPage(HttpServletRequest request, int pageNum) throws Exception{
+		try {
+			if (request.getParameter("page") != null) {
+				pageNum = Integer.parseInt(request.getParameter("page").toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+		}
+		return pageNum;
+	}
 
 	@RequestMapping(value = "/quan-tri/bill", method = RequestMethod.GET)
 	public ModelAndView ListBill(HttpServletRequest request, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		try {
 			int pageNum = 1;
-			if(request.getParameter("page")!=null){
-			pageNum = Integer.parseInt(request.getParameter("page").toString());
-			}
 			Sort sort =  new Sort(Sort.Direction.DESC, "id");
-			Pageable pageable = new PageRequest((pageNum - 1), 6, sort);
-			Page<Bill> page = billServiceImpl.getAllBill(pageable);
+			Pageable pageable = new PageRequest((checkPage(request, pageNum) - 1), 6, sort);
+			Page<Bill> page = billService.getAllBill(pageable);
 			List<Bill> listPageBills = page.getContent();
 			mav = new ModelAndView("admin/bill/list");
-			session.setAttribute("page", pageNum);
-			mav.addObject("currentPage", pageNum);
-			mav.addObject("previous", pageNum-1);
-			mav.addObject("next", pageNum+1);
+			session.setAttribute("page", checkPage(request, pageNum));
+			mav.addObject("currentPage", checkPage(request, pageNum));
+			mav.addObject("previous", checkPage(request, pageNum)-1);
+			mav.addObject("next", checkPage(request, pageNum)+1);
 			mav.addObject("totalPages", page.getTotalPages());
 		    mav.addObject("totalItems", page.getTotalElements());
 			mav.addObject("listPageBills", listPageBills);
@@ -61,7 +70,7 @@ public class AdminBillController {
 			session.removeAttribute("page");
 			int idBill = Integer.parseInt(request.getParameter("idBill").toString());
 			mav = new ModelAndView("admin/bill/list-detail");
-			mav.addObject("billDetail", billServiceImpl.getBillDetailByIdUserLogin(idBill));
+			mav.addObject("billDetail", billService.getBillDetailByIdUserLogin(idBill));
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);

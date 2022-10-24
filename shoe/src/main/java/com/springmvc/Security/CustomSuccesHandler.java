@@ -15,23 +15,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-/**
- * @author PhamMinhThien
- * @since 2022
- **/
 public class CustomSuccesHandler extends SimpleUrlAuthenticationSuccessHandler {
 	final static Logger logger = Logger.getLogger(CustomSuccesHandler.class);
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	
-	/**
-	 * handle
-	 * @param HttpServletRequest request
-	 * @param HttpServletResponse response
-	 * @param Authentication authentication
-	 * @return void
-	 * @throws ServletException 
-	 * @throws IOException 
-	 **/
 	@Override
 	protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 		try {
@@ -46,28 +33,14 @@ public class CustomSuccesHandler extends SimpleUrlAuthenticationSuccessHandler {
 		}
 	}
 
-	/**
-	 * getRedirectStrategy
-	 * @return RedirectStrategy redirectStrategy
-	 **/
 	public RedirectStrategy getRedirectStrategy() {
 		return redirectStrategy;
 	}
 
-	/**
-	 * setRedirectStrategy
-	 * @param RedirectStrategy redirectStrategy
-	 * @return void
-	 **/
 	public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
 		this.redirectStrategy = redirectStrategy;
 	}
 
-	/**
-	 * getPrincipal
-	 * @return MyUser myUser
-	 * @throws Exception
-	 **/
 	public static MyUser getPrincipal()throws Exception {
 		MyUser myUser = null;
 		try {
@@ -79,11 +52,6 @@ public class CustomSuccesHandler extends SimpleUrlAuthenticationSuccessHandler {
 		return myUser;
 	}
 
-	/**
-	 * getAuthorities
-	 * @return List<String> results
-	 * @throws Exception
-	 **/
 	@SuppressWarnings("unchecked")
 	public static List<String> getAuthorities() throws Exception{
 		List<String> results = new ArrayList<String>();
@@ -100,12 +68,6 @@ public class CustomSuccesHandler extends SimpleUrlAuthenticationSuccessHandler {
 		return results;
 	}
 
-	/**
-	 * determineTargetUrl
-	 * @param Authentication authentication
-	 * @return String url
-	 * @throws Exception 
-	 **/
 	private String determineTargetUrl(Authentication authentication) throws Exception {
 		String url = "";
 		try {
@@ -122,12 +84,6 @@ public class CustomSuccesHandler extends SimpleUrlAuthenticationSuccessHandler {
 		return url;
 	}
 
-	/**
-	 * isAdmin
-	 * @param List<String> roles
-	 * @return boolean
-	 * @throws Exception 
-	 **/
 	private boolean isAdmin(List<String> roles) throws Exception {
 		try {
 			if (roles.contains("ROLE_ADMIN")) {
@@ -140,12 +96,6 @@ public class CustomSuccesHandler extends SimpleUrlAuthenticationSuccessHandler {
 		return false;
 	}
 
-	/**
-	 * isUser
-	 * @param List<String> roles
-	 * @return boolean
-	 * @throws Exception
-	 **/
 	private boolean isUser(List<String> roles) throws Exception{
 		try {
 			if (roles.contains("ROLE_USER")) {

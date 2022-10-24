@@ -6,26 +6,15 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springmvc.Dao.CartDao;
+import com.springmvc.Dao.ICartDao;
 import com.springmvc.Dto.CartDto;
 import com.springmvc.Service.CartService;
-/**
- * @author PhamMinhThien
- * @since 2022
- **/
 @Service
 public class CartServiceImpl implements CartService{
 	final static Logger logger = Logger.getLogger(CartServiceImpl.class);
 	@Autowired
-	private CartDao cartDao;
+	private ICartDao cartDao;
 
-	/**
-	 * AddCart
-	 * @param int id
-	 * @param HashMap<Integer, CartDto> cart
-	 * @return HashMap<Integer, CartDto> listCartDto
-	 * @throws Exception
-	 **/
 	public HashMap<Integer, CartDto> AddCart(int id, HashMap<Integer, CartDto> cart, int quanty) throws Exception {
 		HashMap<Integer, CartDto> listCartDto = null;
 		try {
@@ -37,14 +26,6 @@ public class CartServiceImpl implements CartService{
 		return listCartDto;
 	}
 
-	/**
-	 * EditCart
-	 * @param int id
-	 * @param int quanty
-	 * @param HashMap<Integer, CartDto> cart
-	 * @return HashMap<Integer, CartDto> listCartDto
-	 * @throws Exception
-	 **/
 	public HashMap<Integer, CartDto> EditCart(int id, int quanty, HashMap<Integer, CartDto> cart) throws Exception {
 		HashMap<Integer, CartDto> listCartDto = null;
 		try {
@@ -56,13 +37,6 @@ public class CartServiceImpl implements CartService{
 		return listCartDto;
 	}
 
-	/**
-	 * DeleteCart
-	 * @param int id
-	 * @param HashMap<Integer, CartDto> cart
-	 * @return HashMap<Integer, CartDto> listCartDto
-	 * @throws Exception
-	 **/
 	public HashMap<Integer, CartDto> DeleteCart(int id, HashMap<Integer, CartDto> cart) throws Exception {
 		HashMap<Integer, CartDto> listCartDto = null;
 		try {
@@ -74,12 +48,6 @@ public class CartServiceImpl implements CartService{
 		return listCartDto;
 	}
 
-	/**
-	 * TotalQuanty
-	 * @param HashMap<Integer, CartDto> cart
-	 * @return int totalQuanty
-	 * @throws Exception
-	 **/
 	public int TotalQuanty(HashMap<Integer, CartDto> cart) throws Exception {
 		int totalQuanty = 0;
 		try {
@@ -91,12 +59,6 @@ public class CartServiceImpl implements CartService{
 		return totalQuanty;
 	}
 
-	/**
-	 * TotalPrice
-	 * @param HashMap<Integer, CartDto> cart
-	 * @return double totalPrice
-	 * @throws Exception
-	 **/
 	public double TotalPrice(HashMap<Integer, CartDto> cart) throws Exception {
 		double totalPrice = 0;
 		try {

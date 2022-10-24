@@ -18,19 +18,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.springmvc.Common.Constant;
 
-/**
- * @author Pham Minh Thien
- * @since 2022
- **/
 @Configuration
 @EnableJpaRepositories(basePackages = {"com.springmvc.Dao"})
 @EnableTransactionManagement
 public class JPAConfig {
-	/**
-	 * entityManagerFactory
-	 * @return LocalContainerEntityManagerFactoryBean em
-	 * @throws Exception
-	 **/
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws Exception {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -45,12 +36,6 @@ public class JPAConfig {
 		}
 		return em;
 	}
-	/**
-	 * transactionManager
-	 * @param EntityManagerFactory entityManagerFactory
-	 * @return JpaTransactionManager transactionManager
-	 * @throws Exception
-	 **/
 	@Bean
 	JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) throws Exception{
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
@@ -61,20 +46,11 @@ public class JPAConfig {
 		}
 		return transactionManager;
 	}
-	/**
-	 * exceptionTranslation
-	 * @return new PersistenceExceptionTranslationPostProcessor()
-	 **/
 	@Bean
 	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
 	
-	/**
-	 * dataSource
-	 * @return DriverManagerDataSource dataSource
-	 * @throws Exception
-	 **/
 	@Bean
 	public DataSource dataSource() throws Exception{
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -88,11 +64,6 @@ public class JPAConfig {
 		}
 		return dataSource;
 	}
-	/**
-	 * additionalProperties
-	 * @return Properties properties
-	 * @throws Exception
-	 **/
 	Properties additionalProperties() throws Exception{
 		Properties properties = new Properties();
 		try {

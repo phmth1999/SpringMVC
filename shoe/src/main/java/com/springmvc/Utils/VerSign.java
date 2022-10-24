@@ -10,18 +10,8 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 import org.apache.log4j.Logger;
-/**
- * @author PhamMinhThien
- * @since 2022
- **/
 public class VerSign {
 	final static Logger logger = Logger.getLogger(VerSign.class);
-	/**
-	 * readPublicKey
-	 * @param String key
-	 * @return PublicKey pubKey
-	 * @throws Exception
-	 **/
 	private static PublicKey readPublicKey(String key) throws Exception {
 		PublicKey pubKey = null;
 		try {
@@ -36,14 +26,6 @@ public class VerSign {
 		}
 		return pubKey;
 	}
-	/**
-	 * VerSignByHash
-	 * @param String sign
-	 * @param String data
-	 * @param String PublicKey
-	 * @return boolean verfile
-	 * @throws Exception
-	 **/
 	public static boolean VerSignByHash(String sign, String data, String PublicKey) throws Exception {
 		boolean verfile = false;
 		try {
@@ -64,14 +46,6 @@ public class VerSign {
 		}
 		return verfile;
 	}
-	/**
-	 * VerSignByFile
-	 * @param String sign
-	 * @param String data
-	 * @param String PublicKey
-	 * @return boolean verfile
-	 * @throws Exception
-	 **/
 	public static boolean VerSignByFile(String sign, String data, String PublicKey) throws Exception {
 		boolean verfile = false;
 		try {

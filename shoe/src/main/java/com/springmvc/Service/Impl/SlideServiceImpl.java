@@ -9,20 +9,11 @@ import org.springframework.stereotype.Service;
 import com.springmvc.Dao.SlideRepository;
 import com.springmvc.Entity.Slide;
 import com.springmvc.Service.SlideService;
-/**
- * @author PhamMinhThien
- * @since 2022
- **/
 @Service
 public class SlideServiceImpl implements SlideService{
 	final static Logger logger = Logger.getLogger(SlideServiceImpl.class);
 	@Autowired
 	private SlideRepository slideRepository;
-	/**
-	 * getAllSlide
-	 * @return List<Slide> listSile
-	 * @throws Exception
-	 **/
 	public List<Slide> getAllSlide() throws Exception {
 		List<Slide> listSile = null;
 		try {

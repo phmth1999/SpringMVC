@@ -17,30 +17,41 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.Dto.ProductJoinCategoryAndBrandDto;
-import com.springmvc.Service.Impl.ProductServiceImpl;
+import com.springmvc.Service.ProductService;
 
 @Controller
 public class AdminProductController {
+	
 	final static Logger logger = Logger.getLogger(AdminProductController.class);
+	
 	@Autowired
-	private ProductServiceImpl productServiceImpl; 
+	private ProductService productService; 
+	
+	private int checkPage(HttpServletRequest request, int pageNum) throws Exception{
+		try {
+			if (request.getParameter("page") != null) {
+				pageNum = Integer.parseInt(request.getParameter("page").toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+		}
+		return pageNum;
+	}
 	
 	@RequestMapping(value = "/quan-tri/product", method = RequestMethod.GET)
 	public ModelAndView ListProduct(HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		try {
 			int pageNum = 1;
-			if(request.getParameter("page")!=null){
-			pageNum = Integer.parseInt(request.getParameter("page").toString());
-			}
 			Sort sort =  new Sort(Sort.Direction.DESC, "id");
-			Pageable pageable = new PageRequest((pageNum - 1), 6, sort);
-			Page<ProductJoinCategoryAndBrandDto> page = productServiceImpl.getAllProductJoinCategoryAndBrand(pageable);
+			Pageable pageable = new PageRequest((checkPage(request, pageNum) - 1), 6, sort);
+			Page<ProductJoinCategoryAndBrandDto> page = productService.getAllProductJoinCategoryAndBrand(pageable);
 			List<ProductJoinCategoryAndBrandDto> listPageProducts = page.getContent();
 			mav = new ModelAndView("admin/product/list");
-			mav.addObject("currentPage", pageNum);
-			mav.addObject("previous", pageNum-1);
-			mav.addObject("next", pageNum+1);
+			mav.addObject("currentPage", checkPage(request, pageNum));
+			mav.addObject("previous", checkPage(request, pageNum)-1);
+			mav.addObject("next", checkPage(request, pageNum)+1);
 			mav.addObject("totalPages", page.getTotalPages());
 		    mav.addObject("totalItems", page.getTotalElements());
 			mav.addObject("listPageProducts", listPageProducts);
@@ -56,7 +67,7 @@ public class AdminProductController {
 		try {
 			mav = new ModelAndView("admin/product/edit");
 			int id = Integer.parseInt(request.getParameter("idProduct").toString());
-			ProductJoinCategoryAndBrandDto product = productServiceImpl.getProductJoinCategoryAndBrand(id);
+			ProductJoinCategoryAndBrandDto product = productService.getProductJoinCategoryAndBrand(id);
 			mav.addObject("product", product);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,7 +81,7 @@ public class AdminProductController {
 		try {
 			mav = new ModelAndView("redirect:/quan-tri/product");
 			int id = Integer.parseInt(request.getParameter("idProduct").toString());
-			productServiceImpl.deleteProduct(id);
+			productService.deleteProduct(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
@@ -82,7 +93,7 @@ public class AdminProductController {
 		ModelAndView mav = new ModelAndView();
 		try {
 			mav = new ModelAndView("redirect:/quan-tri/product");
-			productServiceImpl.editProductJoinCategoryAndBrand(product);
+			productService.editProductJoinCategoryAndBrand(product);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
@@ -107,7 +118,7 @@ public class AdminProductController {
 		ModelAndView mav = new ModelAndView();
 		try {
 			mav = new ModelAndView("redirect:/quan-tri/product");
-			productServiceImpl.addProductJoinCategoryAndBrand(product);
+			productService.addProductJoinCategoryAndBrand(product);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);

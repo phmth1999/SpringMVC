@@ -11,10 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.springmvc.Dto.ProductJoinCategoryAndBrandDto;
 import com.springmvc.Entity.Product;
-/**
- * @author PhamMinhThien
- * @since 2022
- **/
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("SELECT p FROM Product p where p.id_category=?1")

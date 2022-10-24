@@ -16,21 +16,8 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
-/**
- * @author PhamMinhThien
- * @since 2022
- **/
 public class SendEmail {
 	final static Logger logger = Logger.getLogger(SendEmail.class);
-	/**
-	 * Send
-	 * @param String emailTo
-	 * @param String subject
-	 * @param String content
-	 * @param String fileHoaDon
-	 * @return message
-	 * @throws Exception
-	 **/
 	public static void Send(String emailTo, String subject, String content, String fileHoaDon) throws Exception {
 		final String username = "tranthien4649@gmail.com";
 		final String password = "ixjylfcxekuvykua";

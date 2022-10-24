@@ -7,10 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.springmvc.Entity.Bill;
-/**
- * @author PhamMinhThien
- * @since 2022
- **/
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Integer> {
 	

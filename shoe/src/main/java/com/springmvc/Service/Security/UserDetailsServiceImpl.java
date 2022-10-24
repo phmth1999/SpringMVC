@@ -15,22 +15,12 @@ import org.springframework.stereotype.Service;
 import com.springmvc.Dao.UserRepository;
 import com.springmvc.Entity.User;
 import com.springmvc.Security.MyUser;
-/**
- * @author PhamMinhThien
- * @since 2022
- **/
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 	final static Logger logger = Logger.getLogger(UserDetailsServiceImpl.class);
 	@Autowired
 	private UserRepository userRepository;
 
-	/**
-	 * loadUserByUsername
-	 * @param String username
-	 * @return MyUser myUser
-	 * @throws UsernameNotFoundException
-	 **/
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MyUser myUser = null;
 		try {
