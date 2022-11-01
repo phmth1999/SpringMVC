@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.springmvc.Common.Constant;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.springmvc.Dao"})
+@EnableJpaRepositories(basePackages = {"com.springmvc.Repositories"})
 @EnableTransactionManagement
 public class JPAConfig {
 	@Bean

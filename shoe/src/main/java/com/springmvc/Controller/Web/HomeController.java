@@ -1,11 +1,13 @@
 package com.springmvc.Controller.Web;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.Service.ProductService;
@@ -22,8 +24,8 @@ public class HomeController {
 	@Autowired
 	private SlideService slideService;
 
-	@RequestMapping(value = { "/", "/trang-chu" }, method = RequestMethod.GET)
-	public ModelAndView Index() throws Exception {
+	@GetMapping({ "/", "/trang-chu" })
+	public ModelAndView Index(HttpServletRequest request, HttpSession httpSession) throws Exception {
 		ModelAndView mav = null;
 		try {
 			mav = new ModelAndView("web/index");

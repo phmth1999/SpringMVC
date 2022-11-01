@@ -39,7 +39,7 @@
 	href="<c:url value='/template/admin/sweetalert/sweetalert2.min.css' />" />
 <link rel="stylesheet"
 	href="<c:url value='/template/admin/css/list.css' />" />
-<link href="<c:url value="/template/user/css/pagination.css"/>"
+<link href="<c:url value="/template/web/css/pagination.css"/>"
 	rel="stylesheet" />
 </head>
 <body class="no-skin">

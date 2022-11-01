@@ -1,7 +1,6 @@
 package com.springmvc.Controller.Web;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,26 +18,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springmvc.Entity.Bill;
-import com.springmvc.Entity.BillDetail;
-import com.springmvc.Entity.User;
+import com.springmvc.Entity.BillEntity;
+import com.springmvc.Dto.UserDto;
+import com.springmvc.Entity.BillDetailEntity;
+import com.springmvc.Entity.UserEntity;
 import com.springmvc.Security.CustomSuccesHandler;
 import com.springmvc.Service.BillService;
 import com.springmvc.Service.UserService;
+import com.springmvc.Utils.RandomChars;
 import com.springmvc.Utils.SendEmail;
-
 @Controller
 public class UserController {
 	final static Logger logger = Logger.getLogger(UserController.class);
-	@SuppressWarnings("unused")
-	private static final Logger Log = Logger.getLogger(UserController.class);
 	
 	@Autowired
 	private UserService userService;
@@ -46,12 +43,12 @@ public class UserController {
 	@Autowired
 	private BillService billService;
 
-	@RequestMapping(value = "/dang-nhap", method = RequestMethod.GET)
+	@GetMapping("/dang-nhap")
 	public ModelAndView login() throws Exception{
 		ModelAndView mav = null;
 		try {
 			mav = new ModelAndView("web/account/login");
-			mav.addObject("user", new User());
+			mav.addObject("user", new UserEntity());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
@@ -59,7 +56,7 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/dang-xuat", method = RequestMethod.GET)
+	@GetMapping("/dang-xuat")
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = null;
 		try {
@@ -75,7 +72,7 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
+	@GetMapping("/accessDenied")
 	public ModelAndView accessDenied() throws Exception {
 		ModelAndView mav = null;
 		try {
@@ -87,12 +84,12 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/dang-ky", method = RequestMethod.GET)
+	@GetMapping("/dang-ky")
 	public ModelAndView Register()throws Exception {
 		ModelAndView mav = null;
 		try {
 			mav = new ModelAndView("web/account/register");
-			mav.addObject("user", new User());
+			mav.addObject("user", new UserEntity());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
@@ -100,12 +97,12 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/dang-ky", method = RequestMethod.POST)
-	public ModelAndView CreateAcc(@ModelAttribute("user") User user, HttpServletRequest request, HttpSession session) throws Exception {
+	@PostMapping("/dang-ky")
+	public ModelAndView CreateAcc(@ModelAttribute("user") UserEntity user, HttpServletRequest request, HttpSession session) throws Exception {
 		ModelAndView mav = null;
 		try {
 			mav = new ModelAndView("redirect:/xac-nhan");
-			String maxn = generateRandomChars();
+			String maxn = RandomChars.generateRandomChars();
 			session.setAttribute("maxn", maxn);
 			String n = null;
 			SendEmail.Send(user.getUsername(), "website", "Ma xac nhan: "+maxn, n);
@@ -116,8 +113,8 @@ public class UserController {
 		}
 		return mav;
 	}
-	// Chuyen qua trang xac nhan ma
-	@RequestMapping(value = "/xac-nhan", method = RequestMethod.GET)
+	
+	@GetMapping("/xac-nhan")
 	public String maxacnhan() throws Exception{
 		String mav = "";
 		try {
@@ -129,13 +126,12 @@ public class UserController {
 		return mav;
 	}
 
-	// Xu ly xac nhan ma de dang ky
-	@RequestMapping(value = "/xac-nhan", method = RequestMethod.POST)
+	@PostMapping("/xac-nhan")
 	public String xulymaxacnhan(HttpSession session, @RequestParam("maxacnhan") String maxacnhan, Model model) throws Exception {
 		String page = "";
 		try {
 			String maxn = (String) session.getAttribute("maxn");
-			User tk = (User) session.getAttribute("tk");
+			UserDto tk = (UserDto) session.getAttribute("tk");
 			if (maxn.equals(maxacnhan)) {
 				userService.addAccount(tk);
 				page = "redirect:/dang-nhap";
@@ -150,37 +146,8 @@ public class UserController {
 		return page;
 	}
 
-	// Tao ma xac nhan email
-	private String generateRandomChars()throws Exception {
-		String srcChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234556789";
-		int length = 5;
-		StringBuilder sb = null;
-		try {
-			sb = new StringBuilder();
-			Random random = new Random();
-			for (int i = 0; i < length; i++) {
-				sb.append(srcChars.charAt(random.nextInt(srcChars.length())));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e);
-		}
-		return sb.toString();
-	}
-
-	@RequestMapping(value = "/checkUsername", method = RequestMethod.POST)
-	public @ResponseBody String checkUsername(HttpServletRequest req, @ModelAttribute("user") User user) throws Exception {
-		String res = "";
-		try {
-			 res = userService.checkUserName(user.getUsername());
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e);
-		}
-		return res;
-	}
-	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	public ModelAndView profile(@ModelAttribute("user") User user) throws Exception {
+	@GetMapping("/profile")
+	public ModelAndView profile(@ModelAttribute("user") UserEntity user) throws Exception {
 		ModelAndView mav = null;
 		try {
 			if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
@@ -195,8 +162,9 @@ public class UserController {
 		}
 		return mav;
 	}
-	@RequestMapping(value = "/profile", method = RequestMethod.POST)
-	public ModelAndView editProfile(@ModelAttribute("user") User user) throws Exception {
+	
+	@PostMapping("/profile")
+	public ModelAndView editProfile(@ModelAttribute("user") UserDto user) throws Exception {
 		ModelAndView mav = null;
 		try {
 			userService.editProfile(user, CustomSuccesHandler.getPrincipal().getId());
@@ -207,8 +175,9 @@ public class UserController {
 		}
 		return mav;
 	}
-	@RequestMapping(value = "/history", method = RequestMethod.GET)
-	public ModelAndView history(@ModelAttribute("bill") Bill bill,HttpServletRequest request, HttpSession session) throws Exception {
+	
+	@GetMapping("/history")
+	public ModelAndView history(@ModelAttribute("bill") BillEntity bill,HttpServletRequest request, HttpSession session) throws Exception {
 		ModelAndView mav = null;
 		try {
 			int pageNum = 1;
@@ -219,8 +188,8 @@ public class UserController {
 			Pageable pageable = new PageRequest((pageNum - 1), 6, sort);
 			if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
 				mav = new ModelAndView("web/account/history");
-				Page<Bill> page = billService.getAllBillByIdUserLogin(CustomSuccesHandler.getPrincipal().getId(), pageable);
-				List<Bill> listPageBills = page.getContent();
+				Page<BillEntity> page = billService.getAllBillByIdUserLogin(CustomSuccesHandler.getPrincipal().getId(), pageable);
+				List<BillEntity> listPageBills = page.getContent();
 				session.setAttribute("page", pageNum);
 				mav.addObject("currentPage", pageNum);
 				mav.addObject("previous", pageNum-1);
@@ -237,8 +206,8 @@ public class UserController {
 		}
 		return mav;
 	}
-	@RequestMapping(value = "/history-detail", method = RequestMethod.GET)
-	public ModelAndView historyDetal(@ModelAttribute("billDetail") BillDetail billDetail, HttpServletRequest request, HttpSession session) throws Exception {
+	@GetMapping("/history-detail")
+	public ModelAndView historyDetal(@ModelAttribute("billDetail") BillDetailEntity billDetail, HttpServletRequest request, HttpSession session) throws Exception {
 		ModelAndView mav = null;
 		try {
 			int idBill = Integer.parseInt(request.getParameter("idBill").toString());

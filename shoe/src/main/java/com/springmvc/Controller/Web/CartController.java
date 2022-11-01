@@ -8,9 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.Dto.CartDto;
@@ -24,7 +23,7 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 
-	@RequestMapping(value = "/gio-hang", method = RequestMethod.GET)
+	@GetMapping("/gio-hang")
 	public ModelAndView Index() throws Exception{
 		ModelAndView mav = null;
 		try {
@@ -36,7 +35,7 @@ public class CartController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/addcart/{id}", method = RequestMethod.GET)
+	@GetMapping("/addcart/{id}")
 	public String AddCart(HttpServletRequest request, HttpSession session, @PathVariable int id) throws Exception {
 		String mav = "";
 		try {
@@ -63,9 +62,8 @@ public class CartController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/editcart/{id}/{quanty}", method = RequestMethod.GET)
-	public String EditCart(HttpServletRequest request, HttpSession session, @PathVariable int id,
-			@PathVariable int quanty) throws Exception {
+	@GetMapping("/editcart/{id}/{quanty}")
+	public String EditCart(HttpServletRequest request, HttpSession session, @PathVariable int id, @PathVariable int quanty) throws Exception {
 		String mav = "";
 		try {
 			mav = "redirect:" + request.getHeader("Referer");
@@ -85,7 +83,7 @@ public class CartController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/deletecart/{id}", method = RequestMethod.GET)
+	@GetMapping("/deletecart/{id}")
 	public String DeleteCart(HttpServletRequest request, HttpSession session, @PathVariable int id) throws Exception {
 		String mav = "";
 		try {

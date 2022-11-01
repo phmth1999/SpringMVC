@@ -11,13 +11,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.Dto.ProductJoinCategoryAndBrandDto;
 import com.springmvc.Service.ProductService;
+import com.springmvc.Utils.FileUploadUtil;
 
 @Controller
 public class AdminProductController {
@@ -39,7 +43,7 @@ public class AdminProductController {
 		return pageNum;
 	}
 	
-	@RequestMapping(value = "/quan-tri/product", method = RequestMethod.GET)
+	@GetMapping("/quan-tri/product")
 	public ModelAndView ListProduct(HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		try {
@@ -61,7 +65,7 @@ public class AdminProductController {
 		}
 		return mav;
 	}
-	@RequestMapping(value = "/quan-tri/product/edit", method = RequestMethod.GET)
+	@GetMapping("/quan-tri/product/edit")
 	public ModelAndView getEditProduct(HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		try {
@@ -75,7 +79,8 @@ public class AdminProductController {
 		}
 		return mav;
 	}
-	@RequestMapping(value = "/quan-tri/product/delete", method = RequestMethod.GET)
+	
+	@GetMapping("/quan-tri/product/delete")
 	public ModelAndView DeleteProduct(HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		try {
@@ -88,7 +93,8 @@ public class AdminProductController {
 		}
 		return mav;
 	}
-	@RequestMapping(value = "/quan-tri/product/edit", method = RequestMethod.POST)
+	
+	@PostMapping("/quan-tri/product/edit")
 	public ModelAndView postEditProduct(@ModelAttribute("product") ProductJoinCategoryAndBrandDto product,HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		try {
@@ -100,7 +106,8 @@ public class AdminProductController {
 		}
 		return mav;
 	}
-	@RequestMapping(value = "/quan-tri/product/add", method = RequestMethod.GET)
+	
+	@GetMapping("/quan-tri/product/add")
 	public ModelAndView getAddProduct(HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		try {
@@ -113,12 +120,24 @@ public class AdminProductController {
 		}
 		return mav;
 	}
-	@RequestMapping(value = "/quan-tri/product/add", method = RequestMethod.POST)
-	public ModelAndView postAddProduct(@ModelAttribute("product") ProductJoinCategoryAndBrandDto product,HttpServletRequest request) throws Exception {
-		ModelAndView mav = new ModelAndView();
+	
+	@PostMapping("/quan-tri/product/add")
+	public ModelAndView postAddProduct(@RequestParam("image") MultipartFile image, @ModelAttribute("product") ProductJoinCategoryAndBrandDto product,HttpServletRequest request) throws Exception {
+		ModelAndView mav = null;
+		
 		try {
-			mav = new ModelAndView("redirect:/quan-tri/product");
-			productService.addProductJoinCategoryAndBrand(product);
+			mav = new ModelAndView("admin/product/add");
+			String fileName = StringUtils.cleanPath(image.getOriginalFilename());
+			String uploadDir = "uploads/";
+			FileUploadUtil.saveFile(uploadDir, fileName, image);
+//			String path = request.getSession().getServletContext().getRealPath("/") + "resources/uploads/";
+//			System.out.println(path);
+//			FileUtils.forceMkdir(new File(path));
+//			File upload = new File(path + image.getOriginalFilename());
+//			image.transferTo(upload);
+			
+//			product.setImg(image.getOriginalFilename());
+//			productService.addProductJoinCategoryAndBrand(product);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);

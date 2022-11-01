@@ -172,42 +172,46 @@ Validator.isEmail = function(selector, message) {
 	return {
 		selector : selector,
 		test : function(value) {
-			var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-			return regex.test(value) ? undefined : message
-					|| 'Trường này phải là email';
+			const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+			return regex.test(value) ? undefined : message || 'Trường này phải là email';
 		}
 	};
 }
-Validator.isCheckEmail = function(selector, message) {
+Validator.checkEmailExist = function(selector, message) {
 	return {
 		selector : selector,
 		test : function(value) {
-			let ok = "";
+			let res = "";
 			$.ajax({
 				url: "/shoe/checkUsername",
 				async: false,  
 				type: "post",
 				data: $(selector).serialize(),
 				success:function(result){
-				  if(result=='Duplicate'){
-					ok = result;
-				  }else
-				  if(result=='Unique'){
-					ok = result;
-				  }
+					res = result;
 				}
 			});
-			return ok!="Duplicate" ? undefined : 'Email đã tồn tại';
+			return res!="Duplicate" ? undefined : message || 'Email đã tồn tại';
 		}
 	};
 }
 
-Validator.minLength = function(selector, min, message) {
+Validator.isPhone = function(selector, message) {
 	return {
 		selector : selector,
 		test : function(value) {
-			return value.length >= min ? undefined : message
-					|| `Vui lòng nhập tối thiểu ${min} kí tự`;
+			const regex = /^\d{10}$/;
+			return regex.test(value) ? undefined : message || 'Trường này phải là (0-9) và độ dài = 10';
+		}
+	};
+}
+
+Validator.isPassword = function(selector, message) {
+	return {
+		selector : selector,
+		test : function(value) {
+			const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])([0-9a-zA-Z]{8,})$/;
+			return regex.test(value) ? undefined : message || 'Password ít nhất có một (0-9,a-z,A-Z) và độ dài >= 8';
 		}
 	};
 }
@@ -216,8 +220,7 @@ Validator.isConfirmed = function(selector, getConfirmValue, message) {
 	return {
 		selector : selector,
 		test : function(value) {
-			return value === getConfirmValue() ? undefined : message
-					|| 'Giá trị nhập vào không chính xác';
+			return value === getConfirmValue() ? undefined : message || 'Giá trị nhập vào không chính xác';
 		}
 	}
 }

@@ -12,13 +12,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springmvc.Entity.Product;
+import com.springmvc.Entity.ProductEntity;
 import com.springmvc.Service.BrandService;
 import com.springmvc.Service.CategoryService;
 import com.springmvc.Service.ProductService;
@@ -81,7 +79,7 @@ public class ShopController {
 		return pageNum;
 	}
 
-	@RequestMapping(value = "/shop", method = RequestMethod.GET)
+	@GetMapping("/shop")
 	public ModelAndView shop(HttpServletRequest request, HttpSession session) throws Exception {
 		ModelAndView mav = null;
 		try {
@@ -91,8 +89,8 @@ public class ShopController {
 			Sort sort = new Sort(Sort.Direction.ASC, "price");
 			session.setAttribute("sortSession", checkSortName(request, sortName));
 			Pageable pageable = new PageRequest((checkPage(request, pageNum) - 1), 9, checkSort(request, sortName, sort));
-			Page<Product> page = productService.getAllProduct(pageable);
-			List<Product> listPageProducts = page.getContent();
+			Page<ProductEntity> page = productService.getAllProduct(pageable);
+			List<ProductEntity> listPageProducts = page.getContent();
 			mav = new ModelAndView("web/product/shop");
 			mav.addObject("currentPage", checkPage(request, pageNum));
 			mav.addObject("previous", checkPage(request, pageNum) - 1);
@@ -109,9 +107,8 @@ public class ShopController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/category/{id}", method = RequestMethod.GET)
-	public ModelAndView category(HttpSession session, HttpServletRequest request, @PathVariable String id)
-			throws Exception {
+	@GetMapping("/category/{id}")
+	public ModelAndView category(HttpSession session, HttpServletRequest request, @PathVariable String id) throws Exception {
 		ModelAndView mav = null;
 		try {
 			session.removeAttribute("sortSession");
@@ -121,8 +118,8 @@ public class ShopController {
 			Sort sort = new Sort(Sort.Direction.ASC, "price");
 			session.setAttribute("sortSession", checkSortName(request, sortName));
 			Pageable pageable = new PageRequest((checkPage(request, pageNum) - 1), 9, checkSort(request, sortName, sort));
-			Page<Product> page = productService.getAllProductByIdCategory(i, pageable);
-			List<Product> listProductByCategory = page.getContent();
+			Page<ProductEntity> page = productService.getAllProductByIdCategory(i, pageable);
+			List<ProductEntity> listProductByCategory = page.getContent();
 			mav = new ModelAndView("web/product/shop");
 			mav.addObject("currentPage", checkPage(request, pageNum));
 			mav.addObject("previous", checkPage(request, pageNum) - 1);
@@ -141,9 +138,8 @@ public class ShopController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/brand/{id}", method = RequestMethod.GET)
-	public ModelAndView brand(HttpSession session, HttpServletRequest request, @PathVariable String id)
-			throws Exception {
+	@GetMapping("/brand/{id}")
+	public ModelAndView brand(HttpSession session, HttpServletRequest request, @PathVariable String id) throws Exception {
 		ModelAndView mav = null;
 		try {
 			session.removeAttribute("sortSession");
@@ -153,8 +149,8 @@ public class ShopController {
 			Sort sort = new Sort(Sort.Direction.ASC, "price");
 			session.setAttribute("sortSession", checkSortName(request, sortName));
 			Pageable pageable = new PageRequest((checkPage(request, pageNum) - 1), 9, checkSort(request, sortName, sort));
-			Page<Product> page = productService.getAllProductByIdBrand(i, pageable);
-			List<Product> listProductByBrand = page.getContent();
+			Page<ProductEntity> page = productService.getAllProductByIdBrand(i, pageable);
+			List<ProductEntity> listProductByBrand = page.getContent();
 			mav = new ModelAndView("web/product/shop");
 			mav.addObject("currentPage", checkPage(request, pageNum));
 			mav.addObject("previous", checkPage(request, pageNum) - 1);
@@ -171,18 +167,5 @@ public class ShopController {
 			logger.error(e);
 		}
 		return mav;
-	}
-
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	@ResponseBody
-	public List<Product> search(HttpServletRequest request) throws Exception {
-		List<Product> listSearch = null;
-		try {
-			listSearch = productService.getProductBySearch(request.getParameter("term"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e);
-		}
-		return listSearch;
 	}
 }

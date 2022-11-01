@@ -10,13 +10,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.springmvc.Dao.BillDetailRepository;
-import com.springmvc.Dao.BillRepository;
-import com.springmvc.Dao.ProductRepository;
 import com.springmvc.Dto.CartDto;
-import com.springmvc.Entity.Bill;
-import com.springmvc.Entity.BillDetail;
-import com.springmvc.Entity.Product;
+import com.springmvc.Entity.BillEntity;
+import com.springmvc.Entity.BillDetailEntity;
+import com.springmvc.Entity.ProductEntity;
+import com.springmvc.Repositories.BillDetailRepository;
+import com.springmvc.Repositories.BillRepository;
+import com.springmvc.Repositories.ProductRepository;
 import com.springmvc.Security.CustomSuccesHandler;
 import com.springmvc.Service.BillService;
 @Service
@@ -31,8 +31,8 @@ public class BillServiceImpl implements BillService{
 	@Autowired
 	private BillDetailRepository billDetailRepository;
 
-	public Page<Bill> getAllBill(Pageable pageable) throws Exception {
-		Page<Bill> listBill = null;
+	public Page<BillEntity> getAllBill(Pageable pageable) throws Exception {
+		Page<BillEntity> listBill = null;
 		try {
 			listBill = billRepository.findAll(pageable);
 		} catch (Exception e) {
@@ -42,7 +42,7 @@ public class BillServiceImpl implements BillService{
 		return listBill;
 	}
 
-	public void addBill(Bill bill, int quanty, double total) throws Exception {
+	public void addBill(BillEntity bill, int quanty, double total) throws Exception {
 		try {
 			int id_user = CustomSuccesHandler.getPrincipal().getId();
 			bill.setId_user(id_user);
@@ -59,14 +59,14 @@ public class BillServiceImpl implements BillService{
 	public void addBillDetail(int idBill, HashMap<Integer, CartDto> cart) throws Exception {
 		try {
 			for (Map.Entry<Integer, CartDto> itemCart : cart.entrySet()) {
-				BillDetail billDetail = new BillDetail();
+				BillDetailEntity billDetail = new BillDetailEntity();
 				billDetail.setId_bill(idBill);
 				billDetail.setId_product(itemCart.getValue().getProduct().getId());
 				billDetail.setQuanty(itemCart.getValue().getQuanty());
 				billDetail.setTotal(itemCart.getValue().getTotalPrice());
 				billDetailRepository.save(billDetail);
 				
-				Product product = new Product();
+				ProductEntity product = new ProductEntity();
 				product = productRepository.findOne(itemCart.getValue().getProduct().getId());
 				product.setQuantity(product.getQuantity() - itemCart.getValue().getQuanty());
 				product.setQuantity_sold(product.getQuantity_sold() + itemCart.getValue().getQuanty());
@@ -78,7 +78,7 @@ public class BillServiceImpl implements BillService{
 		}
 	}
 	public void editBill(int id, String file) throws Exception{
-		Bill bill = new Bill();
+		BillEntity bill = new BillEntity();
 		try {
 			bill = billRepository.findOne(id);
 			bill.setFile(file);
@@ -88,8 +88,8 @@ public class BillServiceImpl implements BillService{
 			logger.error(e);
 		}
 	}
-	public Page<Bill> getAllBillByIdUserLogin(int id, Pageable pageable) throws Exception{
-		Page<Bill> listBill = null;
+	public Page<BillEntity> getAllBillByIdUserLogin(int id, Pageable pageable) throws Exception{
+		Page<BillEntity> listBill = null;
 		try {
 			listBill = billRepository.findAllBillByIdUserLogin(id, pageable);
 		} catch (Exception e) {
@@ -98,8 +98,8 @@ public class BillServiceImpl implements BillService{
 		}
 		return listBill;
 	}
-	public List<BillDetail> getBillDetailByIdUserLogin(int id) throws Exception{
-		List<BillDetail> listBillDetail = null;
+	public List<BillDetailEntity> getBillDetailByIdUserLogin(int id) throws Exception{
+		List<BillDetailEntity> listBillDetail = null;
 		try {
 			listBillDetail = billDetailRepository.findAllBillDetailByIdUserLogin(id);
 		} catch (Exception e) {

@@ -2,8 +2,8 @@ package com.springmvc.Service;
 
 import java.util.List;
 
-import com.springmvc.Entity.Category;
+import com.springmvc.Entity.CategoryEntity;
 
 public interface CategoryService {
-	public List<Category> getAllCategory() throws Exception;
+	public List<CategoryEntity> getAllCategory() throws Exception;
 }

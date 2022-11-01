@@ -5,12 +5,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springmvc.Entity.Product;
+import com.springmvc.Entity.ProductEntity;
 import com.springmvc.Service.BrandService;
 import com.springmvc.Service.CategoryService;
 import com.springmvc.Service.ProductService;
@@ -30,11 +29,11 @@ public class ProductController {
 	private BrandService brandService;
 	
 	
-	@RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
+	@GetMapping("/product/{id}")
 	public ModelAndView product(@PathVariable String id, HttpSession session) throws Exception{
 		ModelAndView mav = null;
 		try {
-			Product product = productService.getProductById(Integer.parseInt(id));
+			ProductEntity product = productService.getProductById(Integer.parseInt(id));
 			mav = new ModelAndView("web/product/product");
 			mav.addObject("listAllCategory", categoryService.getAllCategory());
 			mav.addObject("listAllBrand", brandService.getAllBrand());

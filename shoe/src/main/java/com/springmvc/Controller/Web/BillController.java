@@ -16,9 +16,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,8 +30,9 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.springmvc.Dto.CartDto;
-import com.springmvc.Entity.Bill;
-import com.springmvc.Entity.User;
+import com.springmvc.Dto.UserDto;
+import com.springmvc.Entity.BillEntity;
+import com.springmvc.Entity.UserEntity;
 import com.springmvc.Security.CustomSuccesHandler;
 import com.springmvc.Service.BillService;
 import com.springmvc.Service.CartService;
@@ -61,7 +62,7 @@ public class BillController {
 	Locale lc = new Locale("vi", "VN");
 	NumberFormat numf = NumberFormat.getCurrencyInstance(lc);
 
-	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
+	@GetMapping("/checkout")
 	public ModelAndView CheckOut(HttpSession session) throws Exception {
 		ModelAndView mav = null;
 		try {
@@ -69,7 +70,7 @@ public class BillController {
 				if(session.getAttribute("Cart")!=null){
 					if(!session.getAttribute("Cart").toString().equals("{}")){
 						mav = new ModelAndView("web/bill/checkout");
-						Bill b = new Bill();
+						BillEntity b = new BillEntity();
 						b.setUser(CustomSuccesHandler.getPrincipal().getEmail());
 						b.setFullname(CustomSuccesHandler.getPrincipal().getFullName());
 						mav.addObject("bill", b);
@@ -81,7 +82,7 @@ public class BillController {
 				}
 			} else {
 				mav = new ModelAndView("redirect:/dang-nhap");
-				mav.addObject("user", new User());
+				mav.addObject("user", new UserEntity());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,8 +91,8 @@ public class BillController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/checkout", method = RequestMethod.POST)
-	public String CheckOutBill(HttpServletRequest request, HttpSession session, @ModelAttribute("bill") Bill bill)
+	@PostMapping("/checkout")
+	public String CheckOutBill(HttpServletRequest request, HttpSession session, @ModelAttribute("bill") BillEntity bill)
 			throws Exception {
 		String mav = "";
 		try {
@@ -169,13 +170,11 @@ public class BillController {
 				m.add("                     Seller");
 				document.add(m);
 
-				// close
 				document.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
-			// gui mail dinh kem file pdf
 			String hashHD = MD5.getMD5File(new File(hoadon));
 			session.setAttribute("hashHD", hashHD);
 			String content ="- Code hash md5 file HoaDon.pdf: " + hashHD +"\n"+"\n"+"- Link download Sign: " +"https://drive.google.com/drive/u/1/folders/18ECHJCudAoWvNIrO4Mh0NzKaUCoEs8zL";
@@ -189,7 +188,7 @@ public class BillController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/sign", method = RequestMethod.GET)
+	@GetMapping("/sign")
 	public String sign(HttpSession session) throws Exception{
 		String mav = "";
 		try {
@@ -218,14 +217,13 @@ public class BillController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/sign", method = RequestMethod.POST)
-	public String sign1(@RequestParam("sign") String sign, Model model,
-			HttpSession session) throws Exception {
+	@PostMapping("/sign")
+	public String sign1(@RequestParam("sign") String sign, Model model, HttpSession session) throws Exception {
 		String mav = "";
 		try {
 			@SuppressWarnings("unchecked")
 			HashMap<Integer, CartDto> cart = (HashMap<Integer, CartDto>) session.getAttribute("Cart");
-			Bill b = (Bill) session.getAttribute("hoadon");
+			BillEntity b = (BillEntity) session.getAttribute("hoadon");
 			int quanty = (int) session.getAttribute("TotalQuantyCart");
 			double total = (double) session.getAttribute("TotalPriceCart");
 			String hd = (String) session.getAttribute("hd");
@@ -259,7 +257,7 @@ public class BillController {
 		return mav;
 		
 	}
-	@RequestMapping(value = "/update-publickey", method = RequestMethod.GET)
+	@GetMapping("/update-publickey")
 	public String updatePublickey()throws Exception {
 		String mav = "";
 		try {
@@ -274,12 +272,13 @@ public class BillController {
 		}
 		return mav;
 	}
-	@RequestMapping(value = "/update-publickey", method = RequestMethod.POST)
+	
+	@PostMapping("/update-publickey")
 	public String updatePublickey1(@RequestParam("key") String key, Model model,
 			HttpSession session) throws Exception {
 		String mav = "";
 		try {
-			User user = userService.getAccountById(CustomSuccesHandler.getPrincipal().getId());
+			UserDto user = userService.getAccountById(CustomSuccesHandler.getPrincipal().getId());
 					String maxn = RandomChars.generateRandomChars();
 					session.setAttribute("maxn", maxn);
 					session.setAttribute("key", key);
@@ -293,8 +292,8 @@ public class BillController {
 		return mav;
 		
 	}
-	// Chuyen qua trang xac nhan ma
-		@RequestMapping(value = "/xacnhan-publickey", method = RequestMethod.GET)
+	
+		@GetMapping("/xacnhan-publickey")
 		public String maxacnhan() throws Exception{
 			String mav = "";
 			try {
@@ -305,7 +304,8 @@ public class BillController {
 			}
 			return mav;
 		}
-		@RequestMapping(value = "/xacnhan-publickey", method = RequestMethod.POST)
+		
+		@PostMapping("/xacnhan-publickey")
 		public String xulymaxacnhan(HttpSession session, @RequestParam("maxacnhan") String maxacnhan, Model model) throws Exception {
 			String page = "";
 			try {

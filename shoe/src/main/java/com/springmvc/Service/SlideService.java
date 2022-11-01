@@ -2,8 +2,8 @@ package com.springmvc.Service;
 
 import java.util.List;
 
-import com.springmvc.Entity.Slide;
+import com.springmvc.Entity.SlideEntity;
 
 public interface SlideService {
-	public List<Slide> getAllSlide() throws Exception;
+	public List<SlideEntity> getAllSlide() throws Exception;
 }

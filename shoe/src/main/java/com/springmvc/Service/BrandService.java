@@ -2,8 +2,8 @@ package com.springmvc.Service;
 
 import java.util.List;
 
-import com.springmvc.Entity.Brand;
+import com.springmvc.Entity.BrandEntity;
 
 public interface BrandService {
-	public List<Brand> getAllBrand() throws Exception;
+	public List<BrandEntity> getAllBrand() throws Exception;
 }

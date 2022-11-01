@@ -13,8 +13,7 @@
 				<div class="col-lg-6 offset-lg-3">
 					<div class="register-form">
 						<h2>Add</h2>
-						<form:form id="form" action="add" method="post"
-							modelAttribute="product">
+						<form:form id="form" action="add" method="post" modelAttribute="product" enctype="multipart/form-data">
 							<div class="group-input">
 								<label for=username>Name *</label>
 								<form:input id="name" path="name" />
@@ -32,7 +31,7 @@
 							</div>
 							<div class="group-input">
 								<label>IMG *</label>
-								<form:input id="img" path="img" />
+								<input type="file" id="img" name="image" />
 								<div class="form-message" style="color: red"></div>
 							</div>
 							<div class="group-input">

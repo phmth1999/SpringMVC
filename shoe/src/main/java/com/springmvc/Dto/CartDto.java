@@ -1,15 +1,15 @@
 package com.springmvc.Dto;
 
-import com.springmvc.Entity.Product;
+import com.springmvc.Entity.ProductEntity;
 public class CartDto {
 	private int quanty;
 	private double totalPrice;
-	private Product product;
+	private ProductEntity product;
 
 	public CartDto() {
 	}
 
-	public CartDto(int quanty, double totalPrice, Product product) {
+	public CartDto(int quanty, double totalPrice, ProductEntity product) {
 		this.quanty = quanty;
 		this.totalPrice = totalPrice;
 		this.product = product;
@@ -31,11 +31,11 @@ public class CartDto {
 		this.totalPrice = totalPrice;
 	}
 
-	public Product getProduct() {
+	public ProductEntity getProduct() {
 		return product;
 	}
 
-	public void setProduct(Product product) {
+	public void setProduct(ProductEntity product) {
 		this.product = product;
 	}
 

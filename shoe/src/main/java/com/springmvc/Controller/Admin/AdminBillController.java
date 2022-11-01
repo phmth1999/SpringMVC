@@ -12,11 +12,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springmvc.Entity.Bill;
+import com.springmvc.Entity.BillEntity;
 import com.springmvc.Service.BillService;
 
 @Controller
@@ -39,15 +38,15 @@ public class AdminBillController {
 		return pageNum;
 	}
 
-	@RequestMapping(value = "/quan-tri/bill", method = RequestMethod.GET)
+	@GetMapping("/quan-tri/bill")
 	public ModelAndView ListBill(HttpServletRequest request, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		try {
 			int pageNum = 1;
 			Sort sort =  new Sort(Sort.Direction.DESC, "id");
 			Pageable pageable = new PageRequest((checkPage(request, pageNum) - 1), 6, sort);
-			Page<Bill> page = billService.getAllBill(pageable);
-			List<Bill> listPageBills = page.getContent();
+			Page<BillEntity> page = billService.getAllBill(pageable);
+			List<BillEntity> listPageBills = page.getContent();
 			mav = new ModelAndView("admin/bill/list");
 			session.setAttribute("page", checkPage(request, pageNum));
 			mav.addObject("currentPage", checkPage(request, pageNum));
@@ -62,7 +61,7 @@ public class AdminBillController {
 		}
 		return mav;
 	}
-	@RequestMapping(value = "/quan-tri/bill-detail", method = RequestMethod.GET)
+	@GetMapping("/quan-tri/bill-detail")
 	public ModelAndView ListBillDetail(HttpServletRequest request, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		try {

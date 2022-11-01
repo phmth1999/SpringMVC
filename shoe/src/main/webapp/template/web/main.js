@@ -3,14 +3,16 @@ $("#block").attr("disabled", "disabled");
 Validate
 --------------------- */
 document.addEventListener('DOMContentLoaded',function() {
-			Validator({
-				form : "#form-login",
-				formGroupSelector : ".group-input",
-				errorSelector : ".form-message",
-				rules : [
-						Validator.isRequired('#email','Vui lòng nhập đầy đủ'),
-						Validator.isRequired('#password','Vui lòng nhập đầy đủ')],
-			});
+	Validator({
+		form : "#form-login",
+		formGroupSelector : ".group-input",
+		errorSelector : ".form-message",
+		rules : [
+				Validator.isRequired('#email'),
+						
+				Validator.isRequired('#password')
+				]
+	});
 });
 document.addEventListener('DOMContentLoaded',function() {
 	Validator({
@@ -20,27 +22,37 @@ document.addEventListener('DOMContentLoaded',function() {
 		rules : [
 				Validator.isRequired('#username'),
 				Validator.isEmail('#username'),
-				Validator.isCheckEmail('#username'),
-				Validator.isRequired('#fullname','Vui lòng nhập tên đầy đủ của bạn'),
-				Validator.isRequired('#address','Vui lòng nhập địa chỉ đầy đủ của bạn'),
-				Validator.isRequired('#phone','Vui lòng nhập số điện thoại của bạn'),
-				Validator.minLength('#password', 3),
+				Validator.checkEmailExist('#username'),
+				
+				Validator.isRequired('#fullname'),
+				
+				Validator.isRequired('#address'),
+				
+				Validator.isRequired('#phone'),
+				Validator.isPhone('#phone'),
+				
+				Validator.isRequired('#password'),
 				Validator.isRequired('#password_confirmation'),
-				Validator.isConfirmed('#password_confirmation',function() {
-					return document.querySelector('#form #password').value;
-				},'Mật khẩu nhập lại không chính xác')],
+				Validator.isPassword('#password'),
+				Validator.isConfirmed('#password_confirmation', function() {
+															 	return document.querySelector('#form #password').value;
+																},'Mật khẩu nhập lại không chính xác')
+				]
 	});
 });
 document.addEventListener('DOMContentLoaded',function() {
 	Validator({
-				form : '#form-checkout',
-				formGroupSelector : '.col-lg-12',
-				errorSelector : '.form-message',
-				rules : [
-						Validator.isRequired('#address','Vui lòng nhập địa chỉ mà bạn nhận hàng'),
-						Validator.isRequired('#note','Vui lòng chọn phương thức thanh toán'),
-						Validator.isRequired('#phone','Vui lòng cung cấp đúng số điện thoại để việc giao hàng thuận tiện hơn')],
-			});
+		form : '#form-checkout',
+		formGroupSelector : '.col-lg-12',
+		errorSelector : '.form-message',
+		rules : [
+				Validator.isRequired('#address'),
+				
+				Validator.isRequired('#note'),
+				
+				Validator.isRequired('#phone')
+				]
+	});
 });
 document.addEventListener('DOMContentLoaded',function() {
 	Validator({
@@ -48,7 +60,8 @@ document.addEventListener('DOMContentLoaded',function() {
 		formGroupSelector : ".group-input",
 		errorSelector : ".form-message",
 		rules : [
-			Validator.isRequired('#publickey')],
+				Validator.isRequired('#publickey')
+				]
 	});
 });
 document.addEventListener('DOMContentLoaded',function() {
@@ -57,7 +70,8 @@ document.addEventListener('DOMContentLoaded',function() {
 		formGroupSelector : ".group-input",
 		errorSelector : ".form-message",
 		rules : [
-			Validator.isRequired('#sign')],
+				Validator.isRequired('#sign')
+				]
 	});
 });
 document.addEventListener('DOMContentLoaded',function() {
@@ -66,7 +80,8 @@ document.addEventListener('DOMContentLoaded',function() {
 		formGroupSelector : ".group-input",
 		errorSelector : ".form-message",
 		rules : [
-			Validator.isRequired('#xacnhan')],
+				Validator.isRequired('#xacnhan')
+				]
 	});
 });
 'use strict';

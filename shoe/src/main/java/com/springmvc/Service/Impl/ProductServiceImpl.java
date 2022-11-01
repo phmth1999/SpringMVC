@@ -8,9 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.springmvc.Dao.ProductRepository;
 import com.springmvc.Dto.ProductJoinCategoryAndBrandDto;
-import com.springmvc.Entity.Product;
+import com.springmvc.Entity.ProductEntity;
+import com.springmvc.Repositories.ProductRepository;
 import com.springmvc.Service.ProductService;
 import com.springmvc.Utils.Convert;
 @Service
@@ -39,18 +39,19 @@ public class ProductServiceImpl implements ProductService{
 		}
 		return listProductJoinCategoryDto;
 	}
-	public List<Product> getProductBySearch(String keyword) throws Exception{
-		List<Product> listsearch = null;
+	public List<ProductEntity> getProductBySearch(String keyword) throws Exception{
+		List<ProductEntity> listsearch = null;
 		try {
-			listsearch = productRepository.getProductBySearch(keyword);
+//			listsearch = productRepository.getProductBySearch(keyword);
+			listsearch = productRepository.findByNameStartingWith(keyword);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
 		}
 		return listsearch;
 	}
-	public Product getProductById(int id) throws Exception{
-		Product product = null;
+	public ProductEntity getProductById(int id) throws Exception{
+		ProductEntity product = null;
 		try {
 			product = productRepository.findOne(id);
 		} catch (Exception e) {
@@ -59,8 +60,8 @@ public class ProductServiceImpl implements ProductService{
 		}
 		return product;
 	}
-	public Page<Product> getAllProduct(Pageable pageable) throws Exception {
-		Page<Product> listProduct = null;
+	public Page<ProductEntity> getAllProduct(Pageable pageable) throws Exception {
+		Page<ProductEntity> listProduct = null;
 		try {
 			listProduct = productRepository.findAll(pageable);
 		} catch (Exception e) {
@@ -69,8 +70,8 @@ public class ProductServiceImpl implements ProductService{
 		}
 		return listProduct;
 	}
-	public Page<Product> getAllProductByIdCategory(int id, Pageable pageable) throws Exception {
-		Page<Product> listProduct = null;
+	public Page<ProductEntity> getAllProductByIdCategory(int id, Pageable pageable) throws Exception {
+		Page<ProductEntity> listProduct = null;
 		try {
 			listProduct = productRepository.getPageProductByIdCategory(id, pageable);
 		} catch (Exception e) {
@@ -79,8 +80,8 @@ public class ProductServiceImpl implements ProductService{
 		}
 		return listProduct;
 	}
-	public Page<Product> getAllProductByIdBrand(int id, Pageable pageable) throws Exception{
-		Page<Product> listProduct = null;
+	public Page<ProductEntity> getAllProductByIdBrand(int id, Pageable pageable) throws Exception{
+		Page<ProductEntity> listProduct = null;
 		try {
 			listProduct = productRepository.getPageProductByIdBrand(id, pageable);
 		} catch (Exception e) {
@@ -91,7 +92,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 	public void editProductJoinCategoryAndBrand(ProductJoinCategoryAndBrandDto product) throws Exception{
 		try {
-			Product listProduct = productRepository.findOne(product.getId());
+			ProductEntity listProduct = productRepository.findOne(product.getId());
 			listProduct.setName(product.getName());
 			listProduct.setId_category(Convert.convertCategoryToInt(product.getNameCategory()));
 			listProduct.setId_brand(Convert.convertBrandToInt(product.getNameBrand()));
@@ -106,7 +107,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 	public void addProductJoinCategoryAndBrand(ProductJoinCategoryAndBrandDto product) throws Exception{
 		try {
-			Product listProduct = new Product();
+			ProductEntity listProduct = new ProductEntity();
 			listProduct.setName(product.getName());
 			listProduct.setId_category(Convert.convertCategoryToInt(product.getNameCategory()));
 			listProduct.setId_brand(Convert.convertBrandToInt(product.getNameBrand()));
@@ -121,7 +122,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 	public void deleteProduct(int id) throws Exception{
 		try {
-			Product product = productRepository.findOne(id);
+			ProductEntity product = productRepository.findOne(id);
 			productRepository.delete(product);;
 		} catch (Exception e) {
 			e.printStackTrace();

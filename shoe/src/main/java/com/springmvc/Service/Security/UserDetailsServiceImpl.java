@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.springmvc.Dao.UserRepository;
-import com.springmvc.Entity.User;
+import com.springmvc.Entity.UserEntity;
+import com.springmvc.Repositories.UserRepository;
 import com.springmvc.Security.MyUser;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MyUser myUser = null;
 		try {
-			User user = userRepository.findOneByUsernameAndEnabled(username, 1);
+			UserEntity user = userRepository.findOneByUsernameAndEnabled(username, 1);
 
 			Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 			grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
