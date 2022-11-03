@@ -29,7 +29,7 @@
 	</authentication-manager>
 
 	<beans:bean id="userDetailsServiceImpl"
-		class="com.springmvc.Service.Security.UserDetailsServiceImpl"></beans:bean>
+		class="com.springmvc.Services.Security.UserDetailsServiceImpl"></beans:bean>
 	<beans:bean id="customSuccesHandler" class="com.springmvc.Security.CustomSuccesHandler"></beans:bean>
 	<beans:bean id="encoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">

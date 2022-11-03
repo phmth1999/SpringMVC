@@ -1,5 +1,6 @@
 package com.springmvc.Controller.Web.Api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,19 +13,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springmvc.Controller.Web.UserController;
-import com.springmvc.Entity.ProductEntity;
-import com.springmvc.Service.ProductService;
+import com.springmvc.Dto.ProductDto;
+import com.springmvc.Services.IProductService;
 
 @Controller
 public class SearchApi {
 	final static Logger logger = Logger.getLogger(UserController.class);
 	@Autowired
-	private ProductService productService;
+	private IProductService productService;
 	
 	@GetMapping("/search")
 	@ResponseBody
-	public List<ProductEntity> search(HttpServletRequest request, @RequestParam("term") String term) throws Exception {
-		List<ProductEntity> listSearch = null;
+	public List<ProductDto> search(HttpServletRequest request, @RequestParam("term") String term) throws Exception {
+		List<ProductDto> listSearch = new ArrayList<ProductDto>();
 		try {
 			listSearch = productService.getProductBySearch(term);
 		} catch (Exception e) {

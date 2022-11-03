@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.Dto.CartDto;
-import com.springmvc.Service.CartService;
+import com.springmvc.Services.ICartService;
 
 @Controller
 public class CartController {
@@ -21,7 +21,7 @@ public class CartController {
 	final static Logger logger = Logger.getLogger(CartController.class);
 	
 	@Autowired
-	private CartService cartService;
+	private ICartService cartService;
 
 	@GetMapping("/gio-hang")
 	public ModelAndView Index() throws Exception{

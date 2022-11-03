@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springmvc.Service.ProductService;
-import com.springmvc.Service.SlideService;
+import com.springmvc.Services.IProductService;
+import com.springmvc.Services.ISlideService;
 
 @Controller
 public class HomeController {
@@ -19,10 +19,10 @@ public class HomeController {
 	final static Logger logger = Logger.getLogger(HomeController.class);
 	
 	@Autowired
-	private ProductService productService;
+	private IProductService productService;
 	
 	@Autowired
-	private SlideService slideService;
+	private ISlideService slideService;
 
 	@GetMapping({ "/", "/trang-chu" })
 	public ModelAndView Index(HttpServletRequest request, HttpSession httpSession) throws Exception {

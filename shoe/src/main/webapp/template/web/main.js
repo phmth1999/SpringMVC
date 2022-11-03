@@ -1,4 +1,4 @@
-$("#block").attr("disabled", "disabled");
+
 /*-------------------
 Validate
 --------------------- */

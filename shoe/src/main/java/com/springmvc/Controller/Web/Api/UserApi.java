@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springmvc.Controller.Web.UserController;
-import com.springmvc.Entity.UserEntity;
-import com.springmvc.Service.UserService;
+import com.springmvc.Dto.UserDto;
+import com.springmvc.Services.IUserService;
 
 @Controller(value="controller")
 public class UserApi {
 	final static Logger logger = Logger.getLogger(UserController.class);
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 	
 	@PostMapping("/checkUsername")
 	@ResponseBody
-	public String checkUsername(HttpServletRequest req, @ModelAttribute("user") UserEntity user) throws Exception {
+	public String checkUsername(HttpServletRequest req, @ModelAttribute("user") UserDto user) throws Exception {
 		String res = "";
 		try {
 			 res = userService.checkUserName(user.getUsername());

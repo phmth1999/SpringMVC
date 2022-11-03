@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springmvc.Entity.ProductEntity;
-import com.springmvc.Service.BrandService;
-import com.springmvc.Service.CategoryService;
-import com.springmvc.Service.ProductService;
+import com.springmvc.Dto.ProductDto;
+import com.springmvc.Services.IBrandService;
+import com.springmvc.Services.ICategoryService;
+import com.springmvc.Services.IProductService;
 
 @Controller
 public class ShopController {
@@ -27,13 +27,13 @@ public class ShopController {
 	final static Logger logger = Logger.getLogger(ShopController.class);
 	
 	@Autowired
-	private CategoryService categoryService;
+	private ICategoryService categoryService;
 
 	@Autowired
-	private BrandService brandService;
+	private IBrandService brandService;
 
 	@Autowired
-	private ProductService productService;
+	private IProductService productService;
 
 	private String checkSortName(HttpServletRequest request, String sortName) throws Exception{
 		try {
@@ -89,8 +89,8 @@ public class ShopController {
 			Sort sort = new Sort(Sort.Direction.ASC, "price");
 			session.setAttribute("sortSession", checkSortName(request, sortName));
 			Pageable pageable = new PageRequest((checkPage(request, pageNum) - 1), 9, checkSort(request, sortName, sort));
-			Page<ProductEntity> page = productService.getAllProduct(pageable);
-			List<ProductEntity> listPageProducts = page.getContent();
+			Page<ProductDto> page = productService.getAllProduct(pageable);
+			List<ProductDto> listPageProducts = page.getContent();
 			mav = new ModelAndView("web/product/shop");
 			mav.addObject("currentPage", checkPage(request, pageNum));
 			mav.addObject("previous", checkPage(request, pageNum) - 1);
@@ -118,8 +118,8 @@ public class ShopController {
 			Sort sort = new Sort(Sort.Direction.ASC, "price");
 			session.setAttribute("sortSession", checkSortName(request, sortName));
 			Pageable pageable = new PageRequest((checkPage(request, pageNum) - 1), 9, checkSort(request, sortName, sort));
-			Page<ProductEntity> page = productService.getAllProductByIdCategory(i, pageable);
-			List<ProductEntity> listProductByCategory = page.getContent();
+			Page<ProductDto> page = productService.getAllProductByIdCategory(i, pageable);
+			List<ProductDto> listProductByCategory = page.getContent();
 			mav = new ModelAndView("web/product/shop");
 			mav.addObject("currentPage", checkPage(request, pageNum));
 			mav.addObject("previous", checkPage(request, pageNum) - 1);
@@ -149,8 +149,8 @@ public class ShopController {
 			Sort sort = new Sort(Sort.Direction.ASC, "price");
 			session.setAttribute("sortSession", checkSortName(request, sortName));
 			Pageable pageable = new PageRequest((checkPage(request, pageNum) - 1), 9, checkSort(request, sortName, sort));
-			Page<ProductEntity> page = productService.getAllProductByIdBrand(i, pageable);
-			List<ProductEntity> listProductByBrand = page.getContent();
+			Page<ProductDto> page = productService.getAllProductByIdBrand(i, pageable);
+			List<ProductDto> listProductByBrand = page.getContent();
 			mav = new ModelAndView("web/product/shop");
 			mav.addObject("currentPage", checkPage(request, pageNum));
 			mav.addObject("previous", checkPage(request, pageNum) - 1);

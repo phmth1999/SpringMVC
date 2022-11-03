@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springmvc.Entity.ProductEntity;
-import com.springmvc.Service.BrandService;
-import com.springmvc.Service.CategoryService;
-import com.springmvc.Service.ProductService;
+import com.springmvc.Dto.ProductDto;
+import com.springmvc.Services.IBrandService;
+import com.springmvc.Services.ICategoryService;
+import com.springmvc.Services.IProductService;
 
 @Controller
 public class ProductController {
@@ -20,20 +20,20 @@ public class ProductController {
 	final static Logger logger = Logger.getLogger(ProductController.class);
 	
 	@Autowired
-	private ProductService productService;
+	private IProductService productService;
 	
 	@Autowired
-	private CategoryService categoryService;
+	private ICategoryService categoryService;
 	
 	@Autowired
-	private BrandService brandService;
+	private IBrandService brandService;
 	
 	
 	@GetMapping("/product/{id}")
 	public ModelAndView product(@PathVariable String id, HttpSession session) throws Exception{
 		ModelAndView mav = null;
 		try {
-			ProductEntity product = productService.getProductById(Integer.parseInt(id));
+			ProductDto product = productService.getProductById(Integer.parseInt(id));
 			mav = new ModelAndView("web/product/product");
 			mav.addObject("listAllCategory", categoryService.getAllCategory());
 			mav.addObject("listAllBrand", brandService.getAllBrand());

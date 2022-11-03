@@ -29,14 +29,13 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.springmvc.Dto.BillDto;
 import com.springmvc.Dto.CartDto;
 import com.springmvc.Dto.UserDto;
-import com.springmvc.Entity.BillEntity;
-import com.springmvc.Entity.UserEntity;
 import com.springmvc.Security.CustomSuccesHandler;
-import com.springmvc.Service.BillService;
-import com.springmvc.Service.CartService;
-import com.springmvc.Service.UserService;
+import com.springmvc.Services.IBillService;
+import com.springmvc.Services.ICartService;
+import com.springmvc.Services.IUserService;
 import com.springmvc.Utils.MD5;
 import com.springmvc.Utils.RandomChars;
 import com.springmvc.Utils.SendEmail;
@@ -51,13 +50,13 @@ public class BillController {
 	CustomSuccesHandler email;
 	
 	@Autowired
-	private BillService billService;
+	private IBillService billService;
 	
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 
 	@Autowired
-	private CartService cartService;
+	private ICartService cartService;
 
 	Locale lc = new Locale("vi", "VN");
 	NumberFormat numf = NumberFormat.getCurrencyInstance(lc);
@@ -70,7 +69,7 @@ public class BillController {
 				if(session.getAttribute("Cart")!=null){
 					if(!session.getAttribute("Cart").toString().equals("{}")){
 						mav = new ModelAndView("web/bill/checkout");
-						BillEntity b = new BillEntity();
+						BillDto b = new BillDto();
 						b.setUser(CustomSuccesHandler.getPrincipal().getEmail());
 						b.setFullname(CustomSuccesHandler.getPrincipal().getFullName());
 						mav.addObject("bill", b);
@@ -82,7 +81,7 @@ public class BillController {
 				}
 			} else {
 				mav = new ModelAndView("redirect:/dang-nhap");
-				mav.addObject("user", new UserEntity());
+				mav.addObject("user", new UserDto());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -92,7 +91,7 @@ public class BillController {
 	}
 
 	@PostMapping("/checkout")
-	public String CheckOutBill(HttpServletRequest request, HttpSession session, @ModelAttribute("bill") BillEntity bill)
+	public String CheckOutBill(HttpServletRequest request, HttpSession session, @ModelAttribute("bill") BillDto bill)
 			throws Exception {
 		String mav = "";
 		try {
@@ -223,7 +222,7 @@ public class BillController {
 		try {
 			@SuppressWarnings("unchecked")
 			HashMap<Integer, CartDto> cart = (HashMap<Integer, CartDto>) session.getAttribute("Cart");
-			BillEntity b = (BillEntity) session.getAttribute("hoadon");
+			BillDto b = (BillDto) session.getAttribute("hoadon");
 			int quanty = (int) session.getAttribute("TotalQuantyCart");
 			double total = (double) session.getAttribute("TotalPriceCart");
 			String hd = (String) session.getAttribute("hd");
@@ -274,8 +273,7 @@ public class BillController {
 	}
 	
 	@PostMapping("/update-publickey")
-	public String updatePublickey1(@RequestParam("key") String key, Model model,
-			HttpSession session) throws Exception {
+	public String updatePublickey1(@RequestParam("key") String key, Model model, HttpSession session) throws Exception {
 		String mav = "";
 		try {
 			UserDto user = userService.getAccountById(CustomSuccesHandler.getPrincipal().getId());

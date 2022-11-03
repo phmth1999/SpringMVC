@@ -1,4 +1,4 @@
-package com.springmvc.config;
+package com.springmvc.Config;
 
 import java.util.Properties;
 

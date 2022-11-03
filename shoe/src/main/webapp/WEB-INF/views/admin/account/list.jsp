@@ -103,7 +103,7 @@
 									 </c:if>
 								</c:forEach>
 							</c:if>
-							<c:if test="${currentPage <= totalPages-2 && totalPages != 0 }">
+							<c:if test="${currentPage <= totalPages-2 && totalPages > 2 }">
 								<c:if test="${currentPage <= 2 && totalPages != 0 }">
 									 <c:forEach var = "i" begin = "1" end = "3">
 									 	<c:if test="${i == currentPage }">
@@ -114,7 +114,7 @@
 									 	</c:if>
 							 		</c:forEach>
 							 	</c:if>
-							 	<c:if test="${currentPage > 2 && totalPages != 0 }">
+							 	<c:if test="${currentPage > 2 && totalPages > 2 }">
 							 	 	<c:forEach var = "i" begin = "${currentPage-2 }" end = "${currentPage+2 }">
 							 			<c:if test="${i == currentPage }">
 											<a class="active" href='<c:url value="/quan-tri/user?page=${i }"/>'>${i }</a>
@@ -125,8 +125,8 @@
 							 		</c:forEach>
 							 	</c:if>
 							 </c:if>
-							 <c:if test="${currentPage > totalPages - 2 && totalPages != 0 }">
-							 	<c:forEach var = "i" begin = "${totalPages-4 }" end = "${totalPage }">
+							 <c:if test="${currentPage > totalPages - 2 && totalPages > 2 }">
+							 	<c:forEach var = "i" begin = "${totalPages-4 }" end = "${totalPages }">
 							 		<c:if test="${i == currentPage }">
 										<a class="active" href='<c:url value="/quan-tri/user?page=${i }"/>'>${i }</a>
 									 </c:if>
@@ -151,6 +151,8 @@
 			</div>
 		</div>
 	</div>
-	<!-- /.main-content -->
+	<script>
+		$("#block").attr("disabled", "disabled");
+	</script>
 </body>
 </html>

@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.Dto.ProductJoinCategoryAndBrandDto;
-import com.springmvc.Service.ProductService;
+import com.springmvc.Services.IProductService;
 import com.springmvc.Utils.FileUploadUtil;
 
 @Controller
@@ -29,7 +29,7 @@ public class AdminProductController {
 	final static Logger logger = Logger.getLogger(AdminProductController.class);
 	
 	@Autowired
-	private ProductService productService; 
+	private IProductService productService; 
 	
 	private int checkPage(HttpServletRequest request, int pageNum) throws Exception{
 		try {

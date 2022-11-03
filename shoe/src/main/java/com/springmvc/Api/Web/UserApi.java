@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springmvc.Controller.Admin.AdminUserController;
 import com.springmvc.Dto.ResponseObject;
 import com.springmvc.Dto.UserDto;
-import com.springmvc.Service.UserService;
+import com.springmvc.Services.IUserService;
 
 @RestController(value = "api")
 @RequestMapping("/api")
@@ -31,7 +31,7 @@ public class UserApi {
 	final static Logger logger = Logger.getLogger(AdminUserController.class);
 
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 
 	@GetMapping("/user")
 	ResponseEntity<ResponseObject> findAllAccount() throws Exception {

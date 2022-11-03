@@ -15,8 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springmvc.Entity.BillEntity;
-import com.springmvc.Service.BillService;
+import com.springmvc.Dto.BillDto;
+import com.springmvc.Services.IBillService;
 
 @Controller
 public class AdminBillController {
@@ -24,7 +24,7 @@ public class AdminBillController {
 	final static Logger logger = Logger.getLogger(AdminBillController.class);
 	
 	@Autowired
-	private BillService billService;
+	private IBillService billService;
 	
 	private int checkPage(HttpServletRequest request, int pageNum) throws Exception{
 		try {
@@ -45,8 +45,8 @@ public class AdminBillController {
 			int pageNum = 1;
 			Sort sort =  new Sort(Sort.Direction.DESC, "id");
 			Pageable pageable = new PageRequest((checkPage(request, pageNum) - 1), 6, sort);
-			Page<BillEntity> page = billService.getAllBill(pageable);
-			List<BillEntity> listPageBills = page.getContent();
+			Page<BillDto> page = billService.getAllBill(pageable);
+			List<BillDto> listPageBills = page.getContent();
 			mav = new ModelAndView("admin/bill/list");
 			session.setAttribute("page", checkPage(request, pageNum));
 			mav.addObject("currentPage", checkPage(request, pageNum));

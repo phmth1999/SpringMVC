@@ -24,13 +24,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springmvc.Entity.BillEntity;
+import com.springmvc.Dto.BillDetailDto;
+import com.springmvc.Dto.BillDto;
 import com.springmvc.Dto.UserDto;
-import com.springmvc.Entity.BillDetailEntity;
-import com.springmvc.Entity.UserEntity;
 import com.springmvc.Security.CustomSuccesHandler;
-import com.springmvc.Service.BillService;
-import com.springmvc.Service.UserService;
+import com.springmvc.Services.IBillService;
+import com.springmvc.Services.IUserService;
 import com.springmvc.Utils.RandomChars;
 import com.springmvc.Utils.SendEmail;
 @Controller
@@ -38,17 +37,17 @@ public class UserController {
 	final static Logger logger = Logger.getLogger(UserController.class);
 	
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 	
 	@Autowired
-	private BillService billService;
+	private IBillService billService;
 
 	@GetMapping("/dang-nhap")
 	public ModelAndView login() throws Exception{
 		ModelAndView mav = null;
 		try {
 			mav = new ModelAndView("web/account/login");
-			mav.addObject("user", new UserEntity());
+			mav.addObject("user", new UserDto());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
@@ -89,7 +88,7 @@ public class UserController {
 		ModelAndView mav = null;
 		try {
 			mav = new ModelAndView("web/account/register");
-			mav.addObject("user", new UserEntity());
+			mav.addObject("user", new UserDto());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
@@ -98,7 +97,7 @@ public class UserController {
 	}
 
 	@PostMapping("/dang-ky")
-	public ModelAndView CreateAcc(@ModelAttribute("user") UserEntity user, HttpServletRequest request, HttpSession session) throws Exception {
+	public ModelAndView CreateAcc(@ModelAttribute("user") UserDto user, HttpServletRequest request, HttpSession session) throws Exception {
 		ModelAndView mav = null;
 		try {
 			mav = new ModelAndView("redirect:/xac-nhan");
@@ -147,7 +146,7 @@ public class UserController {
 	}
 
 	@GetMapping("/profile")
-	public ModelAndView profile(@ModelAttribute("user") UserEntity user) throws Exception {
+	public ModelAndView profile(@ModelAttribute("user") UserDto user) throws Exception {
 		ModelAndView mav = null;
 		try {
 			if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
@@ -177,7 +176,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/history")
-	public ModelAndView history(@ModelAttribute("bill") BillEntity bill,HttpServletRequest request, HttpSession session) throws Exception {
+	public ModelAndView history(@ModelAttribute("bill") BillDto bill,HttpServletRequest request, HttpSession session) throws Exception {
 		ModelAndView mav = null;
 		try {
 			int pageNum = 1;
@@ -188,8 +187,8 @@ public class UserController {
 			Pageable pageable = new PageRequest((pageNum - 1), 6, sort);
 			if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
 				mav = new ModelAndView("web/account/history");
-				Page<BillEntity> page = billService.getAllBillByIdUserLogin(CustomSuccesHandler.getPrincipal().getId(), pageable);
-				List<BillEntity> listPageBills = page.getContent();
+				Page<BillDto> page = billService.getAllBillByIdUserLogin(CustomSuccesHandler.getPrincipal().getId(), pageable);
+				List<BillDto> listPageBills = page.getContent();
 				session.setAttribute("page", pageNum);
 				mav.addObject("currentPage", pageNum);
 				mav.addObject("previous", pageNum-1);
@@ -207,7 +206,7 @@ public class UserController {
 		return mav;
 	}
 	@GetMapping("/history-detail")
-	public ModelAndView historyDetal(@ModelAttribute("billDetail") BillDetailEntity billDetail, HttpServletRequest request, HttpSession session) throws Exception {
+	public ModelAndView historyDetal(@ModelAttribute("billDetail") BillDetailDto billDetail, HttpServletRequest request, HttpSession session) throws Exception {
 		ModelAndView mav = null;
 		try {
 			int idBill = Integer.parseInt(request.getParameter("idBill").toString());

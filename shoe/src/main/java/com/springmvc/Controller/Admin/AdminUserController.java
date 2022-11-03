@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.Dto.UserDto;
-import com.springmvc.Service.UserService;
+import com.springmvc.Services.IUserService;
 
 @Controller
 public class AdminUserController {
@@ -23,7 +23,7 @@ public class AdminUserController {
 	final static Logger logger = Logger.getLogger(AdminUserController.class);
 	
 	@Autowired
-	private UserService userService; 
+	private IUserService userService; 
 	
 	private int checkPage(HttpServletRequest request, int pageNum) throws Exception{
 		try {
@@ -42,7 +42,7 @@ public class AdminUserController {
 		ModelAndView mav = new ModelAndView();
 		try {
 			int pageNum = 1;
-			Sort sort =  new Sort(Sort.Direction.ASC, "id");;
+			Sort sort =  new Sort(Sort.Direction.ASC, "id");
 			Pageable pageable = new PageRequest((checkPage(request, pageNum) - 1), 6, sort);
 			Page<UserDto> page = userService.getAllAccount(pageable);
 			List<UserDto> listPageUsers = page.getContent();
