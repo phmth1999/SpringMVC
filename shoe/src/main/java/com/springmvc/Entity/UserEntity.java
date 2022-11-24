@@ -22,14 +22,23 @@ public class UserEntity extends BaseEntity{
 	@Column(name="phone")
 	private String phone;
 	
+	@Column(name="email")
+	private String email;
+	
 	@Column(name="role")
 	private String role;
 	
 	@Column(name="enabled")
 	private int enabled;
 	
-	@Column(name="publickey")
-	private String publickey;
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public String getUsername() {
 		return username;
@@ -87,14 +96,6 @@ public class UserEntity extends BaseEntity{
 		this.enabled = enabled;
 	}
 
-	public String getPublickey() {
-		return publickey;
-	}
-
-	public void setPublickey(String publickey) {
-		this.publickey = publickey;
-	}
-	
 	
 	
 }

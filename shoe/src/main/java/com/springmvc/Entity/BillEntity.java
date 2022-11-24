@@ -10,8 +10,8 @@ public class BillEntity extends BaseEntity{
 	@Column(name="id_user")
 	private int id_user;
 	
-	@Column(name="user")
-	private String user;
+	@Column(name="email")
+	private String email;
 	
 	@Column(name="phone")
 	private String phone;
@@ -39,6 +39,29 @@ public class BillEntity extends BaseEntity{
 	
 	@Column(name="data")
 	private String data;
+	
+	@Column(name="pubkey")
+	private String pubkey;
+
+	@Column(name="status")
+	private String status;
+
+
+	public String getPubkey() {
+		return pubkey;
+	}
+
+	public void setPubkey(String pubkey) {
+		this.pubkey = pubkey;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public int getId_user() {
 		return id_user;
@@ -48,12 +71,12 @@ public class BillEntity extends BaseEntity{
 		this.id_user = id_user;
 	}
 
-	public String getUser() {
-		return user;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPhone() {

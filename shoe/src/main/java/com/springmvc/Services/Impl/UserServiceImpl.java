@@ -1,11 +1,11 @@
 package com.springmvc.Services.Impl;
 
 import org.apache.log4j.Logger;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import com.springmvc.Converter.UserConverter;
@@ -80,18 +80,39 @@ public class UserServiceImpl implements IUserService{
 		}
 		return res;
 	}
-	
-	public void addPublicKey(String key, int id) throws Exception {
-		UserEntity userEntity = null;
+	public String checkPhone(String phone) throws Exception {
+		Boolean valid = false;
+		String res = "";
 		try {
-			userEntity = userRepository.findOne(id);
-			userEntity.setPublickey(key);
-			userRepository.save(userEntity);
+			valid = userRepository.existsByPhone(phone);
+			if(valid == false){
+				res = "Unique";
+			}else{
+				res = "Duplicate";
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
 		}
+		return res;
 	}
+	public String checkEmail(String email) throws Exception {
+		Boolean valid = false;
+		String res = "";
+		try {
+			valid = userRepository.existsByEmail(email);
+			if(valid == false){
+				res = "Unique";
+			}else{
+				res = "Duplicate";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+		}
+		return res;
+	}
+	
 	public void blockUser(int id) throws Exception{
 		UserEntity userEntity = null;
 		try {
@@ -113,7 +134,6 @@ public class UserServiceImpl implements IUserService{
 			userEntity.setFullname(userDto.getFullname());
 			userEntity.setAddress(userDto.getAddress());
 			userEntity.setPhone(userDto.getPhone());
-			userEntity.setPublickey(userDto.getPublickey());
 			userRepository.save(userEntity);
 		} catch (Exception e) {
 			e.printStackTrace();

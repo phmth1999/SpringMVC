@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/layouts/taglib.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +15,7 @@
 						<h2>Profile</h2>
 						<form:form id="form" action="profile" method="post" modelAttribute="user">
 							<div class="group-input">
-								<label><spring:message code="email" /></label>
+								<label>Username</label>
 								<form:input id="username" path="username" readonly="true"/>
 							</div>
 							<div class="group-input">
@@ -32,8 +31,8 @@
 								<form:input id="phone" path="phone"/>
 							</div>
 							<div class="group-input">
-								<label>Publickey</label>
-								<form:textarea  id="publickey" rows="5" path="publickey" readonly="true"/>
+								<label>Email</label>
+								<form:input id="email" path="email"/>
 							</div>
 							<button type="submit" class="site-btn register-btn">
 								Edit

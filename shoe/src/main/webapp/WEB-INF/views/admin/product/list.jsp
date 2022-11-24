@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/layouts/taglib.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,13 +66,13 @@
 													<td>${item.quantity}</td>
 													<td class="edit">
 													<a class="btn btn-sm btn-primary btn-edit"
-														data-toggle="tooltip" title="Sửa sản phẩm" href='<c:url value="/quan-tri/product/edit?idProduct=${item.id }" />' >
+														data-toggle="tooltip" title="Sửa sản phẩm" href='<c:url value="/quan-tri/product/edit/${item.id }" />' >
 														<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
 													</a>
 													</td>
 													<td class="edit">
 													<a class="btn btn-sm btn-primary btn-edit"
-														data-toggle="tooltip" title="Hủy sản phẩm" href='<c:url value="/quan-tri/product/delete?idProduct=${item.id }" />'>
+														data-toggle="tooltip" title="Hủy sản phẩm" href='<c:url value="/quan-tri/product/delete/${item.id }" />'>
 														<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
 													</a>
 													</td>

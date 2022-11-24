@@ -1,6 +1,5 @@
 package com.springmvc.Services.Impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +12,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.springmvc.Converter.BillConverter;
-import com.springmvc.Converter.BillDetailConverter;
-import com.springmvc.Dto.BillDetailDto;
+import com.springmvc.Dto.BillDetailJoinProductDto;
 import com.springmvc.Dto.BillDto;
 import com.springmvc.Dto.CartDto;
-import com.springmvc.Entity.BillEntity;
 import com.springmvc.Entity.BillDetailEntity;
+import com.springmvc.Entity.BillEntity;
 import com.springmvc.Entity.ProductEntity;
 import com.springmvc.Repositories.IBillDetailRepository;
 import com.springmvc.Repositories.IBillRepository;
@@ -56,19 +54,20 @@ public class BillServiceImpl implements IBillService{
 		return listBillDto;
 	}
 
-	public void addBill(BillDto billDto, int quanty, double total) throws Exception {
+	public int addBill(BillDto billDto, int quanty, double total) throws Exception {
+		BillEntity billEntity = new BillEntity();
 		try {
 			int id_user = CustomSuccesHandler.getPrincipal().getId();
 			billDto.setId_user(id_user);
 			billDto.setQuanty(quanty);
 			billDto.setTotal(total);
-			BillEntity billEntity = BillConverter.toEntity(billDto);
+			billEntity = BillConverter.toEntity(billDto);
 			billRepository.save(billEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
 		}
-		
+		return billEntity.getId();
 	}
 
 	public void addBillDetail(int idBill, HashMap<Integer, CartDto> cart) throws Exception {
@@ -92,11 +91,11 @@ public class BillServiceImpl implements IBillService{
 			logger.error(e);
 		}
 	}
-	public void editBill(int id, String file) throws Exception{
-		BillEntity billEntity = new BillEntity();
+	public void editBill(int id, BillDto billDto) throws Exception{
 		try {
-			billEntity = billRepository.findOne(id);
-			billEntity.setFile(file);
+			BillEntity billEntity = billRepository.findOne(id);
+			billEntity.setFile(billDto.getFile());
+			billEntity.setStatus(billDto.getStatus());
 			billRepository.save(billEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,18 +119,26 @@ public class BillServiceImpl implements IBillService{
 		}
 		return listBillDto;
 	}
-	public List<BillDetailDto> getBillDetailByIdUserLogin(int id) throws Exception{
-		List<BillDetailDto> listBillDetailDto = new ArrayList<BillDetailDto>();
+	public List<BillDetailJoinProductDto> getBillDetailByIdUserLogin(int id) throws Exception{
+		List<BillDetailJoinProductDto> listBillDetailJoinProductDto = null;
 		try {
-			List<BillDetailEntity> listBillDetailEntity = billDetailRepository.findAllBillDetailByIdUserLogin(id);
-			for (BillDetailEntity billDetailEntity : listBillDetailEntity) {
-				BillDetailDto billDetailDto = BillDetailConverter.toDto(billDetailEntity);
-				listBillDetailDto.add(billDetailDto);
-			}
+			listBillDetailJoinProductDto = billDetailRepository.findAllBillDetailByIdUserLogin(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);
 		}
-		return listBillDetailDto;
+		return listBillDetailJoinProductDto;
+	}
+
+	@Override
+	public BillDto findOne(int id) throws Exception {
+		BillDto billDto = new BillDto();
+		try {
+			BillEntity billEntity = billRepository.findOne(id);
+			billDto = BillConverter.toDto(billEntity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return billDto;
 	}
 }

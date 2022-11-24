@@ -30,6 +30,11 @@
 /*----------------------------------------*/
 /* Template default CSS
 /*----------------------------------------*/
+#ui-id-1{
+	max-height: 450px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
 .col-lg-12 .form-message{
 	margin-bottom: 25px;
 	height: 10px;
@@ -83,7 +88,7 @@ ul.filter-catagories li a.active{
 .titileBillDetail, .titileOrder {
 	text-align: center;
 }
-.group-input #publickey{
+.group-input #pubkey{
     resize: none;
     width: 100%;
     padding-left: 20px;
@@ -99,9 +104,16 @@ ul.filter-catagories li a.active{
     font-size: 16px;
     border: 1px solid #ebebeb;
 }
-.container .row table {
+.table-col{
+	width: 100%;
+	max-width: 100%;
+	overflow: auto;
+	white-space: nowrap;
+}
+.row table {
 	font-size: 16px;
 	text-align: center;
+	
 }
 .container .row table thead{
 	background: #c0c0c0;
@@ -113,38 +125,38 @@ ul.filter-catagories li a.active{
 	white-space: nowrap;
 }
 .container .row table .user{
-	width: 220px;
-	max-width: 220px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
 .container .row table .phone{
-	width: 110px;
-	max-width: 110px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
 .container .row table .fullname{
-	width: 150px;
-	max-width: 150px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
 .container .row table .address{
-	width: 200px;
-	max-width: 200px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
 .container .row table .total{
-	width: 150px;
-	max-width: 150px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
 .container .row table .quanty{
-	width: 10px;
-	max-width: 10px;
+	width: 100px;
+	max-width: 100px;
 	overflow: auto;
 	white-space: nowrap;
 }
@@ -156,20 +168,20 @@ ul.filter-catagories li a.active{
 	color: blue;
 }
 .container .row table .sign{
-	width: 150px;
-	max-width: 150px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
 .container .row table .data{
-	width: 150px;
-	max-width: 150px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
 .container .row table .note{
-	width: 140px;
-	max-width: 140px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
@@ -196,7 +208,6 @@ body {
 	height: 100%;
 	font-family: "Muli", sans-serif;
 	-webkit-font-smoothing: antialiased;
-	font-smoothing: antialiased;
 }
 
 h1,
@@ -491,9 +502,9 @@ ol {
 	list-style: none;
 	background: #ffffff	
 }
-.header__top__right__language ul li:hover{
-	/* background: #c0c0c0	 */
-}
+/* .header__top__right__language ul li:hover{
+	background: #c0c0c0	 
+} */
 .header__top__right__language ul li a {
 	font-size: 14px;
 	color: #000000;
@@ -659,9 +670,9 @@ ol {
 	list-style: none;
 	background: #ffffff	
 }
-.header-top .ht-right .login-panel .login ul li:hover{
-	/* background: #c0c0c0 */
-}
+/* .header-top .ht-right .login-panel .login ul li:hover{
+	background: #c0c0c0
+} */
 .header-top .ht-right .login-panel .login ul li a {
 	font-size: 14px;
 	color: #000000;
@@ -669,7 +680,6 @@ ol {
 .header-top .ht-right .login-panel {
 	display: flex;
 	width: 200px;
-	float: right;
 	font-size: 14px;
 	color: #252525;
 	display: inline-block;

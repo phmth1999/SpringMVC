@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/layouts/taglib.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,15 +26,13 @@
 						<form:form id="form-login" action="j_spring_security_check"
 							method="post" modelAttribute="user">
 							<div class="group-input">
-								<label for="username"><spring:message code="email" /> *</label>
-								<form:input id="email" type="email"
-									placeholder="Mời bạn nhập email" path="username" />
+								<label for="username">Username *</label>
+								<form:input id="username" path="username" placeholder="Mời bạn nhập username" maxlength="50" />
 								<div class="form-message" style="color: red"></div>
 							</div>
 							<div class="group-input">
 								<label for="password"><spring:message code="pass" /> *</label>
-								<form:input id="password" type="password"
-									placeholder="Mời bạn nhập mật khẩu" path="password" />
+								<form:password id="password" path="password" placeholder="Mời bạn nhập mật khẩu" maxlength="8" />
 								<div class="form-message" style="color: red"></div>
 							</div>
 							<button type="submit" class="site-btn login-btn">

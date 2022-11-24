@@ -6,9 +6,18 @@ public class UserDto extends BaseDto{
 	private String fullname;
 	private String address;
 	private String phone;
+	private String email;
 	private String role;
 	private int enabled;
-	private String publickey;
+	
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public String getUsername() {
 		return username;
@@ -66,14 +75,6 @@ public class UserDto extends BaseDto{
 		this.enabled = enabled;
 	}
 
-	public String getPublickey() {
-		return publickey;
-	}
-
-	public void setPublickey(String publickey) {
-		this.publickey = publickey;
-	}
-	
 	
 	
 }

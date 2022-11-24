@@ -14,7 +14,7 @@ import com.springmvc.Services.IBrandService;
 import com.springmvc.Services.ICategoryService;
 import com.springmvc.Services.IProductService;
 
-@Controller
+@Controller("WebProduct")
 public class ProductController {
 	
 	final static Logger logger = Logger.getLogger(ProductController.class);
@@ -38,12 +38,6 @@ public class ProductController {
 			mav.addObject("listAllCategory", categoryService.getAllCategory());
 			mav.addObject("listAllBrand", brandService.getAllBrand());
 			mav.addObject("product", product);
-			int quanty = 1;
-			if(session.getAttribute("quanty")!=null){
-				quanty = Integer.parseInt(session.getAttribute("quanty").toString());
-				session.removeAttribute("quanty");
-			}
-			mav.addObject("quanty", quanty);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/layouts/taglib.jsp"%>
+<%@include file="/WEB-INF/views/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +18,7 @@
 							chủ</a></li>
 				</ul>
 			</div>
+			<h1>${err }</h1>
 			<div align="center" style="margin-top: 10px;"></div>
 			<div class="page-content">
 				<div class="row">
@@ -42,32 +43,40 @@
 											<tr>
 												<th>STT</th>
 												<th>User</th>
+												<th>Email</th>
 												<th>Phone</th>
 												<th>Full name</th>
 												<th>Address</th>
 												<th>Total</th>
 												<th>Quanty</th>
-												<th>sign</th>
-												<th>data</th>
+												<th>Sign</th>
+												<th>PubKey</th>
+												<th>Data</th>
+												<th>File</th>
 												<th>Note</th>
-												<th>Check</th>
+												<th>Status</th>
+												<th>Verify</th>
 											</tr>
 										</thead>
 										<tbody>
 											<c:forEach var="item" items="${listPageBills }" varStatus = "index">
 												<tr>
 													<td class="count">${index.count + ((currentPage-1)*6)}</td>
-													<td class="user">${item.user}</td>
+													<td class="user">${item.id_user}</td>
+													<td class="user">${item.email}</td>
 													<td class="phone">${item.phone}</td>
 													<td class="fullname">${item.fullname}</td>
 													<td class="address">${item.address}</td>
-													<td class="total">${item.total}</td>
-													<td class="quanty"><a href='<c:url value="/quan-tri/bill-detail?idBill=${item.id }" />'>${item.quanty}</a></td>
+													<td class="total"><span><fmt:formatNumber pattern="#,##0 vnđ" value="${item.total}" /></span></td>
+													<td class="quanty"><a href='<c:url value="/quan-tri/bill-detail/${item.id }" />'>${item.quanty}</a></td>
 													<td class="sign">${item.sign}</td>
+													<td class="sign">${item.pubkey}</td>
 													<td class="data">${item.data}</td>
+													<td class="data">${item.file}</td>
 													<td class="note">${item.note}</td>
+													<td class="note">${item.status}</td>
 													<td class="edit"><a class="btn btn-sm btn-primary btn-edit"
-														data-toggle="tooltip" title="#" href="#"><i
+														data-toggle="tooltip" title="#" href='<c:url value="/quan-tri/verify/${item.id }" />'><i
 															class="glyphicon glyphicon-ok" aria-hidden="true"></i>
 													</a></td>
 												</tr>

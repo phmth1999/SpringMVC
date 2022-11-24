@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			myUser = new MyUser(user.getUsername(), user.getPassword(), grantedAuthorities);
 			myUser.setId(user.getId());
 			myUser.setFullName(user.getFullname());
-			myUser.setEmail(user.getUsername());
+			myUser.setEmail(user.getEmail());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);

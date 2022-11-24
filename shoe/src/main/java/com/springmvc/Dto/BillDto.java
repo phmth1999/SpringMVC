@@ -2,7 +2,7 @@ package com.springmvc.Dto;
 
 public class BillDto extends BaseDto{
 	private int id_user;
-	private String user;
+	private String email;
 	private String phone;
 	private String fullname;
 	private String address;
@@ -12,6 +12,24 @@ public class BillDto extends BaseDto{
 	private String sign;
 	private String file;
 	private String data;
+	private String pubkey;
+	private String status;
+
+	public String getPubkey() {
+		return pubkey;
+	}
+
+	public void setPubkey(String pubkey) {
+		this.pubkey = pubkey;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public int getId_user() {
 		return id_user;
@@ -21,12 +39,12 @@ public class BillDto extends BaseDto{
 		this.id_user = id_user;
 	}
 
-	public String getUser() {
-		return user;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPhone() {

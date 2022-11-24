@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,7 +33,7 @@ import com.springmvc.Services.IBillService;
 import com.springmvc.Services.IUserService;
 import com.springmvc.Utils.RandomChars;
 import com.springmvc.Utils.SendEmail;
-@Controller
+@Controller("WebUser")
 public class UserController {
 	final static Logger logger = Logger.getLogger(UserController.class);
 	
@@ -104,7 +105,7 @@ public class UserController {
 			String maxn = RandomChars.generateRandomChars();
 			session.setAttribute("maxn", maxn);
 			String n = null;
-			SendEmail.Send(user.getUsername(), "website", "Ma xac nhan: "+maxn, n);
+			SendEmail.Send(user.getEmail(), "website", "Ma xac nhan: "+maxn, n);
 			session.setAttribute("tk", user);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -189,7 +190,7 @@ public class UserController {
 				mav = new ModelAndView("web/account/history");
 				Page<BillDto> page = billService.getAllBillByIdUserLogin(CustomSuccesHandler.getPrincipal().getId(), pageable);
 				List<BillDto> listPageBills = page.getContent();
-				session.setAttribute("page", pageNum);
+				session.setAttribute("pageSessionHistoryWeb", pageNum);
 				mav.addObject("currentPage", pageNum);
 				mav.addObject("previous", pageNum-1);
 				mav.addObject("next", pageNum+1);
@@ -205,19 +206,19 @@ public class UserController {
 		}
 		return mav;
 	}
-	@GetMapping("/history-detail")
-	public ModelAndView historyDetal(@ModelAttribute("billDetail") BillDetailDto billDetail, HttpServletRequest request, HttpSession session) throws Exception {
+	@GetMapping("/history-detail/{id}")
+	public ModelAndView historyDetal(@PathVariable String id, @ModelAttribute("billDetail") BillDetailDto billDetail, HttpServletRequest request, HttpSession session) throws Exception {
 		ModelAndView mav = null;
 		try {
-			int idBill = Integer.parseInt(request.getParameter("idBill").toString());
+			int idBill = Integer.parseInt(id);
 				if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
-				request.setAttribute("page", Integer.parseInt(session.getAttribute("page").toString()));
-				session.removeAttribute("page");
-				mav = new ModelAndView("web/account/history-detail");
-				mav.addObject("billDetail", billService.getBillDetailByIdUserLogin(idBill));
-			}else{
-				mav = new ModelAndView("redirect:/dang-nhap");
-			}
+					request.setAttribute("pageSessionHistoryWeb", Integer.parseInt(session.getAttribute("pageSessionHistoryWeb").toString()));
+					session.removeAttribute("pageSessionHistoryWeb");
+					mav = new ModelAndView("web/account/history-detail");
+					mav.addObject("billDetail", billService.getBillDetailByIdUserLogin(idBill));
+				}else{
+					mav = new ModelAndView("redirect:/dang-nhap");
+				}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);

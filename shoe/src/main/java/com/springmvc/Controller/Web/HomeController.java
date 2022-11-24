@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.springmvc.Services.IProductService;
 import com.springmvc.Services.ISlideService;
 
-@Controller
+@Controller("WebHome")
 public class HomeController {
 	
 	final static Logger logger = Logger.getLogger(HomeController.class);
@@ -28,7 +28,7 @@ public class HomeController {
 	public ModelAndView Index(HttpServletRequest request, HttpSession httpSession) throws Exception {
 		ModelAndView mav = null;
 		try {
-			mav = new ModelAndView("web/index");
+			mav = new ModelAndView("web/home");
 			mav.addObject("listAllSlide", slideService.getAllSlide());
 			mav.addObject("listProductCategoryMen", productService.getAllProductByIdCategory(1, new PageRequest(0, 6)).getContent());
 			mav.addObject("listProductCategoryWomen", productService.getAllProductByIdCategory(2, new PageRequest(0, 6)).getContent());

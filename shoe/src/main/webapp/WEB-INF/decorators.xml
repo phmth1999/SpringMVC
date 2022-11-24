@@ -1,5 +1,5 @@
 <!DOCTYPE xml>
-<decorators defaultdir="/WEB-INF/views/layouts">
+<decorators defaultdir="/WEB-INF/decorators">
 	<decorator name="web" page="web.jsp">
 		<pattern>/*</pattern>
 	</decorator>

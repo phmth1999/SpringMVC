@@ -1,7 +1,5 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/layouts/taglib.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -197,14 +195,12 @@
 									</div>
 								</div> -->
 								<div class="quantity">
-								<form action='<c:url value="/addcart/${product.id }" />' method="get">
 									<div class="pro-qty">
-										<span class="dec qtybtn ">-</span>
-										<input name="quanty" type="text" value="${quanty }">
-										<span class="inc qtybtn ">+</span>
+										<span onclick="tru()" class="dec qtybtn ">-</span>
+										<input id="quanty" type="text" value="1">
+										<span onclick="cong()" class="inc qtybtn ">+</span>
 									</div>
-									<button class="primary-btn pd-cart" type="submit">Add To Cart</button>
-								</form>
+									<button onclick="addCart(${product.id})" class="primary-btn pd-cart" type="submit">Add To Cart</button>
 								</div>
 								<!-- <ul class="pd-tags">
 									<li><span>CATEGORIES</span>: More Accessories, Wallets and Cases</li>

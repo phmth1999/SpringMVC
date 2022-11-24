@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/layouts/taglib.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,35 +10,41 @@
 <div class="register-login-section spad">
 		<div class="container">
 			<h2 class="titileHistory">History</h2>
-			<div class="row">
+			<div class="row table-col">
 				<table class="table table-bordered">
 					<thead>
 						<tr>
 							<th>STT</th>
 							<th>User</th>
+							<th>Email</th>
 							<th>Phone</th>
 							<th>Full name</th>
 							<th>Address</th>
 							<th>Total</th>
 							<th>Quanty</th>
 							<th>sign</th>
+							<th>pubKey</th>
 							<th>data</th>
 							<th>Note</th>
+							<th>Status</th>
 						</tr>
 					</thead>
 					<tbody>
 					<c:forEach var="item" items="${bill }" varStatus = "index"> 
 						<tr>
 							<td class="count">${index.count}</td>
-							<td class="user">${item.user}</td>
+							<td class="user">${item.id_user}</td>
+							<td class="user">${item.email}</td>
 							<td class="phone">${item.phone}</td>
 							<td class="fullname">${item.fullname}</td>
 							<td class="address">${item.address}</td>
 							<td class="total"><span><fmt:formatNumber pattern="#,##0 vnđ" value="${item.total}" /></span></td>
-							<td class="quanty"><a href='<c:url value="/history-detail?idBill=${item.id }" />'>${item.quanty}</a></td>
+							<td class="quanty"><a href='<c:url value="/history-detail/${item.id }" />'>${item.quanty}</a></td>
 							<td class="sign">${item.sign}</td>
+							<td class="sign">${item.pubkey}</td>
 							<td class="data">${item.data}</td>
 							<td class="note">${item.note}</td>
+							<td class="note">${item.status}</td>
 						</tr>
 					</c:forEach>
 					</tbody>

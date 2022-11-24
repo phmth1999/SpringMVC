@@ -19,16 +19,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springmvc.Controller.Admin.AdminUserController;
+import com.springmvc.Controller.Admin.UserController;
 import com.springmvc.Dto.ResponseObject;
 import com.springmvc.Dto.UserDto;
 import com.springmvc.Services.IUserService;
 
-@RestController(value = "api")
+@RestController("ApiUser")
 @RequestMapping("/api")
 public class UserApi {
 	
-	final static Logger logger = Logger.getLogger(AdminUserController.class);
+	final static Logger logger = Logger.getLogger(UserController.class);
 
 	@Autowired
 	private IUserService userService;

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+@Controller("WebBlog")
 public class BlogController {
 	
 	final static Logger logger = Logger.getLogger(BlogController.class);

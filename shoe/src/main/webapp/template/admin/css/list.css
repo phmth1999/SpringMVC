@@ -8,38 +8,38 @@
 	white-space: nowrap;
 }
 .row table .user{
-	width: 220px;
-	max-width: 220px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
 .row table .phone{
-	width: 110px;
-	max-width: 110px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
 .row table .fullname{
-	width: 150px;
-	max-width: 150px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
-.container .row table .address{
-	width: 200px;
-	max-width: 200px;
+.row table .address{
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
 .row table .total{
-	width: 10px;
-	max-width: 10px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
 .row table .quanty{
-	width: 10px;
-	max-width: 10px;
+	width: 100px;
+	max-width: 100px;
 	overflow: auto;
 	white-space: nowrap;
 }
@@ -51,8 +51,8 @@
 	color: blue;
 }
 .row table .role{
-	width: 150px;
-	max-width: 150px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
@@ -63,20 +63,20 @@
 	white-space: nowrap;
 }
 .row table .sign{
-	width: 150px;
-	max-width: 150px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
 .row table .data{
-	width: 150px;
-	max-width: 150px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }
 .row table .note{
-	width: 120px;
-	max-width: 120px;
+	width: 250px;
+	max-width: 250px;
 	overflow: auto;
 	white-space: nowrap;
 }

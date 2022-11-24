@@ -8,7 +8,7 @@ public class BillConverter {
 		BillDto billDto = new BillDto();
 		billDto.setId(billEntity.getId());
 		billDto.setId_user(billEntity.getId_user());
-		billDto.setUser(billEntity.getUser());
+		billDto.setEmail(billEntity.getEmail());
 		billDto.setPhone(billEntity.getPhone());
 		billDto.setFullname(billEntity.getFullname());
 		billDto.setAddress(billEntity.getAddress());
@@ -18,13 +18,15 @@ public class BillConverter {
 		billDto.setSign(billEntity.getSign());
 		billDto.setFile(billEntity.getFile());
 		billDto.setData(billEntity.getData());
+		billDto.setPubkey(billEntity.getPubkey());
+		billDto.setStatus(billEntity.getStatus());
 		return billDto;
 	}
 
 	public static BillEntity toEntity(BillDto billDto) {
 		BillEntity billEntity = new BillEntity();
 		billEntity.setId_user(billDto.getId_user());
-		billEntity.setUser(billDto.getUser());
+		billEntity.setEmail(billDto.getEmail());
 		billEntity.setPhone(billDto.getPhone());
 		billEntity.setFullname(billDto.getFullname());
 		billEntity.setAddress(billDto.getAddress());
@@ -34,6 +36,8 @@ public class BillConverter {
 		billEntity.setSign(billDto.getSign());
 		billEntity.setFile(billDto.getFile());
 		billEntity.setData(billDto.getData());
+		billEntity.setPubkey(billDto.getPubkey());
+		billEntity.setStatus(billDto.getStatus());
 		return billEntity;
 	}
 }

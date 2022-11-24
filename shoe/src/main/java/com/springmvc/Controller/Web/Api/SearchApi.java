@@ -16,7 +16,7 @@ import com.springmvc.Controller.Web.UserController;
 import com.springmvc.Dto.ProductDto;
 import com.springmvc.Services.IProductService;
 
-@Controller
+@Controller("WebApiSearch")
 public class SearchApi {
 	final static Logger logger = Logger.getLogger(UserController.class);
 	@Autowired

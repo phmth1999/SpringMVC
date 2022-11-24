@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/layouts/taglib.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,6 +42,7 @@
 												<th>Full name</th>
 												<th>Address</th>
 												<th>Phone</th>
+												<th>Email</th>
 												<th>Role</th>
 												<th>Enabled</th>
 												<th>Block</th>
@@ -56,19 +56,20 @@
 													<td class="fullname">${item.fullname}</td>
 													<td class="address">${item.address}</td>
 													<td class="phone">${item.phone}</td>
+													<td class="phone">${item.email}</td>
 													<td class="role">${item.role}</td>
 													<td class="enabled">${item.enabled}</td>
 													<c:if test="${item.role == 'ROLE_ADMIN'}">
-													<td class="edit"><a id="block" class="btn btn-sm btn-primary btn-edit"
-														data-toggle="tooltip" title="Khóa tài khoản" href='<c:url value="/quan-tri/user/lock?idUser=${item.id }" />'><i
-															class="glyphicon glyphicon-lock" aria-hidden="true"></i>
-													</a></td>
+														<td class="edit"><a id="block" class="btn btn-sm btn-primary btn-edit"
+															data-toggle="tooltip" title="Khóa tài khoản" href='<c:url value="/quan-tri/user/lock/${item.id }" />'><i
+																class="glyphicon glyphicon-lock" aria-hidden="true"></i>
+														</a></td>
 													</c:if>
 													<c:if test="${item.role == 'ROLE_USER'}">
-													<td class="edit"><a class="btn btn-sm btn-primary btn-edit"
-														data-toggle="tooltip" title="Khóa tài khoản" href='<c:url value="/quan-tri/user/lock?idUser=${item.id }" />'><i
-															class="glyphicon glyphicon-lock" aria-hidden="true"></i>
-													</a></td>
+														<td class="edit"><a class="btn btn-sm btn-primary btn-edit"
+															data-toggle="tooltip" title="Khóa tài khoản" href='<c:url value="/quan-tri/user/lock/${item.id }" />'><i
+																class="glyphicon glyphicon-lock" aria-hidden="true"></i>
+														</a></td>
 													</c:if>
 													
 												</tr>

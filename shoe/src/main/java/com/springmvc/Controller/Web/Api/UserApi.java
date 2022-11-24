@@ -13,7 +13,7 @@ import com.springmvc.Controller.Web.UserController;
 import com.springmvc.Dto.UserDto;
 import com.springmvc.Services.IUserService;
 
-@Controller(value="controller")
+@Controller("WebApiUser")
 public class UserApi {
 	final static Logger logger = Logger.getLogger(UserController.class);
 	@Autowired
@@ -25,6 +25,30 @@ public class UserApi {
 		String res = "";
 		try {
 			 res = userService.checkUserName(user.getUsername());
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+		}
+		return res;
+	}
+	@PostMapping("/checkPhone")
+	@ResponseBody
+	public String checkPhone(HttpServletRequest req, @ModelAttribute("user") UserDto user) throws Exception {
+		String res = "";
+		try {
+			 res = userService.checkPhone(user.getPhone());
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+		}
+		return res;
+	}
+	@PostMapping("/checkEmail")
+	@ResponseBody
+	public String checkEmail(HttpServletRequest req, @ModelAttribute("user") UserDto user) throws Exception {
+		String res = "";
+		try {
+			 res = userService.checkEmail(user.getEmail());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e);

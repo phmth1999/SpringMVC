@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/layouts/taglib.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +36,7 @@
 					</tbody>
 				</table>
 			</div>
-			<h2 class="linkGoBack"><a href='<c:url value="/history?page=${page }" />'>Go Back</a></h2>
+			<h2 class="linkGoBack"><a href='<c:url value="/history?page=${pageSessionHistoryWeb }" />'>Go Back</a></h2>
 		</div>
 	</div>
 </body>

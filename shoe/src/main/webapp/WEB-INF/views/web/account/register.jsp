@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/layouts/taglib.jsp"%>
+<%@include file="/WEB-INF/views/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,33 +15,38 @@
 						<h2><spring:message code="register" /></h2>
 						<form:form id="form-register"  action="dang-ky" method="post" modelAttribute="user">
 							<div class="group-input">
-								<label for=username><spring:message code="email" /> *</label>
-								<form:input id="username" placeholder="VD: ...@gmail.com" path="username" maxlength="50"/>
+								<label for=username>Username *</label>
+								<form:input id="username" path="username" placeholder="VD: ...@gmail.com"  maxlength="50"/>
 								<div id="nameMsg" class="form-message" style="color: red"></div>
 							</div>
 							<div class="group-input">
 								<label for="password"><spring:message code="pass" /> *</label>
-								<form:password id="password" placeholder="VD: 'A-Z'+'a-z'+'0-9'" path="password" maxlength="16"/>
+								<form:password id="password" path="password" placeholder="VD: 'A-Z'+'a-z'+'0-9'"  maxlength="8"/>
 								<div class="form-message" style="color: red"></div>
 							</div>
 							<div class="group-input">
 								<label for="password_confirmation"><spring:message code="repass" />*</label> 
-								<input id="password_confirmation" type="password" placeholder="Mời bạn nhập lại mật khẩu" maxlength="16"/> 
+								<input id="password_confirmation" type="password" placeholder="Mời bạn nhập lại mật khẩu" maxlength="8"/> 
 								<div class="form-message" style="color: red"></div>
 							</div>
 							<div class="group-input">
 								<label for="fullname"><spring:message code="fullname" /> *</label>
-								<form:input id="fullname" placeholder="VD: Phạm Minh Thiện" path="fullname" maxlength="50"/>
+								<form:input id="fullname" path="fullname" placeholder="VD: Phạm Minh Thiện"  maxlength="50"/>
 								<div class="form-message" style="color: red"></div>
 							</div>
 							<div class="group-input">
 								<label for="address"><spring:message code="address" /> *</label>
-								<form:input id="address" placeholder="VD: Cai Lậy, Tiền Giang, Tp.HCM" path="address" maxlength="255"/>
+								<form:input id="address" path="address" placeholder="VD: Cai Lậy, Tiền Giang, Tp.HCM"  maxlength="255"/>
 								<div class="form-message" style="color: red"></div>
 							</div>
 							<div class="group-input">
 								<label for="phone"><spring:message code="phone" /> *</label>
-								<form:input id="phone" placeholder="VD: 0378348419" path="phone" maxlength="10"/>
+								<form:input id="phone" path="phone" placeholder="VD: 0378348419"  maxlength="10"/>
+								<div class="form-message" style="color: red"></div>
+							</div>
+							<div class="group-input">
+								<label for="email">Email *</label>
+								<form:input id="email" path="email" placeholder="VD: 0378348419"  maxlength="50"/>
 								<div class="form-message" style="color: red"></div>
 							</div>
 							<button type="submit" class="site-btn register-btn"><spring:message code="register" /></button>

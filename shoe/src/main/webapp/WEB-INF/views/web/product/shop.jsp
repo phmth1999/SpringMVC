@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/layouts/taglib.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,13 +10,12 @@
 	<section class="product-shop spad">
 		<div class="container">
 			<div class="row">
-				<div
-					class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+				<div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
 					<div class="filter-widget">
 						<h4 class="fw-title">Categories</h4>
 						<c:forEach var="item" items="${listAllCategory }">
 							<ul class="filter-catagories">
-								<li><a href='<c:url value="/category/${item.id }?page=${currentPage }&&sort=${sortSession }"/>' >${item.name }</a></li>
+								<li><a data-id="${item.id }" href='<c:url value="/category/${item.id }?page=1&&sort=${sortSession }"/>' >${item.name }</a></li>
 							</ul>
 						</c:forEach>
 					</div>
@@ -25,7 +23,7 @@
 						<h4 class="fw-title">Brand</h4>
 						<c:forEach var="item" items="${listAllBrand }">
 							<ul class="filter-catagories">
-								<li><a href='<c:url value="/brand/${item.id }?page=${currentPage }&&sort=${sortSession }"/>'>${item.name }</a></li>
+								<li><a href='<c:url value="/brand/${item.id }?page=1&&sort=${sortSession }"/>'>${item.name }</a></li>
 							</ul>
 						</c:forEach>
 					</div>
@@ -142,16 +140,14 @@
 								<div class="col-lg-4 col-sm-6">
 									<div class="product-item">
 										<div class="pi-pic">
-											<img 
-												src='<c:url value="/template/web/img/products/${item.img }" />'
-												alt="">
+											<img src='<c:url value="/template/web/img/products/${item.img }" />' alt="">
 											<ul>
-												<li class="w-icon active"><a
-													href='<c:url value="/addcart/${item.id }" />'><i
-														class="icon_bag_alt"></i></a></li>
-												<li class="quick-view"><a
-													href='<c:url value="/product/${item.id }"/>'>+ Quick
-														View</a></li>
+												<li class="w-icon active">
+													<a onclick="addCart(${item.id})"><i class="icon_bag_alt"></i></a>
+												</li>
+												<li class="quick-view">
+													<a href='<c:url value="/product/${item.id }"/>'>+ Quick View</a>
+												</li>
 											</ul>
 										</div>
 										<div class="pi-text">
@@ -304,6 +300,7 @@
 				</div>
 			</div>
 		</div>
+		
 	</section>
 </body>
 </html>

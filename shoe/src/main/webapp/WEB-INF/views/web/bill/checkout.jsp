@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/layouts/taglib.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +29,7 @@
 							</div>
 							<div class="col-lg-12">
 								<label><spring:message code="email" /></label>
-								<form:input id="email" type="email" path="user" readonly="true"/>
+								<form:input id="email" type="email" path="email" readonly="true"/>
 								<div id="msgEmail" class="form-message" style="color: red"></div>
 							</div>
 							<div class="col-lg-12">

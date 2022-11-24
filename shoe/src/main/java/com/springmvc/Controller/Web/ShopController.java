@@ -21,7 +21,7 @@ import com.springmvc.Services.IBrandService;
 import com.springmvc.Services.ICategoryService;
 import com.springmvc.Services.IProductService;
 
-@Controller
+@Controller("WebShop")
 public class ShopController {
 	
 	final static Logger logger = Logger.getLogger(ShopController.class);

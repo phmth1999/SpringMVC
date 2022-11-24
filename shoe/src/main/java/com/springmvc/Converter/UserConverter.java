@@ -12,9 +12,9 @@ public class UserConverter {
 		userDto.setFullname(userEntity.getFullname());
 		userDto.setAddress(userEntity.getAddress());
 		userDto.setPhone(userEntity.getPhone());
+		userDto.setEmail(userEntity.getEmail());
 		userDto.setRole(userEntity.getRole());
 		userDto.setEnabled(userEntity.getEnabled());
-		userDto.setPublickey(userEntity.getPublickey());
 		return userDto;
 	}
 	public static UserEntity toEntity(UserDto userDto) {
@@ -24,9 +24,9 @@ public class UserConverter {
 		userEntity.setFullname(userDto.getFullname());
 		userEntity.setAddress(userDto.getAddress());
 		userEntity.setPhone(userDto.getPhone());
+		userEntity.setEmail(userDto.getEmail());
 		userEntity.setRole(userDto.getRole());
 		userEntity.setEnabled(userDto.getEnabled());
-		userEntity.setPublickey(userDto.getPublickey());
 		return userEntity;
 	}
 }

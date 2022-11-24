@@ -1,99 +1,5 @@
 
-/*-------------------
-Validate
---------------------- */
-document.addEventListener('DOMContentLoaded',function() {
-	Validator({
-		form : "#form-login",
-		formGroupSelector : ".group-input",
-		errorSelector : ".form-message",
-		rules : [
-				Validator.isRequired('#email'),
-						
-				Validator.isRequired('#password')
-				]
-	});
-});
-document.addEventListener('DOMContentLoaded',function() {
-	Validator({
-		form : "#form-register",
-		formGroupSelector : ".group-input",
-		errorSelector : ".form-message",
-		rules : [
-				Validator.isRequired('#username'),
-				Validator.isEmail('#username'),
-				Validator.checkEmailExist('#username'),
-				
-				Validator.isRequired('#fullname'),
-				
-				Validator.isRequired('#address'),
-				
-				Validator.isRequired('#phone'),
-				Validator.isPhone('#phone'),
-				
-				Validator.isRequired('#password'),
-				Validator.isRequired('#password_confirmation'),
-				Validator.isPassword('#password'),
-				Validator.isConfirmed('#password_confirmation', function() {
-															 	return document.querySelector('#form #password').value;
-																},'Mật khẩu nhập lại không chính xác')
-				]
-	});
-});
-document.addEventListener('DOMContentLoaded',function() {
-	Validator({
-		form : '#form-checkout',
-		formGroupSelector : '.col-lg-12',
-		errorSelector : '.form-message',
-		rules : [
-				Validator.isRequired('#address'),
-				
-				Validator.isRequired('#note'),
-				
-				Validator.isRequired('#phone')
-				]
-	});
-});
-document.addEventListener('DOMContentLoaded',function() {
-	Validator({
-		form : "#form-publickey",
-		formGroupSelector : ".group-input",
-		errorSelector : ".form-message",
-		rules : [
-				Validator.isRequired('#publickey')
-				]
-	});
-});
-document.addEventListener('DOMContentLoaded',function() {
-	Validator({
-		form : "#form-checksign",
-		formGroupSelector : ".group-input",
-		errorSelector : ".form-message",
-		rules : [
-				Validator.isRequired('#sign')
-				]
-	});
-});
-document.addEventListener('DOMContentLoaded',function() {
-	Validator({
-		form : "#form-xacnhan",
-		formGroupSelector : ".group-input",
-		errorSelector : ".form-message",
-		rules : [
-				Validator.isRequired('#xacnhan')
-				]
-	});
-});
-'use strict';
 (function ($) {
-	/*Active click category and brand*/
-	var path = window.location.href;
-	   $('.filter-catagories li a').each(function() {
-	      if (this.href === path) {
-	         $(this).addClass('active');
-	      }
-	   });
-	 
 	/*Search auto*/
 	 const firstPath = location.pathname.split('/')[1];
 	 $("#inputSearch").autocomplete({
@@ -230,30 +136,7 @@ document.addEventListener('DOMContentLoaded',function() {
 
     $('.product-pic-zoom').zoom();
     
-    /*-------------------
-		Quantity change
-	--------------------- */
-	$('.pro-qty').on('click', '.qtybtn', function () {
-		var $button = $(this);
-		var oldValue = $button.parent().find('input').val();
-		var newVal;
-		if ($button.hasClass('inc')) {
-			newVal = parseFloat(oldValue) + 1;
-		} else {
-			// Don't allow decrementing below zero
-			if (oldValue > 1) {
-				newVal = parseFloat(oldValue) - 1;
-			} else {
-				newVal = 1;
-			}
-		}
-		$button.parent().find('input').val(newVal);
-		
-		var id = $(this).data("id");
-		if(id != null){
-			window.location = "editcart/" + id + "/" + newVal;
-		}
-	});
+	
 		 
 })(jQuery);
 

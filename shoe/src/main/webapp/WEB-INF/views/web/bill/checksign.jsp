@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/layouts/taglib.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,11 +19,13 @@
 							<div class="group-input">
 								<textarea rows="5"  id="sign" name="sign" placeholder="Mã hash chữ ký" ></textarea> 
 								<span id="msgSign" class="form-message" style="color: red"></span>
-								<h6 style="color: red">${erro}</h6>
 							</div>
-							<div class="link-publickey">
-								<a href='<c:url value="/update-publickey" />'>Update Publickey</a>
+							
+							<div class="group-input">
+								<textarea rows="5"  id="pubkey" name="pubkey" placeholder="Mã pubKey" ></textarea> 
+								<span id="msgPubKey" class="form-message" style="color: red"></span>
 							</div>
+							
 							<button type="submit" class="site-btn login-btn" value="Xác nhận"><spring:message code="confirm" /></button>
 						</form>
 					</div>
